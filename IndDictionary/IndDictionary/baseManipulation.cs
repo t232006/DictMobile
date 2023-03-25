@@ -9,15 +9,26 @@ namespace IndDictionary
     public class baseManipulation
     {
 		SQLiteConnection database;
+		IEnumerable<dict> itemsD;
+		IEnumerable<topic> itemsT;
 		public baseManipulation (string databasePath)
 		{
 			database = new SQLiteConnection(databasePath);
+			itemsD = database.Table<dict>().ToList();
+			itemsT = database.Table<topic>().ToList();
 		}
-		public IEnumerable<dict> showTable()
+
+		public IEnumerable<dict> showTableDict()
 		{
-			return database.Table<dict>().ToList();
+			return itemsD;
 		}
-		public int saveRec(dict item)
+
+		public IEnumerable<topic> showTableTopic()
+		{
+			return itemsT;
+		}
+
+		public int saveRecD(dict item)
 		{
 			if (item.number != 0)
 			{
@@ -28,25 +39,32 @@ namespace IndDictionary
 				return database.Insert(item);
 		}
 
-		public int deleteRec(int id)
+		public int saveRecT(topic item)
+		{
+			if (item.id != 0)
+			{
+				database.Update(item);
+				return item.id;
+			}
+			else
+				return database.Insert(item);
+		}
+
+		public int deleteRecD(int id)
 		{
 			return database.Delete<dict>(id);
 		}
 
-		public IEnumerable<dict> findWord(string W)
+		public int deleteRecT(int id)
 		{
-			var items = from s in database.Table<dict>().ToList()
-						where s.Word.Contains(W)
-						select s;
-			return items;
+			return database.Delete<topic>(id);
 		}
 
-		public IEnumerable<dict> findTranslation(string T)
+		public IEnumerable<dict> findWord(string needle, Func<dict, string> _field)
 		{
-			var items = from s in database.Table<dict>().ToList()
-						where s.Translation.Contains(T)
-						select s;
-			return items;
+			return from s in itemsD
+				   where _field(s).Contains(needle)
+				   select s;
 		}
 
     }

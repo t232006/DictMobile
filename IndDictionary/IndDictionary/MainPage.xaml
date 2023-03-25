@@ -1,14 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:IndDictionary"
              x:Class="IndDictionary.MainPage">
 
-    <StackLayout>
-        <!-- Place new controls here -->
-        <Label Text="Welcome to Xamarin.Forms!" 
-           HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" />
-    </StackLayout>
+    <TabbedPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="ButtonStyle" TargetType="ImageButton">
+                <Setter Property="WidthRequest" Value="15"/>
+                <Setter Property="HeightRequest" Value="15"/>
+                <Setter Property="BackgroundColor" Value="Black"/>
+            </Style>
 
-</ContentPage>
+        </ResourceDictionary>
+    </TabbedPage.Resources>
+    <TabbedPage.Children>
+        <local:WordPage/>
+        <local:TransPage/>
+        <local:FullInform/>
+    </TabbedPage.Children>
+
+</TabbedPage>

@@ -3,19 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace IndDictionary
 {
-	public partial class MainPage : TabbedPage
+	[XamlCompilation(XamlCompilationOptions.Compile)]
+	public partial class FullInform : ContentPage
 	{
-		public MainPage()
+		public FullInform ()
 		{
-			InitializeComponent();
-		}
-		protected override void OnAppearing()
-		{
-			
+			InitializeComponent ();
 		}
 	}
 }
