@@ -9,7 +9,6 @@
                 <Setter Property="HeightRequest" Value="15"/>
                 <Setter Property="BackgroundColor" Value="Black"/>
             </Style>
-      
         </ResourceDictionary>
     </Application.Resources>
 </Application>

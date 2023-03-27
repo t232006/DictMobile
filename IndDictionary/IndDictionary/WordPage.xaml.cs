@@ -42,7 +42,7 @@ namespace IndDictionary
 					AbsoluteLayout view = new AbsoluteLayout();
 					view.Children.Add(Field1);
 					AbsoluteLayout.SetLayoutFlags(ButtonBlock, AbsoluteLayoutFlags.PositionProportional);
-					AbsoluteLayout.SetLayoutBounds(ButtonBlock, new Rectangle(.9, 0, AbsoluteLayout.AutoSize, AbsoluteLayout.AutoSize));
+					AbsoluteLayout.SetLayoutBounds(ButtonBlock, new Rectangle(.9, 10, AbsoluteLayout.AutoSize, AbsoluteLayout.AutoSize));
 					view.Children.Add(ButtonBlock);
 					return new ViewCell
 					{
