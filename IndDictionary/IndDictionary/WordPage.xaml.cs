@@ -19,31 +19,38 @@ namespace IndDictionary
 
 			ListView ListTable = new ListView
 			{
-				HasUnevenRows = true,
+				HasUnevenRows = false,
+				RowHeight = 40,
 				ItemsSource = App.Database.showTableDict(),
 				ItemTemplate = new DataTemplate(() =>
 				{
 					Label Field1 = new Label();
 					Field1.SetBinding(Label.TextProperty, "Word");
 
-					ImageButton ShowItem = new ImageButton
-					{
-						Source = ImageSource.FromResource("IndDictionary.Resources.eye.png"),
-						Style = (Style)Resources["ButtonStyle"]
-					};
-					ExtImageButton SelectItem = new ExtImageButton();
-					SelectItem.SetBinding(ExtImageButton.CheckedProperty, "Usersel");
+					Button SelectItem = new Button();
+					ExtImageButton SelectItem1 = new ExtImageButton();
+					SelectItem.SetBinding(Button.TextProperty, "Usersel");
+					SelectItem1.SetBinding(ExtImageButton.CheckedProperty, "Usersel");
 					SelectItem.Style = (Style)Resources["ButtonStyle"];
-					StackLayout ButtonBlock = new StackLayout()
-					{
-						Orientation = StackOrientation.Horizontal,
-						Children = { ShowItem, SelectItem }
-					};
+					
+					SelectItem1.Style = (Style)Resources["ButtonStyle"];
+					
+					Label l1 = new Label();
+					/*l1.BindingContext = SelectItem1;
+					l1.SetBinding(Label.TextProperty, "Checked");*/
+					l1.Text = SelectItem.Text;
+
+					
 					AbsoluteLayout view = new AbsoluteLayout();
 					view.Children.Add(Field1);
-					AbsoluteLayout.SetLayoutFlags(ButtonBlock, AbsoluteLayoutFlags.PositionProportional);
-					AbsoluteLayout.SetLayoutBounds(ButtonBlock, new Rectangle(.9, 10, AbsoluteLayout.AutoSize, AbsoluteLayout.AutoSize));
-					view.Children.Add(ButtonBlock);
+					StackLayout sl1 = new StackLayout
+					{
+						Children = {SelectItem, SelectItem1, l1},
+						Orientation = StackOrientation.Horizontal
+					};
+					AbsoluteLayout.SetLayoutFlags(sl1, AbsoluteLayoutFlags.PositionProportional);
+					AbsoluteLayout.SetLayoutBounds(sl1, new Rectangle(.75, 10, 200, AbsoluteLayout.AutoSize));
+					view.Children.Add(sl1); //view.Children.Add(l1);
 					return new ViewCell
 					{
 						View = view

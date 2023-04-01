@@ -1,8 +1,8 @@
 ﻿using System;
-using System.IO;
-using System.Reflection;
 using Xamarin.Forms;
+using System.IO;
 using Xamarin.Forms.Xaml;
+using System.Reflection;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace IndDictionary

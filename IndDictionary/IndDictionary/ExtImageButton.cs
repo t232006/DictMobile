@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 using Xamarin.Forms;
 
@@ -15,10 +16,11 @@ namespace IndDictionary
 				BindingMode.TwoWay);
 		public bool Checked
 		{
-			set { SetValue(CheckedProperty, value); }
+			set {SetValue(CheckedProperty, value);}
 			get => (bool)GetValue(CheckedProperty);
 		}
-		public ExtImageButton()
+		
+		/*public ExtImageButton()
 		{
 			Clicked += (sender, e) =>
 			{
@@ -28,6 +30,7 @@ namespace IndDictionary
 				else
 					Source = null;
 			};	
-		}
+		}*/
+		
     }
 }

@@ -5,7 +5,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <Style x:Key="ButtonStyle" TargetType="ImageButton">
-                <Setter Property="WidthRequest" Value="15"/>
+                <Setter Property="WidthRequest" Value="70"/>
                 <Setter Property="HeightRequest" Value="15"/>
                 <Setter Property="BackgroundColor" Value="Black"/>
             </Style>

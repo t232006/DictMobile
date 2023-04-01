@@ -6,13 +6,14 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="ButtonStyle" TargetType="ImageButton">
-                <Setter Property="WidthRequest" Value="20"/>
-                <Setter Property="HeightRequest" Value="20"/>
-                <Setter Property="BackgroundColor" Value="Black"/>
+                <Setter Property="WidthRequest" Value="70"/>
+                <Setter Property="HeightRequest" Value="30"/>
+                <Setter Property="BackgroundColor" Value="Gray"/>
+                <Setter Property="Margin" Value="5"/>
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
     <StackLayout x:Name="sl">
-        <Button Style="{StaticResource ButtonStyle}"/>
+        
     </StackLayout>
 </ContentPage>

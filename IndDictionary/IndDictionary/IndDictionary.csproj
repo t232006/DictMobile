@@ -12,12 +12,13 @@
   <ItemGroup>
     <None Remove="dictionaryCut.db" />
     <None Remove="Resources\check_mark.bmp" />
+    <None Remove="Resources\check_mark.png" />
     <None Remove="Resources\eye.png" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="dictionaryCut.db" />
-    <EmbeddedResource Include="Resources\check_mark.bmp" />
+    <EmbeddedResource Include="Resources\check_mark.png" />
     <EmbeddedResource Include="Resources\eye.png" />
   </ItemGroup>
 
