@@ -30,13 +30,17 @@ namespace IndDictionary
 
 		public int saveRecD(dict item)
 		{
-			if (item.number != 0)
+			if (item != null)
 			{
-				database.Update(item);
-				return item.number;
+				if (item.Number != 0)
+				{
+					database.Update(item);
+					return item.Number;
+				}
+				else
+					return database.Insert(item);
 			}
-			else
-				return database.Insert(item);
+			return -1;
 		}
 
 		public int saveRecT(topic item)
@@ -60,11 +64,17 @@ namespace IndDictionary
 			return database.Delete<topic>(id);
 		}
 
-		public IEnumerable<dict> findWord(string needle, Func<dict, string> _field)
+		public IEnumerable<dict> findRecords(string needle, Func<dict, string> _field)
 		{
 			return from s in itemsD
 				   where _field(s).Contains(needle)
 				   select s;
+		}
+		public dict findOneRecord(int id)
+		{
+			if (id != 0)
+				return database.Get<dict>(id);
+			else return null;
 		}
 
     }

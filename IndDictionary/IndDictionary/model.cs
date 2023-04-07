@@ -9,7 +9,7 @@ namespace IndDictionary
 	public class dict
     {
 		[PrimaryKey, AutoIncrement, Column("number")]
-		public int number { get; set; }
+		public int Number { get; set; }
 		[Indexed]
 		public string Word { get; set; }
 		[Indexed]
