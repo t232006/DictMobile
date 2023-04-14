@@ -12,6 +12,7 @@ namespace IndDictionary
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class WordPage : ContentPage
 	{
+		dict focusedItem;
 		public WordPage ()
 		{
 			InitializeComponent ();
@@ -21,9 +22,16 @@ namespace IndDictionary
 			ListTable.ItemsSource = App.Database.showTableDict();
 			base.OnAppearing();
 		}
+		protected void OnPress(object sender, SelectedItemChangedEventArgs e)
+		{
+			focusedItem = (dict)e.SelectedItem;
+			FullInform fullinform = new FullInform();
+			fullinform.BindingContext = focusedItem;
+			Navigation.PushAsync(fullinform);
+		}
 		protected void OnToggled(object sender, ToggledEventArgs e)
 		{
-			dict focusedItem = App.Database.findOneRecord((sender as ExtSwitch).ID);
+			focusedItem = App.Database.findOneRecord((sender as ExtSwitch).ID);
 			if (focusedItem !=null) focusedItem.Usersel = e.Value;
 			App.Database.saveRecD(focusedItem);
 		}

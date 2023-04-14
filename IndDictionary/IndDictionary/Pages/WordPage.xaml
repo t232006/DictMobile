@@ -5,7 +5,7 @@
              x:Class="IndDictionary.WordPage"
              Title="Word">
     <StackLayout>
-        <ListView x:Name="ListTable" HeightRequest="40" ItemsSource="{Binding}">
+        <ListView x:Name="ListTable" HeightRequest="40" ItemsSource="{Binding}" ItemSelected="OnPress">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell >
@@ -13,20 +13,18 @@
                             <Label Text="{Binding Word, Mode=TwoWay}"/>
                             <loc:ExtSwitch
                                             IsToggled="{Binding Usersel, Mode=TwoWay}"
-                                
                                            ID="{Binding Number}"
                                            AbsoluteLayout.LayoutBounds=".8, 0, AutoSize, AutoSize"
                                            AbsoluteLayout.LayoutFlags="PositionProportional" Toggled="OnToggled"/>
-                            <!--Label Text="{Binding Number}" TextColor="Crimson"
-                            AbsoluteLayout.LayoutBounds=".85, 0, AutoSize, AutoSize"
-                                           AbsoluteLayout.LayoutFlags="PositionProportional" />
-                            <Label BindingContext="{x:Reference Name=Swit}" Text="{Binding ID}"
-                                   AbsoluteLayout.LayoutBounds=".90, 0, AutoSize, AutoSize"
-                                           AbsoluteLayout.LayoutFlags="PositionProportional"/-->
                         </AbsoluteLayout>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
+            <ListView.Footer>
+                <StackLayout>
+                    <Button Text="Add"/>
+                </StackLayout>
+            </ListView.Footer>
         </ListView>
 
     </StackLayout>

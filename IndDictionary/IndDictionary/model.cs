@@ -16,7 +16,7 @@ namespace IndDictionary
 		public string Translation { get; set; }
 		public int Topic { get; set; }
 		[Indexed]
-		public DateTime DateRec { get; set; }
+		public string DateRec { get; set; }
 		[Column ("Score")]
 		public short Grade { get; set; }
 		public bool Usersel { get; set; }

@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="IndDictionary.FullInform">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label">
+                <Setter Property="FontSize" Value="Medium"/>
+                <Setter Property="Margin" Value="10, 7, 2, 10"/>
+            </Style>
+            <Style x:Key="forEntrys" TargetType="Entry" >
+                <Setter Property="FontSize" Value="Large"/>
+                <Setter Property="Margin" Value="10, 7, 10, 10"/>
+                <!--Setter Property="HeightRequest" Value="300"/-->
+            </Style>
+            <Style x:Key="MainSpace" TargetType="Entry" BasedOn="{StaticResource forEntrys}">
+                <Setter Property="TextColor" Value="DarkBlue"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+        <ContentPage.Content>
+        <RelativeLayout x:Name="BaseLayout" BackgroundColor="Beige">
+            <Picker x:Name="TopicSpace" Margin="10, 7, 2, 4"/>
+            <DatePicker x:Name="DateSpace" Date="{Binding DateRec}" Margin="10, 7, 10, 10"
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                                Property=Width, Factor=.25}"
+                        RelativeLayout.XConstraint="{ConstraintExpression   Type=RelativeToParent,
+                                                                            Property=Width, Factor=.7,
+                                                                            Constant=0}"/>
+            <Editor x:Name="WordSpace" Text="{Binding Word}" Style="{StaticResource MainSpace}" 
+                   RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView,
+                                                                        ElementName=TopicSpace,
+                                                                        Property=Height, Factor=1, Constant=10}"
+                   RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                            Property=Height, Factor=.4}"
+                   RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                            Property=Width, Factor=1}"/>
+            <Editor x:Name="TransSpace" Text="{Binding Translation}" Style="{StaticResource forEntrys}"/>
+
+            <StackLayout x:Name="LabelSpace">
+                <Label x:Name="RelSpace" Text="{Binding Relevation, StringFormat='Открывалось {0} раз'}"/>
+                <Label x:Name="GradeSpace" Text="{Binding Grade, StringFormat='Оценка {0}'}"/>   
+            </StackLayout>
+            
+        </RelativeLayout>
+    </ContentPage.Content>
+</ContentPage>
