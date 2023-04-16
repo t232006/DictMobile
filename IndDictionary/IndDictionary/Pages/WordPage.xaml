@@ -4,8 +4,12 @@
              xmlns:loc="clr-namespace:IndDictionary"
              x:Class="IndDictionary.WordPage"
              Title="Word">
-    <StackLayout>
-        <ListView x:Name="ListTable" HeightRequest="40" ItemsSource="{Binding}" ItemSelected="OnPress">
+    <RelativeLayout>
+        <ListView x:Name="ListTable" HeightRequest="40" ItemsSource="{Binding}" ItemTapped="OnPress"
+                  RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                    Property=Height, Factor=.9}"
+                  RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                    Property=Width, Factor=1}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell >
@@ -20,12 +24,9 @@
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
-            <ListView.Footer>
-                <StackLayout>
-                    <Button Text="Add"/>
-                </StackLayout>
-            </ListView.Footer>
         </ListView>
+        <Button Text="Add" RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView,
+                                                        ElementName=ListTable, Property=Height, Factor=1,Constant=10}"/>
 
-    </StackLayout>
+    </RelativeLayout>
 </ContentPage>

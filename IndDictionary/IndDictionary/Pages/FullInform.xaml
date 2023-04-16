@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:loc="clr-namespace:IndDictionary.Converters"
              x:Class="IndDictionary.FullInform">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -16,32 +17,50 @@
             <Style x:Key="MainSpace" TargetType="Entry" BasedOn="{StaticResource forEntrys}">
                 <Setter Property="TextColor" Value="DarkBlue"/>
             </Style>
+            <loc:BoolConverter x:Key="boolConverter"/>
+            <loc:CheckBoxToString x:Key="checkBoxToString"/>
         </ResourceDictionary>
     </ContentPage.Resources>
     
         <ContentPage.Content>
         <RelativeLayout x:Name="BaseLayout" BackgroundColor="Beige">
-            <Picker x:Name="TopicSpace" Margin="10, 7, 2, 4"/>
-            <DatePicker x:Name="DateSpace" Date="{Binding DateRec}" Margin="10, 7, 10, 10"
+            <Picker x:Name="TopicSpace" Margin="10, 7, 2, 4"
+                IsEnabled="{Binding Source={x:Reference EditBox}, Path=IsChecked}"/>
+            <DatePicker x:Name="DateSpace" Date="{Binding DateRec}" Margin="10, 7, 10, 10" 
+                        IsEnabled="{Binding Source={x:Reference EditBox}, Path=IsChecked}"
                         RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
                                                                                 Property=Width, Factor=.25}"
                         RelativeLayout.XConstraint="{ConstraintExpression   Type=RelativeToParent,
                                                                             Property=Width, Factor=.7,
                                                                             Constant=0}"/>
             <Editor x:Name="WordSpace" Text="{Binding Word}" Style="{StaticResource MainSpace}" 
+                    IsReadOnly="{Binding Source={x:Reference EditBox}, Path=IsChecked, 
+                                Converter={StaticResource boolConverter}}"  
                    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView,
                                                                         ElementName=TopicSpace,
                                                                         Property=Height, Factor=1, Constant=10}"
                    RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,
-                                                                            Property=Height, Factor=.4}"
+                                                                            Property=Height, Factor=.35}"
                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
                                                                             Property=Width, Factor=1}"/>
-            <Editor x:Name="TransSpace" Text="{Binding Translation}" Style="{StaticResource forEntrys}"/>
-
+            <Editor x:Name="TransSpace" Text="{Binding Translation}" Style="{StaticResource forEntrys}" 
+                    IsReadOnly="{Binding Source={x:Reference EditBox}, Path=IsChecked,
+                                Converter={StaticResource boolConverter}}"/>
             <StackLayout x:Name="LabelSpace">
                 <Label x:Name="RelSpace" Text="{Binding Relevation, StringFormat='Открывалось {0} раз'}"/>
-                <Label x:Name="GradeSpace" Text="{Binding Grade, StringFormat='Оценка {0}'}"/>   
+                <Label x:Name="GradeSpace" Text="{Binding Grade, StringFormat='Оценка {0}'}"/>
             </StackLayout>
+            <StackLayout x:Name="CheckBoxSpace" Orientation="Horizontal"
+                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView,
+                                                        ElementName=LabelSpace,
+                                                        Property=Y, Constant=35}"
+                         RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                        Property=Width, Factor=.65}">
+                <CheckBox x:Name="EditBox" />
+                <Label Text="{Binding Source={x:Reference EditBox}, Path=IsChecked,
+                    Converter={StaticResource checkBoxToString}}"/>
+            </StackLayout>
+            
             
         </RelativeLayout>
     </ContentPage.Content>

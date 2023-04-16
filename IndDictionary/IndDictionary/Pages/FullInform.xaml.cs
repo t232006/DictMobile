@@ -24,23 +24,26 @@ namespace IndDictionary
 				Constraint.RelativeToParent((parent) =>
 					{ return parent.Width; }),
 				Constraint.RelativeToParent((parent) =>
-					{ return parent.Height * 0.4; })
+					{ return parent.Height * 0.35; })
 				);
 			BaseLayout.Children.Add(LabelSpace,
 				Constraint.Constant(0),
 				Constraint.RelativeToView(TransSpace, (parent, view) =>
 				{ return TransSpace.Y + TransSpace.Height + 10; }));
+			
 		}
 		protected override void OnAppearing()
 		{
 			TempTop = App.Database.showTableTopic();
+			dict TempDict = this.BindingContext as dict;
 			TopicSpace.ItemsSource = TempTop.Select(p => p.Name).ToList();
 			var temp = from p in TempTop
-						 where p.id == (this.BindingContext as dict).Topic
+						 where p.id == TempDict.Topic
 						 select p.Name ;
 			TopicSpace.SelectedItem = temp.ToList()[0] ;
 			//Temp.Text = temp[0];
-			
+			TempDict.Relevation++;
+			App.Database.saveRecD(TempDict);
 			base.OnAppearing();
 		}
 	}
