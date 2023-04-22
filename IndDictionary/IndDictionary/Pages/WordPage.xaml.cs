@@ -22,9 +22,9 @@ namespace IndDictionary
 			ListTable.ItemsSource = App.Database.showTableDict();
 			base.OnAppearing();
 		}
-		protected void OnPress(object sender, SelectedItemChangedEventArgs e)
+		protected void OnPress(object sender, ItemTappedEventArgs e)
 		{
-			focusedItem = (dict)e.SelectedItem;
+			focusedItem = (dict)e.Item;
 			FullInform fullinform = new FullInform();
 			fullinform.BindingContext = focusedItem;
 			Navigation.PushAsync(fullinform);
@@ -34,6 +34,11 @@ namespace IndDictionary
 			focusedItem = App.Database.findOneRecord((sender as ExtSwitch).ID);
 			if (focusedItem !=null) focusedItem.Usersel = e.Value;
 			App.Database.saveRecD(focusedItem);
+		}
+		protected void OnAddPressed(object sender, EventArgs e)
+		{
+			FullInform fullinform = new FullInform();
+			Navigation.PushAsync(fullinform);
 		}
 	}
 }

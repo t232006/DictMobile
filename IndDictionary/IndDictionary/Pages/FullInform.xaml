@@ -25,15 +25,16 @@
         <ContentPage.Content>
         <RelativeLayout x:Name="BaseLayout" BackgroundColor="Beige">
             <Picker x:Name="TopicSpace" Margin="10, 7, 2, 4"
+                    SelectedIndexChanged="onRecordChanged"
                 IsEnabled="{Binding Source={x:Reference EditBox}, Path=IsChecked}"/>
             <DatePicker x:Name="DateSpace" Date="{Binding DateRec}" Margin="10, 7, 10, 10" 
                         IsEnabled="{Binding Source={x:Reference EditBox}, Path=IsChecked}"
-                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
-                                                                                Property=Width, Factor=.25}"
+                        DateSelected="onRecordChanged"
                         RelativeLayout.XConstraint="{ConstraintExpression   Type=RelativeToParent,
                                                                             Property=Width, Factor=.7,
                                                                             Constant=0}"/>
             <Editor x:Name="WordSpace" Text="{Binding Word}" Style="{StaticResource MainSpace}" 
+                    TextChanged="onRecordChanged"
                     IsReadOnly="{Binding Source={x:Reference EditBox}, Path=IsChecked, 
                                 Converter={StaticResource boolConverter}}"  
                    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView,
@@ -44,6 +45,7 @@
                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
                                                                             Property=Width, Factor=1}"/>
             <Editor x:Name="TransSpace" Text="{Binding Translation}" Style="{StaticResource forEntrys}" 
+                    TextChanged="onRecordChanged"
                     IsReadOnly="{Binding Source={x:Reference EditBox}, Path=IsChecked,
                                 Converter={StaticResource boolConverter}}"/>
             <StackLayout x:Name="LabelSpace">
@@ -57,8 +59,14 @@
                          RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
                                                         Property=Width, Factor=.65}">
                 <CheckBox x:Name="EditBox" />
-                <Label Text="{Binding Source={x:Reference EditBox}, Path=IsChecked,
+                <Label IsVisible="{Binding Source={x:Reference EditBox}, Path=IsVisible}"
+                    Text="{Binding Source={x:Reference EditBox}, Path=IsChecked,
                     Converter={StaticResource checkBoxToString}}"/>
+                <Button x:Name="ConfirmB" Text="Confirm" Pressed="onConfPress"
+                        IsVisible="{Binding Source={x:Reference EditBox}, Path=IsVisible, 
+                    Converter={StaticResource boolConverter}, Mode=TwoWay}"/>
+                <Button x:Name="DeclineB" Text="Decline" Pressed="onDeclPress"
+                        IsVisible="{Binding Source={x:Reference ConfirmB}, Path=IsVisible}"/>
             </StackLayout>
             
             

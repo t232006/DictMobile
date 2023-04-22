@@ -14,7 +14,9 @@
                 <DataTemplate>
                     <ViewCell >
                         <AbsoluteLayout>
-                            <Label Text="{Binding Word, Mode=TwoWay}"/>
+                            <Label Text="{Binding Word, Mode=TwoWay}" LineBreakMode="TailTruncation"
+                                   AbsoluteLayout.LayoutBounds="0, 0, .68, AutoSize"
+                                   AbsoluteLayout.LayoutFlags="WidthProportional"/>
                             <loc:ExtSwitch
                                             IsToggled="{Binding Usersel, Mode=TwoWay}"
                                            ID="{Binding Number}"
@@ -25,7 +27,8 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Text="Add" RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView,
+        <Button Text="Add" Pressed="OnAddPressed"
+                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView,
                                                         ElementName=ListTable, Property=Height, Factor=1,Constant=10}"/>
 
     </RelativeLayout>

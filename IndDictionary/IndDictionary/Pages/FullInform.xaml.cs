@@ -13,6 +13,7 @@ namespace IndDictionary
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class FullInform : ContentPage
 	{
+		dict TempDict;
 		IEnumerable<topic> TempTop;
 		public FullInform()
 		{
@@ -30,12 +31,30 @@ namespace IndDictionary
 				Constraint.Constant(0),
 				Constraint.RelativeToView(TransSpace, (parent, view) =>
 				{ return TransSpace.Y + TransSpace.Height + 10; }));
-			
+
 		}
+
+		protected void onRecordChanged(object Sender, EventArgs e)
+		{
+			ConfirmB.IsVisible = true;
+		}
+
+		protected void onConfPress(object Sender, EventArgs e)
+		{
+			App.Database.saveRecD(TempDict);
+			Navigation.PopAsync();
+		}
+
+		protected void onDeclPress(object Sender, EventArgs e)
+		{
+			ConfirmB.IsVisible = false;
+		}
+
 		protected override void OnAppearing()
 		{
+			ConfirmB.IsVisible = false;
 			TempTop = App.Database.showTableTopic();
-			dict TempDict = this.BindingContext as dict;
+			TempDict = this.BindingContext as dict;
 			TopicSpace.ItemsSource = TempTop.Select(p => p.Name).ToList();
 			var temp = from p in TempTop
 						 where p.id == TempDict.Topic
