@@ -17,7 +17,6 @@
     <TabbedPage.Children>
         <local:WordPage/>
         <local:TransPage/>
-        <local:FullInform/>
     </TabbedPage.Children>
 
 </TabbedPage>

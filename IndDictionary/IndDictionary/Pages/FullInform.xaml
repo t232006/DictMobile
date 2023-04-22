@@ -34,6 +34,7 @@
                                                                             Property=Width, Factor=.7,
                                                                             Constant=0}"/>
             <Editor x:Name="WordSpace" Text="{Binding Word}" Style="{StaticResource MainSpace}" 
+                    Placeholder="Word"
                     TextChanged="onRecordChanged"
                     IsReadOnly="{Binding Source={x:Reference EditBox}, Path=IsChecked, 
                                 Converter={StaticResource boolConverter}}"  
@@ -45,6 +46,7 @@
                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
                                                                             Property=Width, Factor=1}"/>
             <Editor x:Name="TransSpace" Text="{Binding Translation}" Style="{StaticResource forEntrys}" 
+                    Placeholder="Translation"
                     TextChanged="onRecordChanged"
                     IsReadOnly="{Binding Source={x:Reference EditBox}, Path=IsChecked,
                                 Converter={StaticResource boolConverter}}"/>
@@ -66,6 +68,8 @@
                         IsVisible="{Binding Source={x:Reference EditBox}, Path=IsVisible, 
                     Converter={StaticResource boolConverter}, Mode=TwoWay}"/>
                 <Button x:Name="DeclineB" Text="Decline" Pressed="onDeclPress"
+                        IsVisible="{Binding Source={x:Reference ConfirmB}, Path=IsVisible}"/>
+                <Button x:Name="DeleteB" Text="Delete" Pressed="onDelPress"
                         IsVisible="{Binding Source={x:Reference ConfirmB}, Path=IsVisible}"/>
             </StackLayout>
             

@@ -20,7 +20,7 @@ namespace IndDictionary
 
 		public IEnumerable<dict> showTableDict()
 		{
-			return itemsD;
+			return database.Table<dict>().ToList();
 		}
 
 		public IEnumerable<topic> showTableTopic()

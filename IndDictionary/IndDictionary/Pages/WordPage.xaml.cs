@@ -25,7 +25,7 @@ namespace IndDictionary
 		protected void OnPress(object sender, ItemTappedEventArgs e)
 		{
 			focusedItem = (dict)e.Item;
-			FullInform fullinform = new FullInform();
+			FullInform fullinform = new FullInform(false);
 			fullinform.BindingContext = focusedItem;
 			Navigation.PushAsync(fullinform);
 		}
@@ -37,7 +37,7 @@ namespace IndDictionary
 		}
 		protected void OnAddPressed(object sender, EventArgs e)
 		{
-			FullInform fullinform = new FullInform();
+			FullInform fullinform = new FullInform(true);
 			Navigation.PushAsync(fullinform);
 		}
 	}
