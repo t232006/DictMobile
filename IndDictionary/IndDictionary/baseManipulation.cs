@@ -6,12 +6,12 @@ using System.Text;
 
 namespace IndDictionary
 {
-    public class baseManipulation
-    {
+	public class baseManipulation
+	{
 		SQLiteConnection database;
 		IEnumerable<dict> itemsD;
 		IEnumerable<topic> itemsT;
-		public baseManipulation (string databasePath)
+		public baseManipulation(string databasePath)
 		{
 			database = new SQLiteConnection(databasePath);
 			itemsD = database.Table<dict>().ToList();

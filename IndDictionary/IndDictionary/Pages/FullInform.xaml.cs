@@ -76,7 +76,7 @@ namespace IndDictionary
 			else
 			{
 				TopicSpace.SelectedItem = TempTop.ToList()[0].ToString();
-				EditBox.IsChecked = true;
+				EditBox.IsToggled = true;
 				ConfirmB.IsEnabled = false;
 				DeleteB.IsVisible = false;
 			}

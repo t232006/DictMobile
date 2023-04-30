@@ -10,13 +10,23 @@ using Xamarin.Forms.Xaml;
 namespace IndDictionary
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class WordPage : ContentPage
+	public partial class WordPage : FlyoutPage
 	{
 		dict focusedItem;
 		public WordPage ()
 		{
 			InitializeComponent ();
 		}
+
+		protected void Searching(Object sender, TextChangedEventArgs e)
+		{
+			IEnumerable<dict> founded = App.Database.findRecords(SearchEntry.Text, f=>f.Word);
+			if (founded != null)
+				ListTable.ItemsSource = founded;
+			if (e.NewTextValue == "")
+				ListTable.ItemsSource = App.Database.showTableDict();
+		}
+
 		protected override void OnAppearing()
 		{
 			ListTable.ItemsSource = App.Database.showTableDict();

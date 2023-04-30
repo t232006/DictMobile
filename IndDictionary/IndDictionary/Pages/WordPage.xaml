@@ -1,35 +1,81 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<FlyoutPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:loc="clr-namespace:IndDictionary"
              x:Class="IndDictionary.WordPage"
              Title="Word">
-    <RelativeLayout>
-        <ListView x:Name="ListTable" HeightRequest="40" ItemsSource="{Binding}" ItemTapped="OnPress"
-                  RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,
-                                                    Property=Height, Factor=.9}"
-                  RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
-                                                    Property=Width, Factor=1}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell >
-                        <AbsoluteLayout>
-                            <Label Text="{Binding Word, Mode=TwoWay}" LineBreakMode="TailTruncation"
-                                   AbsoluteLayout.LayoutBounds="0, 0, .68, AutoSize"
-                                   AbsoluteLayout.LayoutFlags="WidthProportional"/>
-                            <loc:ExtSwitch
-                                            IsToggled="{Binding Usersel, Mode=TwoWay}"
-                                           ID="{Binding Number}"
-                                           AbsoluteLayout.LayoutBounds=".8, 0, AutoSize, AutoSize"
-                                           AbsoluteLayout.LayoutFlags="PositionProportional" Toggled="OnToggled"/>
-                        </AbsoluteLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        <Button Text="Add" Pressed="OnAddPressed"
-                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView,
-                                                        ElementName=ListTable, Property=Height, Factor=1,Constant=10}"/>
+    <FlyoutPage.Flyout >
+        <ContentPage Title="Details">
+            <ContentPage.Resources>
+                <ResourceDictionary>
+                    <Style x:Key="BaseStyle" TargetType="Label">
+                        <Setter Property="TextColor" Value="White"/>
+                        <Setter Property="FontSize" Value="14"/>
+                    </Style>
+                    <Style x:Key="LabelStyle" TargetType="Label">
+                        <Setter Property="Margin" Value="10,5,0,0"/>
+                        <Setter Property="TextColor" Value="White"/>
+                        <Setter Property="FontSize" Value="14"/>
+                    </Style>
+                    <Style x:Key="ButtonStyle" TargetType="Button">
+                        <Setter Property="Margin" Value="10,10,30,0"/>
+                        <Setter Property="TextColor" Value="White"/>
+                        <Setter Property="FontSize" Value="14"/>
+                    </Style>
+                </ResourceDictionary>
+            </ContentPage.Resources>
+            <StackLayout BackgroundColor="#454955" >
+                <Entry x:Name="SearchEntry" Placeholder="Search" BackgroundColor="#22252a" 
+                       PlaceholderColor="White" Style="{StaticResource ButtonStyle}"
+                       TextChanged="Searching"/>
+                <StackLayout Orientation="Horizontal" Padding="10,0,0,0">
+                   <CheckBox x:Name="ShowSelected" />
+                    <Label Text="Show Selected" Style="{StaticResource LabelStyle}"/>
+                </StackLayout>
+                
+                <Label Text="Show" Style="{StaticResource LabelStyle}"/>
+                <RadioButton Content="Phrases" Style="{StaticResource LabelStyle}"/>
+                <RadioButton Content="Words" Style="{StaticResource LabelStyle}"/>
+                <RadioButton Content="All together" Style="{StaticResource LabelStyle}" IsChecked="True"/>
+                <Label Text="Select" Style="{StaticResource LabelStyle}"/>
+                <Button Text="By dates" BackgroundColor="#28a1d1" Style="{StaticResource ButtonStyle}"/>
+                <Button Text="By topics" BackgroundColor="#8db51c" Style="{StaticResource ButtonStyle}"/>
+                <Button Text="Reset" BackgroundColor="#e75012" Style="{StaticResource ButtonStyle}"/>
+            </StackLayout>
+        </ContentPage>
 
-    </RelativeLayout>
-</ContentPage>
+
+    </FlyoutPage.Flyout>
+    <FlyoutPage.Detail>
+        <ContentPage Title="Word">
+        <RelativeLayout>
+            <ListView x:Name="ListTable" HeightRequest="40" ItemsSource="{Binding}" ItemTapped="OnPress"
+                      RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                        Property=Height, Factor=.9}"
+                      RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                        Property=Width, Factor=1}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell >
+                            <AbsoluteLayout>
+                                <Label Text="{Binding Word, Mode=TwoWay}" LineBreakMode="TailTruncation"
+                                       AbsoluteLayout.LayoutBounds="10, 0, .68, AutoSize"
+                                       AbsoluteLayout.LayoutFlags="WidthProportional"/>
+                                <loc:ExtSwitch
+                                                IsToggled="{Binding Usersel, Mode=TwoWay}"
+                                               ID="{Binding Number}"
+                                               AbsoluteLayout.LayoutBounds=".8, 0, AutoSize, AutoSize"
+                                               AbsoluteLayout.LayoutFlags="PositionProportional" Toggled="OnToggled"/>
+                            </AbsoluteLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button Text="Add" Pressed="OnAddPressed"
+                    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView,
+                                                            ElementName=ListTable, Property=Height, Factor=1,Constant=10}"/>
+
+        </RelativeLayout>
+        </ContentPage>
+    </FlyoutPage.Detail>
+</FlyoutPage>

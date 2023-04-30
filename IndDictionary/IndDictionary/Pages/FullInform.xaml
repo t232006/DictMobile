@@ -60,9 +60,9 @@
                                                         Property=Y, Constant=35}"
                          RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
                                                         Property=Width, Factor=.65}">
-                <CheckBox x:Name="EditBox" />
+                <Switch x:Name="EditBox" />
                 <Label IsVisible="{Binding Source={x:Reference EditBox}, Path=IsVisible}"
-                    Text="{Binding Source={x:Reference EditBox}, Path=IsChecked,
+                    Text="{Binding Source={x:Reference EditBox}, Path=IsToggled,
                     Converter={StaticResource checkBoxToString}}"/>
                 <Button x:Name="ConfirmB" Text="Confirm" Pressed="onConfPress"
                         IsVisible="{Binding Source={x:Reference EditBox}, Path=IsVisible, 
