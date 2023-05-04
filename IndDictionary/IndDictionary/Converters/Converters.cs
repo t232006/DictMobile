@@ -34,4 +34,16 @@ namespace IndDictionary.Converters
 			return temp;
 		}
 	}
+	class DateToString : IValueConverter
+	{
+		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			return ((DateTime)value).ToString("d");
+		}
+
+		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			return DateTime.Parse(value as string);
+		}
+	}
 }

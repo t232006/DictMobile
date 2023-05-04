@@ -6,6 +6,7 @@ using System.Text;
 
 namespace IndDictionary
 {
+	public enum WhatToShow { words, phrases, alltogether}
 	public class baseManipulation
 	{
 		SQLiteConnection database;
@@ -18,16 +19,15 @@ namespace IndDictionary
 			itemsT = database.Table<topic>().ToList();
 		}
 
-		public IEnumerable<dict> showTableDict()
+		public IEnumerable<dict> showTableDict(bool allrec, WhatToShow wts)
 		{
-			return database.Table<dict>().ToList();
+			return filtr(allrec, wts);
 		}
 
 		public IEnumerable<topic> showTableTopic()
 		{
 			return itemsT;
 		}
-
 		public int saveRecD(dict item)
 		{
 			if (item != null)
@@ -42,7 +42,6 @@ namespace IndDictionary
 			}
 			return -1;
 		}
-
 		public int saveRecT(topic item)
 		{
 			if (item.id != 0)
@@ -53,17 +52,14 @@ namespace IndDictionary
 			else
 				return database.Insert(item);
 		}
-
 		public int deleteRecD(int id)
 		{
 			return database.Delete<dict>(id);
 		}
-
 		public int deleteRecT(int id)
 		{
 			return database.Delete<topic>(id);
 		}
-
 		public IEnumerable<dict> findRecords(string needle, Func<dict, string> _field)
 		{
 			return from s in itemsD
@@ -75,6 +71,31 @@ namespace IndDictionary
 			if (id != 0)
 				return database.Get<dict>(id);
 			else return null;
+		}
+		IEnumerable<dict> filtr(bool allrec, WhatToShow _wts)
+		{
+			IEnumerable<dict> result;
+			result = itemsD;
+			if (!allrec)
+			{
+				result = from s in itemsD
+						 where s.Usersel == true
+						 select s;
+			}
+			switch (_wts)
+			{
+				case WhatToShow.words:
+					result = from s in result
+							 where s.Phrase == false
+							 select s;
+					break;
+				case WhatToShow.phrases:
+					result = from s in result
+							 where s.Phrase == true
+							 select s;
+					break;
+			}
+			return result;
 		}
 
     }

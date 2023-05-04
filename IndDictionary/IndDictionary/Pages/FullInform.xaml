@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:loc="clr-namespace:IndDictionary.Converters"
+             xmlns:inddictionary="clr-namespace:IndDictionary"
              x:Class="IndDictionary.FullInform">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -19,6 +20,7 @@
             </Style>
             <loc:BoolConverter x:Key="boolConverter"/>
             <loc:CheckBoxToString x:Key="checkBoxToString"/>
+            <loc:DateToString x:Key="dateToString"/>
         </ResourceDictionary>
     </ContentPage.Resources>
     
@@ -26,17 +28,29 @@
         <RelativeLayout x:Name="BaseLayout" BackgroundColor="Beige">
             <Picker x:Name="TopicSpace" Margin="10, 7, 2, 4"
                     SelectedIndexChanged="onRecordChanged"
-                IsEnabled="{Binding Source={x:Reference EditBox}, Path=IsChecked}"/>
+                IsVisible="{Binding Source={x:Reference EditBox}, Path=IsToggled}"/>
+            <Label x:Name="TopicSpaceLabel" Text="{Binding Source={x:Reference TopicSpace}, Path=SelectedItem}"
+                   IsVisible="{Binding Source={x:Reference EditBox}, Path=IsToggled,
+                                Converter={StaticResource boolConverter}}"/>
+            
             <DatePicker x:Name="DateSpace" Date="{Binding DateRec}" Margin="10, 7, 10, 10" 
-                        IsEnabled="{Binding Source={x:Reference EditBox}, Path=IsChecked}"
+                        IsVisible="{Binding Source={x:Reference EditBox}, Path=IsToggled}"
                         DateSelected="onRecordChanged"
                         RelativeLayout.XConstraint="{ConstraintExpression   Type=RelativeToParent,
                                                                             Property=Width, Factor=.7,
                                                                             Constant=0}"/>
+            <Label x:Name="DataSpaceLabel" Text="{Binding Source={x:Reference DateSpace}, Path=Date,
+                    Converter={StaticResource dateToString}}"
+                   IsVisible="{Binding Source={x:Reference EditBox}, Path=IsToggled,
+                                Converter={StaticResource boolConverter}}"
+                   RelativeLayout.XConstraint="{ConstraintExpression   Type=RelativeToParent,
+                                                                            Property=Width, Factor=.7,
+                                                                            Constant=0}"/>
+                
             <Editor x:Name="WordSpace" Text="{Binding Word}" Style="{StaticResource MainSpace}" 
                     Placeholder="Word"
                     TextChanged="onRecordChanged"
-                    IsReadOnly="{Binding Source={x:Reference EditBox}, Path=IsChecked, 
+                    IsReadOnly="{Binding Source={x:Reference EditBox}, Path=IsToggled, 
                                 Converter={StaticResource boolConverter}}"  
                    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView,
                                                                         ElementName=TopicSpace,
@@ -48,7 +62,7 @@
             <Editor x:Name="TransSpace" Text="{Binding Translation}" Style="{StaticResource forEntrys}" 
                     Placeholder="Translation"
                     TextChanged="onRecordChanged"
-                    IsReadOnly="{Binding Source={x:Reference EditBox}, Path=IsChecked,
+                    IsReadOnly="{Binding Source={x:Reference EditBox}, Path=IsToggled,
                                 Converter={StaticResource boolConverter}}"/>
             <StackLayout x:Name="LabelSpace">
                 <Label x:Name="RelSpace" Text="{Binding Relevation, StringFormat='Открывалось {0} раз'}"/>
@@ -60,7 +74,7 @@
                                                         Property=Y, Constant=35}"
                          RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
                                                         Property=Width, Factor=.65}">
-                <Switch x:Name="EditBox" />
+                <inddictionary:ExtSwitch x:Name="EditBox" Margin="30,10,0,0"/>
                 <Label IsVisible="{Binding Source={x:Reference EditBox}, Path=IsVisible}"
                     Text="{Binding Source={x:Reference EditBox}, Path=IsToggled,
                     Converter={StaticResource checkBoxToString}}"/>

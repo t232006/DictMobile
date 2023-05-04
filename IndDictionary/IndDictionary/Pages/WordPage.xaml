@@ -29,14 +29,14 @@
                        PlaceholderColor="White" Style="{StaticResource ButtonStyle}"
                        TextChanged="Searching"/>
                 <StackLayout Orientation="Horizontal" Padding="10,0,0,0">
-                   <CheckBox x:Name="ShowSelected" />
+                   <CheckBox x:Name="ShowSelected" CheckedChanged="OnChecking"/>
                     <Label Text="Show Selected" Style="{StaticResource LabelStyle}"/>
                 </StackLayout>
                 
                 <Label Text="Show" Style="{StaticResource LabelStyle}"/>
-                <RadioButton Content="Phrases" Style="{StaticResource LabelStyle}"/>
-                <RadioButton Content="Words" Style="{StaticResource LabelStyle}"/>
-                <RadioButton Content="All together" Style="{StaticResource LabelStyle}" IsChecked="True"/>
+                <RadioButton Content="Phrases" Style="{StaticResource LabelStyle}" CheckedChanged="OnPhrases" />
+                <RadioButton Content="Words" Style="{StaticResource LabelStyle}" CheckedChanged="OnWords"/>
+                <RadioButton Content="All together" Style="{StaticResource LabelStyle}" IsChecked="True" CheckedChanged="OnAll"/>
                 <Label Text="Select" Style="{StaticResource LabelStyle}"/>
                 <Button Text="By dates" BackgroundColor="#28a1d1" Style="{StaticResource ButtonStyle}"/>
                 <Button Text="By topics" BackgroundColor="#8db51c" Style="{StaticResource ButtonStyle}"/>

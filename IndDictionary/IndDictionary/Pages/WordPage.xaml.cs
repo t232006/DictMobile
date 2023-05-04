@@ -13,6 +13,8 @@ namespace IndDictionary
 	public partial class WordPage : FlyoutPage
 	{
 		dict focusedItem;
+		bool showAll = true;
+		WhatToShow wts = WhatToShow.alltogether;
 		public WordPage ()
 		{
 			InitializeComponent ();
@@ -24,12 +26,12 @@ namespace IndDictionary
 			if (founded != null)
 				ListTable.ItemsSource = founded;
 			if (e.NewTextValue == "")
-				ListTable.ItemsSource = App.Database.showTableDict();
+				ListTable.ItemsSource = App.Database.showTableDict(showAll,wts);
 		}
 
 		protected override void OnAppearing()
 		{
-			ListTable.ItemsSource = App.Database.showTableDict();
+			ListTable.ItemsSource = App.Database.showTableDict(showAll, wts);
 			base.OnAppearing();
 		}
 		protected void OnPress(object sender, ItemTappedEventArgs e)
@@ -49,6 +51,26 @@ namespace IndDictionary
 		{
 			FullInform fullinform = new FullInform(true);
 			Navigation.PushAsync(fullinform);
+		}
+		protected void OnChecking (object sender, EventArgs e)
+		{
+			showAll = !(sender as CheckBox).IsChecked;
+			OnAppearing();
+		}
+		protected void OnAll(object sender, EventArgs e)
+		{
+			wts = WhatToShow.alltogether;
+			OnAppearing();
+		}
+		protected void OnPhrases(object sender, EventArgs e)
+		{
+			wts = WhatToShow.phrases;
+			OnAppearing();
+		}
+		protected void OnWords(object sender, EventArgs e)
+		{
+			wts = WhatToShow.words;
+			OnAppearing();
 		}
 	}
 }
