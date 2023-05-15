@@ -38,7 +38,7 @@
                 <RadioButton Content="Words" Style="{StaticResource LabelStyle}" CheckedChanged="OnWords"/>
                 <RadioButton Content="All together" Style="{StaticResource LabelStyle}" IsChecked="True" CheckedChanged="OnAll"/>
                 <Label Text="Select" Style="{StaticResource LabelStyle}"/>
-                <Button Text="By dates" BackgroundColor="#28a1d1" Style="{StaticResource ButtonStyle}"/>
+                <Button Text="By dates" BackgroundColor="#28a1d1" Style="{StaticResource ButtonStyle}" Pressed="onDates"/>
                 <Button Text="By topics" BackgroundColor="#8db51c" Style="{StaticResource ButtonStyle}"/>
                 <Button Text="Reset" BackgroundColor="#e75012" Style="{StaticResource ButtonStyle}"/>
             </StackLayout>
@@ -58,13 +58,13 @@
                     <DataTemplate>
                         <ViewCell >
                             <AbsoluteLayout>
-                                <Label Text="{Binding Word, Mode=TwoWay}" LineBreakMode="TailTruncation"
+                                <Label Text="{Binding Word, Mode=TwoWay}" LineBreakMode="TailTruncation" FontSize="14"
                                        AbsoluteLayout.LayoutBounds="10, 0, .68, AutoSize"
                                        AbsoluteLayout.LayoutFlags="WidthProportional"/>
                                 <loc:ExtSwitch
                                                 IsToggled="{Binding Usersel, Mode=TwoWay}"
                                                ID="{Binding Number}"
-                                               AbsoluteLayout.LayoutBounds=".8, 0, AutoSize, AutoSize"
+                                               AbsoluteLayout.LayoutBounds=".9, 0, AutoSize, AutoSize"
                                                AbsoluteLayout.LayoutFlags="PositionProportional" Toggled="OnToggled"/>
                             </AbsoluteLayout>
                         </ViewCell>

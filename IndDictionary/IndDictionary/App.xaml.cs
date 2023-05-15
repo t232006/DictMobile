@@ -29,8 +29,18 @@ namespace IndDictionary
 								fs.Flush();
 							}
 						}
+						database = new baseManipulation(dbPath);
+						foreach (dict d in database.showTableDict(true, WhatToShow.alltogether))
+						{
+							DateTime da;	//dates casting
+							try { da = Convert.ToDateTime(d.DateRec); }
+							catch { da = DateTime.Now; }
+							string tempStr = da.ToString("dd.MM.yyyy");
+							d.DateRec = tempStr;
+							App.Database.saveRecD(d);
+						}
 					}
-					database = new baseManipulation(dbPath);
+					else database = new baseManipulation(dbPath);
 				}
 				return database;
 			}

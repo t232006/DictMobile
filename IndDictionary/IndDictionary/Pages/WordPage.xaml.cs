@@ -1,4 +1,6 @@
-﻿using System;
+﻿using IndDictionary.addition;
+using IndDictionary.Pages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +17,8 @@ namespace IndDictionary
 		dict focusedItem;
 		bool showAll = true;
 		WhatToShow wts = WhatToShow.alltogether;
+		//IEnumerable<string> passedList;
+		//IEnumerable<dict> passedList2;
 		public WordPage ()
 		{
 			InitializeComponent ();
@@ -71,6 +75,31 @@ namespace IndDictionary
 		{
 			wts = WhatToShow.words;
 			OnAppearing();
+		}
+		protected void onDates(object sender, EventArgs e)
+		{
+			/*passedList = (from s in (IEnumerable<dict>)ListTable.ItemsSource
+						  select s.DateRec).Distinct();*/
+			List<dateClassAux> conteiner = new List<dateClassAux>();
+			/*foreach (dict s in ListTable.ItemsSource) 
+			{
+				DateTime d;
+				try	{d = Convert.ToDateTime(s.DateRec);}
+				catch {d = DateTime.Now;}
+
+				string tempStr = d.ToString("dd.MM.yyyy");
+				dateClassAux tempObj = new dateClassAux { Date = tempStr, Spoted = false };
+				if (!conteiner.Contains(tempObj)) conteiner.Add(tempObj);
+			}*/
+			
+			IEnumerable<dict> tempcont = App.Database.showDates();
+			foreach (dict t in tempcont)
+			{
+				conteiner.Add(new dateClassAux { Date = t.DateRec, Spoted = false });
+			}
+			DateForm dateForm = new DateForm(conteiner);
+			Navigation.PushAsync(dateForm);
+
 		}
 	}
 }

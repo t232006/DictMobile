@@ -97,6 +97,10 @@ namespace IndDictionary
 			}
 			return result;
 		}
+		public IEnumerable<dict> showDates()
+		{
+			return database.Query<dict>("select distinct DateRec from Dict where Usersel=true");
+		}
 
     }
 }
