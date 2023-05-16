@@ -3,6 +3,7 @@ using System.Linq;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using IndDictionary.addition;
 
 namespace IndDictionary
 {
@@ -97,9 +98,22 @@ namespace IndDictionary
 			}
 			return result;
 		}
-		public IEnumerable<dict> showDates()
+		public IEnumerable<dict> showDates(bool showAll)
 		{
-			return database.Query<dict>("select distinct DateRec from Dict where Usersel=true");
+			string request = "select distinct DateRec from Dict ";
+			if (showAll==false) request += "where Usersel=true";
+			return database.Query<dict>(request);
+		}
+		public void selectDates(IEnumerable<dateClassAux> datesList)
+		{
+			IEnumerable<string> l = from sl in datesList
+									where sl.Spoted == true
+									select sl.Date;
+			string collect = string.Join("','", l);
+			collect = "'" + collect +"'";
+			string requestString = "Update Dict set Usersel=true where daterec in (" + collect + ")";
+			database.Execute("Update Dict set Usersel=false");
+			database.Execute(requestString);
 		}
 
     }

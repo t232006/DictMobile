@@ -5,7 +5,7 @@ using System.Text;
 
 namespace IndDictionary.addition
 {
-    public class dateClassAux //:INotifyPropertyChanged
+    public class dateClassAux :INotifyPropertyChanged
     {
 		string date;
 		bool spoted;

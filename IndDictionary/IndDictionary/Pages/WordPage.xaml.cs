@@ -2,6 +2,7 @@
 using IndDictionary.Pages;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -78,21 +79,8 @@ namespace IndDictionary
 		}
 		protected void onDates(object sender, EventArgs e)
 		{
-			/*passedList = (from s in (IEnumerable<dict>)ListTable.ItemsSource
-						  select s.DateRec).Distinct();*/
-			List<dateClassAux> conteiner = new List<dateClassAux>();
-			/*foreach (dict s in ListTable.ItemsSource) 
-			{
-				DateTime d;
-				try	{d = Convert.ToDateTime(s.DateRec);}
-				catch {d = DateTime.Now;}
-
-				string tempStr = d.ToString("dd.MM.yyyy");
-				dateClassAux tempObj = new dateClassAux { Date = tempStr, Spoted = false };
-				if (!conteiner.Contains(tempObj)) conteiner.Add(tempObj);
-			}*/
-			
-			IEnumerable<dict> tempcont = App.Database.showDates();
+			List<dateClassAux> conteiner = new List<dateClassAux>();	
+			IEnumerable<dict> tempcont = App.Database.showDates(!ShowSelected.IsChecked);
 			foreach (dict t in tempcont)
 			{
 				conteiner.Add(new dateClassAux { Date = t.DateRec, Spoted = false });

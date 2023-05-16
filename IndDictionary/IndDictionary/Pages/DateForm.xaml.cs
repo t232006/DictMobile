@@ -15,7 +15,6 @@ namespace IndDictionary.Pages
 	public partial class DateForm : ContentPage
 	{
 		IEnumerable<dateClassAux> PassedList;
-		
 		public DateForm(IEnumerable<dateClassAux> _passedList)
 		{
 			PassedList = _passedList;
@@ -31,6 +30,17 @@ namespace IndDictionary.Pages
 		{
 			var temp = e.Item as dateClassAux;
 			temp.Spoted = !temp.Spoted;
+		}
+
+		public void onCancelPress (object sender, EventArgs e)
+		{
+			Navigation.PopAsync();
+		}
+
+		public void onApplayPress(object sender, EventArgs e)
+		{
+			App.Database.selectDates(PassedList);
+			Navigation.PopAsync();
 		}
 	}
 }

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="IndDictionary.Pages.DateForm"
              xmlns:loc="clr-namespace:IndDictionary.Converters"
+             xmlns:local="clr-namespace:IndDictionary"
              WidthRequest="150">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -11,12 +12,15 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout>
-            <Label x:Name="Header" Text="Select date"/>
-            <ListView x:Name="DatesList" RowHeight="40" Margin="10" SeparatorColor="Red" ItemTapped="onSelect">
+            <Label x:Name="Header" Text="Select the dates"/>
+            <StackLayout Orientation="Horizontal">
+                <Button Text="Cancel" Pressed="onCancelPress"/>
+                <Button Text="Applay" Pressed="onApplayPress"/>
+            </StackLayout>
+            <ListView x:Name="DatesList" RowHeight="40" Margin="10" SeparatorColor="Red" ItemTapped="onSelect" ItemsSource="{Binding}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <SwitchCell Text="{Binding Date}" On="{Binding Spoted, Mode=TwoWay}">
-                        </SwitchCell>
+                        <SwitchCell Text="{Binding Date}" On="{Binding Spoted, Mode=TwoWay}"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
