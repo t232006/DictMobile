@@ -1,21 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="IndDictionary.Pages.DateForm"
-             xmlns:loc="clr-namespace:IndDictionary.Converters"
-             xmlns:local="clr-namespace:IndDictionary"
-             WidthRequest="150">
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <loc:DateToString x:Key="dateToString"/>
-        </ResourceDictionary>
-    </ContentPage.Resources>
+             x:Class="IndDictionary.Pages.DateForm">
+    
     <ContentPage.Content>
         <StackLayout>
             <Label x:Name="Header" Text="Select the dates"/>
             <StackLayout Orientation="Horizontal">
                 <Button Text="Cancel" Pressed="onCancelPress"/>
-                <Button Text="Applay" Pressed="onApplayPress"/>
+                <Button Text="Apply" Pressed="onApplyPress"/>
             </StackLayout>
             <ListView x:Name="DatesList" RowHeight="40" Margin="10" SeparatorColor="Red" ItemTapped="onSelect" ItemsSource="{Binding}">
                 <ListView.ItemTemplate>

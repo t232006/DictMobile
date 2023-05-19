@@ -11,13 +11,16 @@ using Xamarin.Forms.Xaml;
 
 namespace IndDictionary.Pages
 {
+	public delegate void WhatToSelect(IEnumerable<dateClassAux> _passedList);
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class DateForm : ContentPage
 	{
+		WhatToSelect wts;
 		IEnumerable<dateClassAux> PassedList;
-		public DateForm(IEnumerable<dateClassAux> _passedList)
+		public DateForm(IEnumerable<dateClassAux> _passedList, WhatToSelect _wts)
 		{
 			PassedList = _passedList;
+			wts=_wts;
 			InitializeComponent ();
 		}
 		protected override void OnAppearing()
@@ -37,9 +40,9 @@ namespace IndDictionary.Pages
 			Navigation.PopAsync();
 		}
 
-		public void onApplayPress(object sender, EventArgs e)
+		public void onApplyPress(object sender, EventArgs e)
 		{
-			App.Database.selectDates(PassedList);
+			wts(PassedList);
 			Navigation.PopAsync();
 		}
 	}

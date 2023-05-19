@@ -20,7 +20,7 @@
             </Style>
             <loc:BoolConverter x:Key="boolConverter"/>
             <loc:CheckBoxToString x:Key="checkBoxToString"/>
-            <loc:DateToString x:Key="dateToString"/>
+            <loc:stringToDate x:Key="StringToDate"/>
         </ResourceDictionary>
     </ContentPage.Resources>
     
@@ -32,20 +32,21 @@
             <Label x:Name="TopicSpaceLabel" Text="{Binding Source={x:Reference TopicSpace}, Path=SelectedItem}"
                    IsVisible="{Binding Source={x:Reference EditBox}, Path=IsToggled,
                                 Converter={StaticResource boolConverter}}"/>
-            
-            <DatePicker x:Name="DateSpace" Date="{Binding DateRec}" Margin="10, 7, 10, 10" 
-                        IsVisible="{Binding Source={x:Reference EditBox}, Path=IsToggled}"
-                        DateSelected="onRecordChanged"
-                        RelativeLayout.XConstraint="{ConstraintExpression   Type=RelativeToParent,
-                                                                            Property=Width, Factor=.7,
-                                                                            Constant=0}"/>
-            <Label x:Name="DataSpaceLabel" Text="{Binding Source={x:Reference DateSpace}, Path=Date,
-                    Converter={StaticResource dateToString}}"
+
+             <Label x:Name="DateSpaceLabel" Text="{Binding DateRec}"
                    IsVisible="{Binding Source={x:Reference EditBox}, Path=IsToggled,
                                 Converter={StaticResource boolConverter}}"
                    RelativeLayout.XConstraint="{ConstraintExpression   Type=RelativeToParent,
                                                                             Property=Width, Factor=.7,
                                                                             Constant=0}"/>
+            <DatePicker x:Name="DateSpace" Date="{Binding DateRec, Converter={x:StaticResource StringToDate}}"
+                        Margin="10, 7, 10, 10" 
+                        IsVisible="{Binding Source={x:Reference EditBox}, Path=IsToggled}"
+                        DateSelected="onRecordChanged"
+                        RelativeLayout.XConstraint="{ConstraintExpression   Type=RelativeToParent,
+                                                                            Property=Width, Factor=.7,
+                                                                            Constant=0}"/>
+           
                 
             <Editor x:Name="WordSpace" Text="{Binding Word}" Style="{StaticResource MainSpace}" 
                     Placeholder="Word"

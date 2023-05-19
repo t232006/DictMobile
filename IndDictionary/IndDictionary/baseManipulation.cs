@@ -35,6 +35,7 @@ namespace IndDictionary
 			{
 				if (item.Number != 0)
 				{
+					item.DateRec = datesCorrection.toCorrectDate(item.DateRec);
 					database.Update(item);
 					return item.Number;
 				}
@@ -104,6 +105,11 @@ namespace IndDictionary
 			if (showAll==false) request += "where Usersel=true";
 			return database.Query<dict>(request);
 		}
+		public void ResetSelection()
+		{
+			database.Execute("Update Dict set Usersel=false");
+		}
+
 		public void selectDates(IEnumerable<dateClassAux> datesList)
 		{
 			IEnumerable<string> l = from sl in datesList
@@ -112,7 +118,7 @@ namespace IndDictionary
 			string collect = string.Join("','", l);
 			collect = "'" + collect +"'";
 			string requestString = "Update Dict set Usersel=true where daterec in (" + collect + ")";
-			database.Execute("Update Dict set Usersel=false");
+			ResetSelection();
 			database.Execute(requestString);
 		}
 

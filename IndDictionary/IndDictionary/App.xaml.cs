@@ -3,6 +3,7 @@ using Xamarin.Forms;
 using System.IO;
 using Xamarin.Forms.Xaml;
 using System.Reflection;
+using IndDictionary.addition;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace IndDictionary
@@ -32,11 +33,7 @@ namespace IndDictionary
 						database = new baseManipulation(dbPath);
 						foreach (dict d in database.showTableDict(true, WhatToShow.alltogether))
 						{
-							DateTime da;	//dates casting
-							try { da = Convert.ToDateTime(d.DateRec); }
-							catch { da = DateTime.Now; }
-							string tempStr = da.ToString("dd.MM.yyyy");
-							d.DateRec = tempStr;
+							d.DateRec = datesCorrection.toCorrectDate(d.DateRec);
 							App.Database.saveRecD(d);
 						}
 					}

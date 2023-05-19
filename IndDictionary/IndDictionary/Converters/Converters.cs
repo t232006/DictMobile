@@ -34,16 +34,20 @@ namespace IndDictionary.Converters
 			return temp;
 		}
 	}
-	class DateToString : IValueConverter
+	class stringToDate : IValueConverter
 	{
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			return ((DateTime)value).ToString("dd.MM.yyyy");
+			string s = (string)value;
+			if (s != null)
+				return DateTime.Parse(s, new CultureInfo("ru-RU"));
+			else
+				return DateTime.Now;
 		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			return DateTime.Parse(value as string);
+			return ((DateTime)value).ToString("dd.MM.yyyy");
 		}
 	}
 }

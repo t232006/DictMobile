@@ -40,7 +40,7 @@
                 <Label Text="Select" Style="{StaticResource LabelStyle}"/>
                 <Button Text="By dates" BackgroundColor="#28a1d1" Style="{StaticResource ButtonStyle}" Pressed="onDates"/>
                 <Button Text="By topics" BackgroundColor="#8db51c" Style="{StaticResource ButtonStyle}"/>
-                <Button Text="Reset" BackgroundColor="#e75012" Style="{StaticResource ButtonStyle}"/>
+                <Button Text="Reset" BackgroundColor="#e75012" Style="{StaticResource ButtonStyle}" Pressed="onReset"/>
             </StackLayout>
         </ContentPage>
 
@@ -61,7 +61,10 @@
                                 <Label Text="{Binding Word, Mode=TwoWay}" LineBreakMode="TailTruncation" FontSize="14"
                                        AbsoluteLayout.LayoutBounds="10, 0, .68, AutoSize"
                                        AbsoluteLayout.LayoutFlags="WidthProportional"/>
-                                <loc:ExtSwitch
+                                <Label Text="{Binding DateRec}"
+                                       AbsoluteLayout.LayoutBounds="300, 0, .68, AutoSize"
+                                       AbsoluteLayout.LayoutFlags="WidthProportional"/>
+                                    <loc:ExtSwitch
                                                 IsToggled="{Binding Usersel, Mode=TwoWay}"
                                                ID="{Binding Number}"
                                                AbsoluteLayout.LayoutBounds=".9, 0, AutoSize, AutoSize"

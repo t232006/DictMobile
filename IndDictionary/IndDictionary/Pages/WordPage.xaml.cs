@@ -60,17 +60,17 @@ namespace IndDictionary
 		protected void OnChecking (object sender, EventArgs e)
 		{
 			showAll = !(sender as CheckBox).IsChecked;
-			OnAppearing();
+			//OnAppearing();
 		}
 		protected void OnAll(object sender, EventArgs e)
 		{
 			wts = WhatToShow.alltogether;
-			OnAppearing();
+			//OnAppearing();
 		}
 		protected void OnPhrases(object sender, EventArgs e)
 		{
 			wts = WhatToShow.phrases;
-			OnAppearing();
+			//OnAppearing();
 		}
 		protected void OnWords(object sender, EventArgs e)
 		{
@@ -85,9 +85,13 @@ namespace IndDictionary
 			{
 				conteiner.Add(new dateClassAux { Date = t.DateRec, Spoted = false });
 			}
-			DateForm dateForm = new DateForm(conteiner);
+			DateForm dateForm = new DateForm(conteiner, App.Database.selectDates);
 			Navigation.PushAsync(dateForm);
-
+		}
+		protected void onReset(object sender, EventArgs e)
+		{
+			App.Database.ResetSelection();
+			OnAppearing();
 		}
 	}
 }
