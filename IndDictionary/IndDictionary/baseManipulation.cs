@@ -76,29 +76,20 @@ namespace IndDictionary
 		}
 		IEnumerable<dict> filtr(bool allrec, WhatToShow _wts)
 		{
-			IEnumerable<dict> result;
-			result = itemsD;
-			if (!allrec)
-			{
-				result = from s in itemsD
-						 where s.Usersel == true
-						 select s;
-			}
+			string request = "SELECT * FROM Dict ";
+			if (!allrec) request += "WHERE usersel=true";
 			switch (_wts)
 			{
 				case WhatToShow.words:
-					result = from s in result
-							 where s.Phrase == false
-							 select s;
+					request += "AND phrase=false";
 					break;
 				case WhatToShow.phrases:
-					result = from s in result
-							 where s.Phrase == true
-							 select s;
+					request += "AND phrase=true";
 					break;
 			}
-			return result;
+			return database.Query<dict>(request);	
 		}
+
 		public IEnumerable<dict> showDates(bool showAll)
 		{
 			string request = "select distinct DateRec from Dict ";
@@ -108,6 +99,7 @@ namespace IndDictionary
 		public void ResetSelection()
 		{
 			database.Execute("Update Dict set Usersel=false");
+			database.Commit();
 		}
 
 		public void selectDates(IEnumerable<dateClassAux> datesList)
@@ -120,6 +112,7 @@ namespace IndDictionary
 			string requestString = "Update Dict set Usersel=true where daterec in (" + collect + ")";
 			ResetSelection();
 			database.Execute(requestString);
+			database.Commit();
 		}
 
     }

@@ -60,7 +60,7 @@ namespace IndDictionary
 		protected void OnChecking (object sender, EventArgs e)
 		{
 			showAll = !(sender as CheckBox).IsChecked;
-			//OnAppearing();
+			OnAppearing();
 		}
 		protected void OnAll(object sender, EventArgs e)
 		{

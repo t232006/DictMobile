@@ -44,6 +44,7 @@ namespace IndDictionary.Pages
 		{
 			wts(PassedList);
 			Navigation.PopAsync();
+			//OnAppearing();
 		}
 	}
 }
