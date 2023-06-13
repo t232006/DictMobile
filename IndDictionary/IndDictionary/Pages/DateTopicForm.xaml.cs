@@ -11,13 +11,13 @@ using Xamarin.Forms.Xaml;
 
 namespace IndDictionary.Pages
 {
-	public delegate void WhatToSelect(IEnumerable<dateClassAux> _passedList);
+	public delegate void WhatToSelect(IEnumerable<DateOrTopicClassAux> _passedList);
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class DateForm : ContentPage
+	public partial class DateTopicForm : ContentPage
 	{
 		WhatToSelect wts;
-		IEnumerable<dateClassAux> PassedList;
-		public DateForm(IEnumerable<dateClassAux> _passedList, WhatToSelect _wts)
+		IEnumerable<DateOrTopicClassAux> PassedList;
+		public DateTopicForm(IEnumerable<DateOrTopicClassAux> _passedList, WhatToSelect _wts)
 		{
 			PassedList = _passedList;
 			wts=_wts;
@@ -31,7 +31,7 @@ namespace IndDictionary.Pages
 
 		public void onSelect(object sender, ItemTappedEventArgs e)
 		{
-			var temp = e.Item as dateClassAux;
+			var temp = e.Item as DateOrTopicClassAux;
 			temp.Spoted = !temp.Spoted;
 		}
 

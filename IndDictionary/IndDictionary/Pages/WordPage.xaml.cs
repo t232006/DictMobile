@@ -79,14 +79,26 @@ namespace IndDictionary
 		}
 		protected void onDates(object sender, EventArgs e)
 		{
-			List<dateClassAux> conteiner = new List<dateClassAux>();	
-			IEnumerable<dict> tempcont = App.Database.showDates(!ShowSelected.IsChecked);
+			List<DateOrTopicClassAux> conteiner = new List<DateOrTopicClassAux>();	
+			IEnumerable<dict> tempcont = App.Database.showTopicsDates<dict>(!ShowSelected.IsChecked);
 			foreach (dict t in tempcont)
 			{
-				conteiner.Add(new dateClassAux { Date = t.DateRec, Spoted = false });
+				conteiner.Add(new DateOrTopicClassAux { DaOrTo = t.DateRec, Spoted = false });
 			}
-			DateForm dateForm = new DateForm(conteiner, App.Database.selectDates);
+			DateTopicForm dateForm = new DateTopicForm(conteiner, App.Database.selectDatesOrTopics); 
 			Navigation.PushAsync(dateForm);
+		}
+
+		protected void onTopics(object sender, EventArgs e)
+		{
+			List<DateOrTopicClassAux> conteiner = new List<DateOrTopicClassAux>();
+			IEnumerable<topic> tempcont = App.Database.showTopicsDates<topic>(!ShowSelected.IsChecked);
+			foreach (topic t in tempcont)
+			{
+				conteiner.Add(new DateOrTopicClassAux { DaOrTo = t.Name, Spoted = false });
+			}
+			DateTopicForm topicForm = new DateTopicForm(conteiner, App.Database.selectTopics);
+			Navigation.PushAsync(topicForm);
 		}
 		protected void onReset(object sender, EventArgs e)
 		{

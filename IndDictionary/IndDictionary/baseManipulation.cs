@@ -8,6 +8,7 @@ using IndDictionary.addition;
 namespace IndDictionary
 {
 	public enum WhatToShow { words, phrases, alltogether}
+	public enum WhatToSelect { dates, topics }
 	public class baseManipulation
 	{
 		SQLiteConnection database;
@@ -89,12 +90,23 @@ namespace IndDictionary
 			}
 			return database.Query<dict>(request);	
 		}
-
-		public IEnumerable<dict> showDates(bool showAll)
+		//------------forms list of dates or topics depending on T----------------------
+		public IEnumerable<T> showTopicsDates<T>(bool showAll) where T:new()
 		{
-			string request = "select distinct DateRec from Dict ";
-			if (showAll==false) request += "where Usersel=true";
-			return database.Query<dict>(request);
+			string request;
+			if (typeof(T).Equals(typeof(dict)))
+			{
+				request = "select distinct DateRec from Dict ";
+				if (showAll==false) request += "where Usersel=true";
+				return database.Query<T>(request);
+			}
+			else
+			{
+				request = "SELECT Name FROM Topic JOIN Dict ON Topic.ID=Dict.Topic ";
+				if (showAll == false) request += "where Usersel=true";
+				return database.Query<T>(request);
+			}
+			
 		}
 		public void ResetSelection()
 		{
@@ -102,11 +114,12 @@ namespace IndDictionary
 			database.Commit();
 		}
 
-		public void selectDates(IEnumerable<dateClassAux> datesList)
+		//------------------selects records from dict which are selected by user on form 
+		public void selectDatesOrTopics(IEnumerable<DateOrTopicClassAux> datesList, bool ToSelectDates)
 		{
 			IEnumerable<string> l = from sl in datesList
 									where sl.Spoted == true
-									select sl.Date;
+									select sl.DaOrTo;
 			string collect = string.Join("','", l);
 			collect = "'" + collect +"'";
 			string requestString = "Update Dict set Usersel=true where daterec in (" + collect + ")";

@@ -5,18 +5,18 @@ using System.Text;
 
 namespace IndDictionary.addition
 {
-	public class dateClassAux :INotifyPropertyChanged
+	public class DateOrTopicClassAux :INotifyPropertyChanged
     {
-		string date;
+		string daorto;
 		bool spoted;
 
-		public string Date
+		public string DaOrTo
 		{
-			get { return date; }
+			get { return daorto; }
 			set
 			{
-				date = value;
-				OnPropertyChanged("Date");
+				daorto = value;
+				OnPropertyChanged("DaOrTo");
 			}
 		}
 		public bool Spoted
