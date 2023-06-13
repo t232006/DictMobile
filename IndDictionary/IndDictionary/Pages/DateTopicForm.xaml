@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="IndDictionary.Pages.DateForm">
+             x:Class="IndDictionary.Pages.DateTopicForm">
     
     <ContentPage.Content>
         <StackLayout>
@@ -10,10 +10,10 @@
                 <Button Text="Cancel" Pressed="onCancelPress"/>
                 <Button Text="Apply" Pressed="onApplyPress"/>
             </StackLayout>
-            <ListView x:Name="DatesList" RowHeight="40" Margin="10" SeparatorColor="Red" ItemTapped="onSelect" ItemsSource="{Binding}">
+            <ListView x:Name="DataList" RowHeight="40" Margin="10" SeparatorColor="Red" ItemTapped="onSelect" ItemsSource="{Binding}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <SwitchCell Text="{Binding Date}" On="{Binding Spoted, Mode=TwoWay}"/>
+                        <SwitchCell Text="{Binding DaOrTo}" On="{Binding Spoted, Mode=TwoWay}"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

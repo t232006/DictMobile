@@ -102,7 +102,7 @@ namespace IndDictionary
 			}
 			else
 			{
-				request = "SELECT Name FROM Topic JOIN Dict ON Topic.ID=Dict.Topic ";
+				request = "SELECT DISTINCT Name FROM Topic JOIN Dict ON Topic.ID=Dict.Topic ";
 				if (showAll == false) request += "where Usersel=true";
 				return database.Query<T>(request);
 			}
@@ -115,14 +115,16 @@ namespace IndDictionary
 		}
 
 		//------------------selects records from dict which are selected by user on form 
-		public void selectDatesOrTopics(IEnumerable<DateOrTopicClassAux> datesList, bool ToSelectDates)
+		public void selectDatesOrTopics(IEnumerable<DateOrTopicClassAux> datesList, WhatToSelect wtsel)
 		{
 			IEnumerable<string> l = from sl in datesList
 									where sl.Spoted == true
 									select sl.DaOrTo;
 			string collect = string.Join("','", l);
 			collect = "'" + collect +"'";
-			string requestString = "Update Dict set Usersel=true where daterec in (" + collect + ")";
+			string requestString = wtsel == WhatToSelect.dates ?
+				"Update Dict set Usersel=true where daterec in (" + collect + ")" :
+				"UPDATE Dict SET Usersel=true WHERE Topic in (SELECT id FROM Topic WHERE Name in (" + collect + "))";
 			ResetSelection();
 			database.Execute(requestString);
 			database.Commit();

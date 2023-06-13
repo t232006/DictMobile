@@ -85,7 +85,7 @@ namespace IndDictionary
 			{
 				conteiner.Add(new DateOrTopicClassAux { DaOrTo = t.DateRec, Spoted = false });
 			}
-			DateTopicForm dateForm = new DateTopicForm(conteiner, App.Database.selectDatesOrTopics); 
+			DateTopicForm dateForm = new DateTopicForm(conteiner, WhatToSelect.dates); 
 			Navigation.PushAsync(dateForm);
 		}
 
@@ -97,7 +97,7 @@ namespace IndDictionary
 			{
 				conteiner.Add(new DateOrTopicClassAux { DaOrTo = t.Name, Spoted = false });
 			}
-			DateTopicForm topicForm = new DateTopicForm(conteiner, App.Database.selectTopics);
+			DateTopicForm topicForm = new DateTopicForm(conteiner, WhatToSelect.topics);
 			Navigation.PushAsync(topicForm);
 		}
 		protected void onReset(object sender, EventArgs e)
