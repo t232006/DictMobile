@@ -15,8 +15,8 @@
         </ResourceDictionary>
     </TabbedPage.Resources>
     <TabbedPage.Children>
-        <local:WordPage/>
-        <local:TransPage/>
+        <!--local:WordPage/-->
+        <!--local:TransPage/-->
     </TabbedPage.Children>
 
 </TabbedPage>

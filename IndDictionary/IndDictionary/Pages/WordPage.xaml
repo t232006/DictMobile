@@ -49,7 +49,7 @@
     <FlyoutPage.Detail>
         <ContentPage Title="Word">
         <RelativeLayout>
-            <ListView x:Name="ListTable" HeightRequest="40" ItemsSource="{Binding}" ItemTapped="OnPress"
+            <!--ListView x:Name="ListTable" HeightRequest="40" ItemsSource="{Binding}" ItemTapped="OnPress"
                       RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,
                                                         Property=Height, Factor=.9}"
                       RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
@@ -58,15 +58,15 @@
                     <DataTemplate>
                         <ViewCell >
                             <AbsoluteLayout>
-                                <Label Text="{Binding Word, Mode=TwoWay}" LineBreakMode="TailTruncation" FontSize="14"
+                                <Label x:Name="MainField" LineBreakMode="TailTruncation" FontSize="14"
                                        AbsoluteLayout.LayoutBounds="10, 0, .68, AutoSize"
                                        AbsoluteLayout.LayoutFlags="WidthProportional"/>
-                                <!--Label Text="{Binding DateRec}"
+                                <Label Text="{Binding DateRec}"
                                        AbsoluteLayout.LayoutBounds="300, 0, .68, AutoSize"
                                        AbsoluteLayout.LayoutFlags="WidthProportional"/>
                                 <Label Text="{Binding Topic}"
                                     AbsoluteLayout.LayoutBounds="430, 0, .68, AutoSize"
-                                    AbsoluteLayout.LayoutFlags="WidthProportional"/-->
+                                    AbsoluteLayout.LayoutFlags="WidthProportional"/>
                                     <loc:ExtSwitch
                                                 IsToggled="{Binding Usersel, Mode=TwoWay}"
                                                ID="{Binding Number}"
@@ -76,7 +76,7 @@
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-            </ListView>
+            </ListView-->
             <Button Text="Add" Pressed="OnAddPressed"
                     RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView,
                                                             ElementName=ListTable, Property=Height, Factor=1,Constant=10}"/>

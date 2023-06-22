@@ -18,11 +18,47 @@ namespace IndDictionary
 		dict focusedItem;
 		bool showAll = true;
 		WhatToShow wts = WhatToShow.alltogether;
+		bool transl;
+		ListView ListTable;
 		//IEnumerable<string> passedList;
 		//IEnumerable<dict> passedList2;
-		public WordPage ()
+		public WordPage(bool _transl)
 		{
-			InitializeComponent ();
+			InitializeComponent();
+			transl = _transl;
+			/*ListTable = new ListView
+			{
+				HeightRequest = 40,
+				ItemsSource = App.Database.showTableDict(showAll, wts),
+				ItemTemplate = new DataTemplate(() =>
+				{
+					Label MainField = new Label
+					{
+						LineBreakMode = LineBreakMode.TailTruncation,
+						FontSize = 14
+					};
+					if (transl)
+						MainField.SetBinding(Label.TextProperty, "Translation");
+					else
+						MainField.SetBinding(Label.TextProperty, "Word");
+					AbsoluteLayout.SetLayoutBounds(MainField, new Rectangle(10, 0, .68, AbsoluteLayout.AutoSize));
+					AbsoluteLayout.SetLayoutFlags(MainField, AbsoluteLayoutFlags.WidthProportional);
+					ExtSwitch extswitch = new ExtSwitch();
+					extswitch.SetBinding(ExtSwitch.IDProperty, "Number");
+					extswitch.SetBinding(ExtSwitch.IsToggledProperty, "Usersel");
+					AbsoluteLayout.SetLayoutBounds(extswitch, new Rectangle(.9, 0, AbsoluteLayout.AutoSize, AbsoluteLayout.AutoSize));
+					AbsoluteLayout.SetLayoutFlags(extswitch, AbsoluteLayoutFlags.PositionProportional);
+					return new ViewCell
+					{
+						View = new AbsoluteLayout
+						{
+							Children = {extswitch, MainField}
+						}
+					};
+				}
+				)
+			};
+			ListTable.ItemTapped += OnPress;*/
 		}
 
 		protected void Searching(Object sender, TextChangedEventArgs e)
@@ -35,8 +71,7 @@ namespace IndDictionary
 		}
 
 		protected override void OnAppearing()
-		{
-			ListTable.ItemsSource = App.Database.showTableDict(showAll, wts);
+		{	
 			base.OnAppearing();
 		}
 		protected void OnPress(object sender, ItemTappedEventArgs e)

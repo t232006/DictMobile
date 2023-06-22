@@ -10,11 +10,12 @@ using Xamarin.Forms.Xaml;
 namespace IndDictionary
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class TransPage : ContentPage
+	public partial class TransPage : FlyoutPage
 	{
-		public TransPage ()
+		public TransPage (bool slog)
 		{
 			InitializeComponent ();
+			if (slog) Slog.Text = "idi na hyi";
 		}
 	}
 }
