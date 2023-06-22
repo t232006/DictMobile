@@ -47,9 +47,9 @@
 
     </FlyoutPage.Flyout>
     <FlyoutPage.Detail>
-        <ContentPage Title="Word">
+        <ContentPage x:Name="contPage" Title="Word">
         <RelativeLayout>
-            <!--ListView x:Name="ListTable" HeightRequest="40" ItemsSource="{Binding}" ItemTapped="OnPress"
+                <ListView x:Name="ListTable" HeightRequest="40" ItemsSource="{Binding}" ItemTapped="OnPress"
                       RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,
                                                         Property=Height, Factor=.9}"
                       RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
@@ -76,7 +76,7 @@
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-            </ListView-->
+            </ListView>
             <Button Text="Add" Pressed="OnAddPressed"
                     RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView,
                                                             ElementName=ListTable, Property=Height, Factor=1,Constant=10}"/>

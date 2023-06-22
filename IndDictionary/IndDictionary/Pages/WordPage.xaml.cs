@@ -19,14 +19,27 @@ namespace IndDictionary
 		bool showAll = true;
 		WhatToShow wts = WhatToShow.alltogether;
 		bool transl;
-		ListView ListTable;
+		//ListView ListTable;
 		//IEnumerable<string> passedList;
 		//IEnumerable<dict> passedList2;
 		public WordPage(bool _transl)
 		{
 			InitializeComponent();
 			transl = _transl;
-			/*ListTable = new ListView
+			if (transl)
+			{
+				contPage.Title = "Translation";
+				this.Title = "Translation";
+			}
+
+			else
+			{
+				contPage.Title = "Word";
+				this.Title = "Word";
+			}
+				
+			RelativeLayout mainCont = new RelativeLayout();
+			ListTable = new ListView
 			{
 				HeightRequest = 40,
 				ItemsSource = App.Database.showTableDict(showAll, wts),
@@ -58,7 +71,8 @@ namespace IndDictionary
 				}
 				)
 			};
-			ListTable.ItemTapped += OnPress;*/
+			ListTable.ItemTapped += OnPress;
+			
 		}
 
 		protected void Searching(Object sender, TextChangedEventArgs e)

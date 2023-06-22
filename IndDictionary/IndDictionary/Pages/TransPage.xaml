@@ -4,19 +4,39 @@
              x:Class="IndDictionary.TransPage"
              Title="Translation">
     <FlyoutPage.Flyout >
-        <ContentPage Title="Translation">
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <ContentPage Title="Details">
+            
+            <StackLayout BackgroundColor="#454955" >
+                <Entry x:Name="SearchEntry" Placeholder="Search" BackgroundColor="#22252a" 
+                       PlaceholderColor="White" 
+                       />
+                <StackLayout Orientation="Horizontal" Padding="10,0,0,0">
+                    <CheckBox x:Name="ShowSelected" />
+                    <Label Text="Show Selected" />
+                </StackLayout>
+
+                <Label Text="Show" />
+                <RadioButton Content="Phrases"  />
+                <RadioButton Content="Words"  />
+                <RadioButton Content="All together"  IsChecked="True" />
+                <Label Text="Select" />
+                <Button Text="By dates" BackgroundColor="#28a1d1"  />
+                <Button Text="By topics" BackgroundColor="#8db51c"  />
+                <Button Text="Reset" BackgroundColor="#e75012"  />
+            </StackLayout>
         </ContentPage>
+
+
     </FlyoutPage.Flyout>
     <FlyoutPage.Detail>
         <ContentPage Title="Translation">
+            <RelativeLayout>
+                <ListView x:Name="ListTable"/>
+                <Button x:Name="Slog" Text="Add" 
+                    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView,
+                                                            ElementName=ListTable, Property=Height, Factor=1,Constant=10}"/>
 
-
-            <Label x:Name="Slog" Text="pnh"/>
+            </RelativeLayout>
         </ContentPage>
     </FlyoutPage.Detail>
 </FlyoutPage>
