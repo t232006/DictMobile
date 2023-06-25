@@ -19,13 +19,15 @@ namespace IndDictionary
 		bool showAll = true;
 		WhatToShow wts = WhatToShow.alltogether;
 		bool transl;
-		//ListView ListTable;
+		ListView ListTable;
 		//IEnumerable<string> passedList;
 		//IEnumerable<dict> passedList2;
+		
 		public WordPage(bool _transl)
 		{
 			InitializeComponent();
 			transl = _transl;
+			
 			if (transl)
 			{
 				contPage.Title = "Translation";
@@ -38,9 +40,10 @@ namespace IndDictionary
 				this.Title = "Word";
 			}
 				
-			RelativeLayout mainCont = new RelativeLayout();
+			//RelativeLayout mainCont = new RelativeLayout();
 			ListTable = new ListView
 			{
+
 				HeightRequest = 40,
 				ItemsSource = App.Database.showTableDict(showAll, wts),
 				ItemTemplate = new DataTemplate(() =>
@@ -71,8 +74,22 @@ namespace IndDictionary
 				}
 				)
 			};
+			Button addBut = new Button { Text = "Add" };
 			ListTable.ItemTapped += OnPress;
-			
+			addBut.Pressed += OnAddPressed;
+
+			/*mainCont.Children.Add(ListTable,
+				Constraint.RelativeToParent((parent) => { return parent.Width; }),
+				Constraint.RelativeToParent((parent) => { return parent.Height; }));
+			mainCont.Children.Add(addBut,
+				Constraint.RelativeToView(ListTable, (parent, view) => { return ListTable.X + 5; }),
+				Constraint.RelativeToView(ListTable, (paren, view) => { return ListTable.Y + 10; }),
+				Constraint.Constant(40), Constraint.Constant(20));*/
+
+			StackLayout resCont = new StackLayout();
+			resCont.Children.Add(ListTable); resCont.Children.Add(addBut);
+
+			this.contPage.Content = resCont;
 		}
 
 		protected void Searching(Object sender, TextChangedEventArgs e)
