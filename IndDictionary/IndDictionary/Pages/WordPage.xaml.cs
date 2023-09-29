@@ -27,7 +27,10 @@ namespace IndDictionary
 		{
 			InitializeComponent();
 			transl = _transl;
-			
+			if (Device.RuntimePlatform == Device.UWP)
+			{
+				FlyoutLayoutBehavior = FlyoutLayoutBehavior.Popover;
+			}
 			if (transl)
 			{
 				contPage.Title = "Translation";

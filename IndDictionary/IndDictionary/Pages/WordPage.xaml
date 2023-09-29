@@ -47,7 +47,7 @@
 
     </FlyoutPage.Flyout>
     <FlyoutPage.Detail>
-        <ContentPage x:Name="contPage" Title="Word">
+        <ContentPage x:Name="contPage">
         <RelativeLayout>
                 <!--ListView x:Name="ListTable" HeightRequest="40" ItemsSource="{Binding}" ItemTapped="OnPress"
                       RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,

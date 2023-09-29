@@ -78,7 +78,7 @@ namespace IndDictionary
 		IEnumerable<dict> filtr(bool allrec, WhatToShow _wts)
 		{
 			string request = "SELECT * FROM Dict ";
-			if (!allrec) request += "WHERE usersel=true";
+			if (!allrec) request += "WHERE usersel=true ";
 			switch (_wts)
 			{
 				case WhatToShow.words:
