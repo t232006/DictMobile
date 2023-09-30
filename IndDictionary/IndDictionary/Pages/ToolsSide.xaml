@@ -2,8 +2,7 @@
 <FlyoutPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:loc="clr-namespace:IndDictionary"
-             x:Class="IndDictionary.ToolsSide"
-             Title="Word">
+             x:Class="IndDictionary.ToolsSide">
     <FlyoutPage.Flyout >
         <ContentPage Title="Details">
             <ContentPage.Resources>

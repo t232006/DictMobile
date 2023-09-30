@@ -29,16 +29,7 @@ namespace IndDictionary
 			//ContentPage contPage = new ContentPage();
 			StackLayout resCont = new StackLayout();
 			transl = _transl;
-			if (transl)
-			{
-				contPage.Title = "Translation";
-				this.Title = "Translation";
-			}
-			else
-			{
-				contPage.Title = "Word";
-				this.Title = "Word";
-			}
+			
 				
 			//RelativeLayout mainCont = new RelativeLayout();
 			ListTable = new ListView

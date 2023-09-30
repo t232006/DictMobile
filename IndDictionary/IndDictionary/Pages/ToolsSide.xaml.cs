@@ -20,6 +20,7 @@ namespace IndDictionary
 		public ToolsSide (bool _transl)
 		{
 			InitializeComponent ();
+			if (_transl) Title = "Translation"; else Title = "Word"; 
 			Detail = new NavigationPage(new WordPage(_transl));
 			if (Device.RuntimePlatform == Device.UWP)
 			{
