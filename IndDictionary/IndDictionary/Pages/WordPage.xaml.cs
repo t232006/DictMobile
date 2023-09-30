@@ -13,7 +13,7 @@ using Xamarin.Forms.Xaml;
 namespace IndDictionary
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class WordPage : FlyoutPage
+	public partial class WordPage : ContentPage
 	{
 		dict focusedItem;
 		bool showAll = true;
@@ -26,17 +26,14 @@ namespace IndDictionary
 		public WordPage(bool _transl)
 		{
 			InitializeComponent();
+			//ContentPage contPage = new ContentPage();
+			StackLayout resCont = new StackLayout();
 			transl = _transl;
-			if (Device.RuntimePlatform == Device.UWP)
-			{
-				FlyoutLayoutBehavior = FlyoutLayoutBehavior.Popover;
-			}
 			if (transl)
 			{
 				contPage.Title = "Translation";
 				this.Title = "Translation";
 			}
-
 			else
 			{
 				contPage.Title = "Word";
@@ -88,22 +85,11 @@ namespace IndDictionary
 				Constraint.RelativeToView(ListTable, (parent, view) => { return ListTable.X + 5; }),
 				Constraint.RelativeToView(ListTable, (paren, view) => { return ListTable.Y + 10; }),
 				Constraint.Constant(40), Constraint.Constant(20));*/
-
-			StackLayout resCont = new StackLayout();
+			
 			resCont.Children.Add(ListTable); resCont.Children.Add(addBut);
-
+			
 			this.contPage.Content = resCont;
 		}
-
-		protected void Searching(Object sender, TextChangedEventArgs e)
-		{
-			IEnumerable<dict> founded = App.Database.findRecords(SearchEntry.Text, f=>f.Word);
-			if (founded != null)
-				ListTable.ItemsSource = founded;
-			if (e.NewTextValue == "")
-				ListTable.ItemsSource = App.Database.showTableDict(showAll,wts);
-		}
-
 		protected override void OnAppearing()
 		{	
 			base.OnAppearing();
@@ -131,48 +117,6 @@ namespace IndDictionary
 			showAll = !(sender as CheckBox).IsChecked;
 			OnAppearing();
 		}
-		protected void OnAll(object sender, EventArgs e)
-		{
-			wts = WhatToShow.alltogether;
-			//OnAppearing();
-		}
-		protected void OnPhrases(object sender, EventArgs e)
-		{
-			wts = WhatToShow.phrases;
-			//OnAppearing();
-		}
-		protected void OnWords(object sender, EventArgs e)
-		{
-			wts = WhatToShow.words;
-			OnAppearing();
-		}
-		protected void onDates(object sender, EventArgs e)
-		{
-			List<DateOrTopicClassAux> conteiner = new List<DateOrTopicClassAux>();	
-			IEnumerable<dict> tempcont = App.Database.showTopicsDates<dict>(!ShowSelected.IsChecked);
-			foreach (dict t in tempcont)
-			{
-				conteiner.Add(new DateOrTopicClassAux { DaOrTo = t.DateRec, Spoted = false });
-			}
-			DateTopicForm dateForm = new DateTopicForm(conteiner, WhatToSelect.dates); 
-			Navigation.PushAsync(dateForm);
-		}
-
-		protected void onTopics(object sender, EventArgs e)
-		{
-			List<DateOrTopicClassAux> conteiner = new List<DateOrTopicClassAux>();
-			IEnumerable<topic> tempcont = App.Database.showTopicsDates<topic>(!ShowSelected.IsChecked);
-			foreach (topic t in tempcont)
-			{
-				conteiner.Add(new DateOrTopicClassAux { DaOrTo = t.Name, Spoted = false });
-			}
-			DateTopicForm topicForm = new DateTopicForm(conteiner, WhatToSelect.topics);
-			Navigation.PushAsync(topicForm);
-		}
-		protected void onReset(object sender, EventArgs e)
-		{
-			App.Database.ResetSelection();
-			OnAppearing();
-		}
+		
 	}
 }

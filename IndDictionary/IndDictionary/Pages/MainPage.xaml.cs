@@ -12,12 +12,12 @@ namespace IndDictionary
 		public MainPage()
 		{
 			InitializeComponent();
-			FlyoutPage WordPage = new WordPage(false);
-			FlyoutPage TranslationPage = new WordPage(true);
+			FlyoutPage ToolsSide = new ToolsSide(false);
+			//FlyoutPage TranslationPage = new WordPage(true);
 			//FlyoutPage TransPage = new TransPage(true);
 			//Children.Add(TransPage);
-			Children.Add(WordPage);
-			Children.Add(TranslationPage);
+			Children.Add(ToolsSide);
+			//Children.Add(TranslationPage);
 			
 		}
 		protected override void OnAppearing()

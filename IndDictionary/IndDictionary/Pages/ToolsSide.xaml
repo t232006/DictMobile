@@ -1,10 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<FlyoutPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:loc="clr-namespace:IndDictionary"
              x:Class="IndDictionary.ToolsSide"
-             Title="Details">
-    
-        
+             Title="Word">
+    <FlyoutPage.Flyout >
+        <ContentPage Title="Details">
             <ContentPage.Resources>
                 <ResourceDictionary>
                     <Style x:Key="BaseStyle" TargetType="Label">
@@ -23,7 +24,27 @@
                     </Style>
                 </ResourceDictionary>
             </ContentPage.Resources>
-    <StackLayout BackgroundColor="#454955" >
-        
-    </StackLayout>
-</ContentPage>
+            <StackLayout BackgroundColor="#454955" >
+                <Entry x:Name="SearchEntry" Placeholder="Search" BackgroundColor="#22252a" 
+                       PlaceholderColor="White" Style="{StaticResource ButtonStyle}"
+                       TextChanged="Searching"/>
+                <StackLayout Orientation="Horizontal" Padding="10,0,0,0">
+                    <CheckBox x:Name="ShowSelected" CheckedChanged="OnChecking"/>
+                    <Label Text="Show Selected" Style="{StaticResource LabelStyle}"/>
+                </StackLayout>
+
+                <Label Text="Show" Style="{StaticResource LabelStyle}"/>
+                <RadioButton Content="Phrases" Style="{StaticResource LabelStyle}" CheckedChanged="OnPhrases" />
+                <RadioButton Content="Words" Style="{StaticResource LabelStyle}" CheckedChanged="OnWords"/>
+                <RadioButton Content="All together" Style="{StaticResource LabelStyle}" IsChecked="True" CheckedChanged="OnAll"/>
+                <Label Text="Select" Style="{StaticResource LabelStyle}"/>
+                <Button Text="By dates" BackgroundColor="#28a1d1" Style="{StaticResource ButtonStyle}" Pressed="onDates"/>
+                <Button Text="By topics" BackgroundColor="#8db51c" Style="{StaticResource ButtonStyle}" Pressed="onTopics"/>
+                <Button Text="Reset" BackgroundColor="#e75012" Style="{StaticResource ButtonStyle}" Pressed="onReset"/>
+            </StackLayout>
+        </ContentPage>
+
+
+    </FlyoutPage.Flyout>
+    
+</FlyoutPage>
