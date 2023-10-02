@@ -16,8 +16,8 @@ namespace IndDictionary
 	public partial class WordPage : ContentPage
 	{
 		dict focusedItem;
-		bool showAll = true;
-		WhatToShow wts = WhatToShow.alltogether;
+		//bool showAll = true;
+		//WhatToShow wts = WhatToShow.alltogether;
 		bool transl;
 		ListView ListTable;
 		//IEnumerable<string> passedList;
@@ -36,7 +36,7 @@ namespace IndDictionary
 			{
 
 				HeightRequest = 40,
-				ItemsSource = App.Database.showTableDict(showAll, wts),
+				ItemsSource = App.Database.showTableDict(true, WhatToShow.alltogether),
 				ItemTemplate = new DataTemplate(() =>
 				{
 					Label MainField = new Label
@@ -65,9 +65,13 @@ namespace IndDictionary
 				}
 				)
 			};
+			
+
 			Button addBut = new Button { Text = "Add" };
+			//Button refresh = new Button { Text = "Refr" };
 			ListTable.ItemTapped += OnPress;
 			addBut.Pressed += OnAddPressed;
+			//refresh.Pressed += OnRefrBut;
 
 			/*mainCont.Children.Add(ListTable,
 				Constraint.RelativeToParent((parent) => { return parent.Width; }),
@@ -77,13 +81,17 @@ namespace IndDictionary
 				Constraint.RelativeToView(ListTable, (paren, view) => { return ListTable.Y + 10; }),
 				Constraint.Constant(40), Constraint.Constant(20));*/
 			
-			resCont.Children.Add(ListTable); resCont.Children.Add(addBut);
+			resCont.Children.Add(ListTable); resCont.Children.Add(addBut); //resCont.Children.Add(refresh);
 			
 			this.contPage.Content = resCont;
 		}
-		protected override void OnAppearing()
-		{	
-			base.OnAppearing();
+		/*protected void OnRefrBut(object sender, EventArgs e)
+		{
+			Refresh(false, WhatToShow.words);
+		}*/
+		public void Refresh(bool _showAll, WhatToShow _wts)
+		{
+			ListTable.ItemsSource = App.Database.showTableDict(_showAll, _wts);
 		}
 		protected void OnPress(object sender, ItemTappedEventArgs e)
 		{
@@ -103,11 +111,7 @@ namespace IndDictionary
 			FullInform fullinform = new FullInform(true);
 			Navigation.PushAsync(fullinform);
 		}
-		protected void OnChecking (object sender, EventArgs e)
-		{
-			showAll = !(sender as CheckBox).IsChecked;
-			OnAppearing();
-		}
+		
 		
 	}
 }

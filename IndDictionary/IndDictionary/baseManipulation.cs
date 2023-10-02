@@ -78,14 +78,16 @@ namespace IndDictionary
 		IEnumerable<dict> filtr(bool allrec, WhatToShow _wts)
 		{
 			string request = "SELECT * FROM Dict ";
-			if (!allrec) request += "WHERE usersel=true ";
+			if (!allrec) request += "WHERE usersel=true AND ";
+			else
+				request += "WHERE ";
 			switch (_wts)
 			{
 				case WhatToShow.words:
-					request += "AND phrase=false";
+					request += "phrase=false";
 					break;
 				case WhatToShow.phrases:
-					request += "AND phrase=true";
+					request += "phrase=true";
 					break;
 			}
 			return database.Query<dict>(request);	

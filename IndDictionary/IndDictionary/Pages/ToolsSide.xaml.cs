@@ -27,21 +27,26 @@ namespace IndDictionary
 				FlyoutLayoutBehavior = FlyoutLayoutBehavior.Popover;
 			}
 		}
-		
+		protected void Action()
+		{
+			
+			((Detail as NavigationPage).RootPage as WordPage).Refresh(showAll, wts);
+		}
+
 		protected void OnAll(object sender, EventArgs e)
 		{
 			wts = WhatToShow.alltogether;
-			//OnAppearing();
+			Action();
 		}
 		protected void OnPhrases(object sender, EventArgs e)
 		{
 			wts = WhatToShow.phrases;
-			//OnAppearing();
+			Action();
 		}
 		protected void OnWords(object sender, EventArgs e)
 		{
 			wts = WhatToShow.words;
-			//OnAppearing();
+			Action();
 		}
 		protected void onReset(object sender, EventArgs e)
 		{
@@ -51,7 +56,7 @@ namespace IndDictionary
 		protected void OnChecking(object sender, EventArgs e)
 		{
 			showAll = !(sender as CheckBox).IsChecked;
-			//OnAppearing();
+			Action();
 		}
 		
 		protected void onDates(object sender, EventArgs e)
