@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.33403.129
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IndDictionary.Android", "IndDictionary\IndDictionary.Android\IndDictionary.Android.csproj", "{2DE164A2-7A22-4D78-A25A-9B3810EBBA21}"
 EndProject
@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IndDictionary.iOS", "IndDic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IndDictionary.UWP", "IndDictionary\IndDictionary.UWP\IndDictionary.UWP.csproj", "{8183A1F3-D116-49E0-9A62-7CC8F03E8E9D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IndDictionary", "IndDictionary\IndDictionary\IndDictionary.csproj", "{674FEDAF-5C0C-40F7-A957-06301C3FC567}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IndDictionary", "IndDictionary\IndDictionary\IndDictionary.csproj", "{674FEDAF-5C0C-40F7-A957-06301C3FC567}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
