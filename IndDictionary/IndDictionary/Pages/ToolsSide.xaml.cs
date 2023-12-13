@@ -1,8 +1,11 @@
-﻿using IndDictionary.addition;
+﻿using GoogleDriveManipulator;
+using IndDictionary.addition;
 using IndDictionary.Pages;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,10 +20,10 @@ namespace IndDictionary
 		bool showAll = true;
 		WhatToShow wts = WhatToShow.alltogether;
 		ListView _ListTable;
-		public ToolsSide (bool _transl)
+		public ToolsSide(bool _transl)
 		{
-			InitializeComponent ();
-			if (_transl) Title = "Translation"; else Title = "Word"; 
+			InitializeComponent();
+			if (_transl) Title = "Translation"; else Title = "Word";
 			Detail = new NavigationPage(new WordPage(_transl));
 			if (Device.RuntimePlatform == Device.UWP)
 			{
@@ -29,7 +32,7 @@ namespace IndDictionary
 		}
 		protected void Action()
 		{
-			
+
 			((Detail as NavigationPage).RootPage as WordPage).Refresh(showAll, wts);
 		}
 
@@ -58,7 +61,20 @@ namespace IndDictionary
 			showAll = !(sender as CheckBox).IsChecked;
 			Action();
 		}
-		
+
+		static async Task down()
+		{
+			const string SECRETNAME = "client_secret_mob.json";
+			string LAD = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+			string dir = Path.Combine(LAD, SECRETNAME);
+			var gd = GoogleDownloader.Download(dir, LAD, "testText.txt");
+			await gd;
+		}
+		protected async void OnSynchr(object sender, EventArgs e)
+		{
+			await down();
+		}
+
 		protected void onDates(object sender, EventArgs e)
 		{
 			List<DateOrTopicClassAux> conteiner = new List<DateOrTopicClassAux>();
