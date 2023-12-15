@@ -55,9 +55,7 @@ namespace IndDictionary
 
 		protected override void OnStart()
 		{
-			string SecretPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), SECRETNAME);
-			if (!File.Exists(SecretPath)) copyFiles(SecretPath, SECRETNAME); //copies GoogleSecret from resources
-			base.OnStart();
+
 		}
 
 		protected override void OnSleep()
