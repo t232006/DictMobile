@@ -21,12 +21,10 @@
     <None Remove="dictionaryCut.db" />
     <None Remove="Resources\check_mark.bmp" />
     <None Remove="Resources\check_mark.png" />
-    <None Remove="Resources\client_secret_mob.json" />
     <None Remove="Resources\eye.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Resources\client_secret_mob.json" />
     <EmbeddedResource Include="Resources\dictionaryCut.db" />
     <EmbeddedResource Include="Resources\check_mark.png" />
     <EmbeddedResource Include="Resources\eye.png" />
@@ -34,25 +32,8 @@
 
   <ItemGroup>
     <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.8.0" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2578" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Google.Apis">
-      <HintPath>GoogleDriveManipulation\Google.Apis.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.Apis.Auth">
-      <HintPath>GoogleDriveManipulation\Google.Apis.Auth.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.Apis.Auth.PlatformServices">
-      <HintPath>GoogleDriveManipulation\Google.Apis.Auth.PlatformServices.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.Apis.Core">
-      <HintPath>GoogleDriveManipulation\Google.Apis.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.Apis.Drive.v3">
-      <HintPath>GoogleDriveManipulation\Google.Apis.Drive.v3.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
   <ItemGroup>

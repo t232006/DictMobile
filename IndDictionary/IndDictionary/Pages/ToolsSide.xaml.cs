@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Xamarin.Essentials;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace IndDictionary
 {
@@ -62,17 +64,44 @@ namespace IndDictionary
 			Action();
 		}
 
-		static async Task down()
+		
+		async Task<FileResult> PickAndShow(PickOptions options)
 		{
-			const string SECRETNAME = "client_secret_mob.json";
-			string LAD = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-			string dir = Path.Combine(LAD, SECRETNAME);
-			var gd = GoogleDownloader.Download(dir, LAD, "testText.txt");
-			await gd;
+			try
+			{
+				var result = await FilePicker.PickAsync(options);
+				if (result != null)
+				{
+					if (result.FileName.EndsWith("db", StringComparison.OrdinalIgnoreCase)) 
+					{
+						var stream = await result.OpenReadAsync();
+						//Image = ImageSource.FromStream(() => stream);
+
+					}
+				}
+
+				return result;
+			}
+			catch (Exception ex)
+			{
+				// The user canceled or something went wrong
+			}
+
+			return null;
 		}
 		protected async void OnSynchr(object sender, EventArgs e)
 		{
-			await down();
+			var options = new PickOptions
+			{
+				FileTypes = new FilePickerFileType
+				(new Dictionary<DevicePlatform, IEnumerable<string>>
+				{
+					{ DevicePlatform.Android, new[] { ".db" } },
+					{ DevicePlatform.UWP, new[] { ".db" } }
+				}),
+				PickerTitle = "Please, select database file"
+			};
+			await PickAndShow(options);
 		}
 
 		protected void onDates(object sender, EventArgs e)

@@ -11,7 +11,6 @@ namespace IndDictionary
 	public partial class App : Application
 	{
 		public const string DATABASENAME = "dictionaryCut.db";//!!reset after development
-		public const string SECRETNAME = "client_secret_mob.json";
 		public static baseManipulation database;
 		private static void copyFiles(string filePath, string fileName)
 		{
