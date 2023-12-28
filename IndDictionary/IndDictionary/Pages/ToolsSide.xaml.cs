@@ -1,5 +1,4 @@
-﻿using GoogleDriveManipulator;
-using IndDictionary.addition;
+﻿using IndDictionary.addition;
 using IndDictionary.Pages;
 using System;
 using System.Collections.Generic;
@@ -22,6 +21,8 @@ namespace IndDictionary
 		bool showAll = true;
 		WhatToShow wts = WhatToShow.alltogether;
 		ListView _ListTable;
+		//private string LastDate = () => 
+		
 		public ToolsSide(bool _transl)
 		{
 			InitializeComponent();
@@ -31,10 +32,11 @@ namespace IndDictionary
 			{
 				FlyoutLayoutBehavior = FlyoutLayoutBehavior.Popover;
 			}
+			DateLabel.Text = "Last record " + App.Database.getInfo(2);
+			CountLabel.Text = "Records count " + App.Database.getInfo(1);
 		}
 		protected void Action()
 		{
-
 			((Detail as NavigationPage).RootPage as WordPage).Refresh(showAll, wts);
 		}
 
@@ -63,31 +65,28 @@ namespace IndDictionary
 			showAll = !(sender as CheckBox).IsChecked;
 			Action();
 		}
-
 		
 		async Task<FileResult> PickAndShow(PickOptions options)
 		{
-			try
-			{
+			
 				var result = await FilePicker.PickAsync(options);
 				if (result != null)
 				{
 					if (result.FileName.EndsWith("db", StringComparison.OrdinalIgnoreCase)) 
-					{
-						var stream = await result.OpenReadAsync();
-						//Image = ImageSource.FromStream(() => stream);
-
+					{ 
+						string st = Path.Combine(App.APPFOLDER, result.FileName);
+						st = st.Insert(st.LastIndexOf('.') + 1, DateTime.Now.ToString());
+						App.Current.Properties.Remove("dbPath");
+						App.Current.Properties. Add("dbPath", st);
+						App.databasename = result.FileName;
+						//App.copyFiles(result.FullPath, st);
+						FileInfo f = new FileInfo(result.FullPath);
+						f.CopyTo(st);
+						
 					}
 				}
-
 				return result;
-			}
-			catch (Exception ex)
-			{
-				// The user canceled or something went wrong
-			}
-
-			return null;
+			
 		}
 		protected async void OnSynchr(object sender, EventArgs e)
 		{
@@ -96,12 +95,14 @@ namespace IndDictionary
 				FileTypes = new FilePickerFileType
 				(new Dictionary<DevicePlatform, IEnumerable<string>>
 				{
-					{ DevicePlatform.Android, new[] { ".db" } },
+					{ DevicePlatform.Android, new[] { "*/*"} },
 					{ DevicePlatform.UWP, new[] { ".db" } }
 				}),
 				PickerTitle = "Please, select database file"
 			};
 			await PickAndShow(options);
+			App.Database.toReboot = true;
+			App.Database.ResetSelection();
 		}
 
 		protected void onDates(object sender, EventArgs e)

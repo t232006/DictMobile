@@ -41,6 +41,9 @@
                 <Button Text="By topics" BackgroundColor="#8db51c" Style="{StaticResource ButtonStyle}" Pressed="onTopics"/>
                 <Button Text="Reset" BackgroundColor="#e75012" Style="{StaticResource ButtonStyle}" Pressed="onReset"/>
                 <Button Text="Synchronize" BackgroundColor="Brown" Style="{StaticResource ButtonStyle}" Pressed="OnSynchr"/>
+                <Label x:Name="CountLabel" Style="{StaticResource LabelStyle}"/>
+                <Label x:Name="DateLabel" Style="{StaticResource LabelStyle}"/>
+
             </StackLayout>
         </ContentPage>
 

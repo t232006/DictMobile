@@ -4,45 +4,65 @@ using System.IO;
 using Xamarin.Forms.Xaml;
 using System.Reflection;
 using IndDictionary.addition;
+using Xamarin.Forms.Shapes;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace IndDictionary
 {
 	public partial class App : Application
 	{
-		public const string DATABASENAME = "dictionaryCut.db";//!!reset after development
-		public static baseManipulation database;
-		private static void copyFiles(string filePath, string fileName)
+		public static string databasename;//!!reset after development
+		public const string DATABASENAME = "dictionaryCut.db";
+		public static string APPFOLDER = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+		static baseManipulation database;
+
+		
+		public static void copyFiles(string fromPath, string toPath)
 		{
-			var assembly = IntrospectionExtensions.GetTypeInfo(typeof(App)).Assembly;
-			using (Stream s = assembly.GetManifestResourceStream($"IndDictionary.Resources.{fileName}"))
+			//
+			//if (!File.Exists(toPath))
 			{
-				using (FileStream fs = new FileStream(filePath, FileMode.OpenOrCreate))
+				using (FileStream source = new FileStream(fromPath, FileMode.Open)) //
 				{
-					s.CopyTo(fs);
-					fs.Flush();
+					using (FileStream dest = new FileStream(toPath, FileMode.OpenOrCreate))
+					{
+						source.CopyTo(dest);
+						dest.Flush();
+					}
 				}
 			}
+			
 		}
 
 		public static baseManipulation Database
 		{
 			get
 			{
-				if (database == null)
+				string dbPath = System.IO.Path.Combine(APPFOLDER, databasename);
+				if ((database == null) || (database.toReboot))
 				{
-					string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), DATABASENAME);
 					if (!File.Exists(dbPath))
 					{
-						copyFiles(dbPath, DATABASENAME);
+						var assembly = IntrospectionExtensions.GetTypeInfo(typeof(App)).Assembly;
+						App.Current.Properties.Remove("dbPath");
+						dbPath = System.IO.Path.Combine(APPFOLDER, DATABASENAME);
+						using (Stream s = assembly.GetManifestResourceStream($"IndDictionary.Resources.{DATABASENAME}"))
+						{
+							using (FileStream dest = new FileStream(dbPath, FileMode.OpenOrCreate))
+							{
+								s.CopyTo(dest);
+								dest.Flush();
+							}
+						}
 						database = new baseManipulation(dbPath);
+
 						foreach (dict d in database.showTableDict(true, WhatToShow.alltogether))
 						{
 							d.DateRec = datesCorrection.toCorrectDate(d.DateRec);
 							App.Database.saveRecD(d);
 						}
 					}
-					else database = new baseManipulation(dbPath);
+					database = new baseManipulation(dbPath);
 				}
 				return database;
 			}
@@ -50,6 +70,16 @@ namespace IndDictionary
 		public App()
 		{
 			//InitializeComponent();
+			object dbPathOuther;
+			if (App.Current.Properties.TryGetValue("dbPath", out dbPathOuther))
+			{
+				databasename = dbPathOuther.ToString();
+			}
+			else
+			{
+				databasename = "dictionaryCut.db";
+				App.Current.Properties.Add("dbPath", databasename);
+			}
 			MainPage = new NavigationPage(new MainPage());
 		}
 

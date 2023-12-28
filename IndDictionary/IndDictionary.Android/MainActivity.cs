@@ -6,6 +6,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using AndroidX.Core.OS;
 
 namespace IndDictionary.Droid
 {
@@ -19,7 +20,8 @@ namespace IndDictionary.Droid
 
             base.OnCreate(savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
-            LoadApplication(new App());
+			Xamarin.Essentials.Platform.Init(this, savedInstanceState);
+			LoadApplication(new App());
         }
     }
 }

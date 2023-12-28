@@ -12,6 +12,7 @@ namespace IndDictionary
 	public class baseManipulation
 	{
 		SQLiteConnection database;
+		public bool toReboot = false;
 		IEnumerable<dict> itemsD;
 		IEnumerable<topic> itemsT;
 		public baseManipulation(string databasePath)
@@ -74,6 +75,27 @@ namespace IndDictionary
 			if (id != 0)
 				return database.Get<dict>(id);
 			else return null;
+		}
+
+		public string getInfo(byte WhatExectly) //1-date, 2-count
+		{
+			string result = "";
+			switch (WhatExectly)
+			{
+				case 1:
+					{
+						result = showTableDict(true, WhatToShow.alltogether).Count().ToString();
+						break;
+					}
+				case 2:
+					{
+						result = showTableDict(true, WhatToShow.alltogether).Select(p => p.DateRec).Max().ToString();
+						break;
+					}
+			}
+			
+			return result;
+
 		}
 		IEnumerable<dict> filtr(bool allrec, WhatToShow _wts)
 		{
