@@ -44,7 +44,7 @@ namespace IndDictionary
 					if (!File.Exists(dbPath))
 					{
 						var assembly = IntrospectionExtensions.GetTypeInfo(typeof(App)).Assembly;
-						App.Current.Properties.Remove("dbPath");
+						//App.Current.Properties.Remove("current");
 						dbPath = System.IO.Path.Combine(APPFOLDER, DATABASENAME);
 						using (Stream s = assembly.GetManifestResourceStream($"IndDictionary.Resources.{DATABASENAME}"))
 						{
@@ -55,6 +55,14 @@ namespace IndDictionary
 							}
 						}
 						database = new baseManipulation(dbPath);
+						//for first open to write information about database
+						object dbPathOuther;
+						if (!App.Current.Properties.TryGetValue(databasename, out dbPathOuther))
+						{
+							string baseInfo = $"{database.getInfo(1)}.{database.getInfo(2)}";
+							App.Current.Properties.Add(databasename, baseInfo);
+						}
+						
 
 						foreach (dict d in database.showTableDict(true, WhatToShow.alltogether))
 						{
@@ -71,14 +79,14 @@ namespace IndDictionary
 		{
 			//InitializeComponent();
 			object dbPathOuther;
-			if (App.Current.Properties.TryGetValue("dbPath", out dbPathOuther))
+			if (App.Current.Properties.TryGetValue("current", out dbPathOuther))
 			{
 				databasename = dbPathOuther.ToString();
 			}
 			else
 			{
 				databasename = "dictionaryCut.db";
-				App.Current.Properties.Add("dbPath", databasename);
+				App.Current.Properties.Add("current", databasename);
 			}
 			MainPage = new NavigationPage(new MainPage());
 		}

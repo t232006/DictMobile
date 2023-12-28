@@ -21,6 +21,12 @@
                         <Setter Property="TextColor" Value="White"/>
                         <Setter Property="FontSize" Value="14"/>
                     </Style>
+                    <Style x:Key="SmallButton" TargetType="Button" BasedOn="{StaticResource ButtonStyle}">
+                        <Setter Property="Margin" Value="10,10,3,0"/>
+                        <Setter Property="WidthRequest" Value="81"/>
+                        <Setter Property="HeightRequest" Value="81"/>
+                        <Setter Property="BackgroundColor" Value="DeepSkyBlue"/>
+                    </Style>
                 </ResourceDictionary>
             </ContentPage.Resources>
             <StackLayout BackgroundColor="#454955" >
@@ -40,7 +46,11 @@
                 <Button Text="By dates" BackgroundColor="#28a1d1" Style="{StaticResource ButtonStyle}" Pressed="onDates"/>
                 <Button Text="By topics" BackgroundColor="#8db51c" Style="{StaticResource ButtonStyle}" Pressed="onTopics"/>
                 <Button Text="Reset" BackgroundColor="#e75012" Style="{StaticResource ButtonStyle}" Pressed="onReset"/>
-                <Button Text="Synchronize" BackgroundColor="Brown" Style="{StaticResource ButtonStyle}" Pressed="OnSynchr"/>
+                <StackLayout Orientation="Horizontal" Spacing="5">
+                    <Button Text="Load to" Style="{StaticResource SmallButton}"/>
+                    <Button  ImageSource="Resources/folder.png"  Style="{StaticResource SmallButton}" Pressed="OnSynchr"/>
+                    <Button  ImageSource="Resources\folder.png"  Style="{StaticResource SmallButton}"/>
+                </StackLayout>
                 <Label x:Name="CountLabel" Style="{StaticResource LabelStyle}"/>
                 <Label x:Name="DateLabel" Style="{StaticResource LabelStyle}"/>
 

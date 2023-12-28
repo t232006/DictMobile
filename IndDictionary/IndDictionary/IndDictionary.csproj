@@ -22,12 +22,14 @@
     <None Remove="Resources\check_mark.bmp" />
     <None Remove="Resources\check_mark.png" />
     <None Remove="Resources\eye.png" />
+    <None Remove="Resources\folder.png" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Resources\dictionaryCut.db" />
     <EmbeddedResource Include="Resources\check_mark.png" />
     <EmbeddedResource Include="Resources\eye.png" />
+    <EmbeddedResource Include="Resources\folder.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -48,6 +50,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Pages\FilesList.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Pages\FullInform.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

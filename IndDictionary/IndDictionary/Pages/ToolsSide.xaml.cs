@@ -76,8 +76,8 @@ namespace IndDictionary
 					{ 
 						string st = Path.Combine(App.APPFOLDER, result.FileName);
 						st = st.Insert(st.LastIndexOf('.') + 1, DateTime.Now.ToString());
-						App.Current.Properties.Remove("dbPath");
-						App.Current.Properties. Add("dbPath", st);
+						App.Current.Properties.Remove("current");
+						App.Current.Properties. Add("current", st);
 						App.databasename = result.FileName;
 						//App.copyFiles(result.FullPath, st);
 						FileInfo f = new FileInfo(result.FullPath);
