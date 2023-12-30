@@ -101,7 +101,7 @@
     <Folder Include="Resources\drawable-xhdpi\" />
     <Folder Include="Resources\drawable-xxhdpi\" />
     <Folder Include="Resources\drawable-xxxhdpi\" />
-    <Folder Include="Resources\drawable\" />
+    <Folder Include="Resources\Drawable\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IndDictionary\IndDictionary.csproj">

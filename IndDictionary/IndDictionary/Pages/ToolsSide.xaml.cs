@@ -75,7 +75,7 @@ namespace IndDictionary
 					if (result.FileName.EndsWith("db", StringComparison.OrdinalIgnoreCase)) 
 					{ 
 						string st = Path.Combine(App.APPFOLDER, result.FileName);
-						st = st.Insert(st.LastIndexOf('.') + 1, DateTime.Now.ToString());
+						st = st.Insert(st.LastIndexOf('.'), DateTime.Now.ToString());
 						App.Current.Properties.Remove("current");
 						App.Current.Properties. Add("current", st);
 						App.databasename = result.FileName;
@@ -104,7 +104,10 @@ namespace IndDictionary
 			App.Database.toReboot = true;
 			App.Database.ResetSelection();
 		}
-
+		protected async void OpenLibrary(object sender, EventArgs e)
+		{
+			await Navigation.PushAsync(new FilesList());
+		}
 		protected void onDates(object sender, EventArgs e)
 		{
 			List<DateOrTopicClassAux> conteiner = new List<DateOrTopicClassAux>();

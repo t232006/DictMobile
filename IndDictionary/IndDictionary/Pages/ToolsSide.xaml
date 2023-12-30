@@ -2,6 +2,7 @@
 <FlyoutPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:loc="clr-namespace:IndDictionary"
+             xmlns:res="clr-namespace:IndDictionary.addition"
              x:Class="IndDictionary.ToolsSide">
     <FlyoutPage.Flyout >
         <ContentPage Title="Details">
@@ -20,12 +21,15 @@
                         <Setter Property="Margin" Value="10,10,30,0"/>
                         <Setter Property="TextColor" Value="White"/>
                         <Setter Property="FontSize" Value="14"/>
+                        
                     </Style>
                     <Style x:Key="SmallButton" TargetType="Button" BasedOn="{StaticResource ButtonStyle}">
                         <Setter Property="Margin" Value="10,10,3,0"/>
                         <Setter Property="WidthRequest" Value="81"/>
                         <Setter Property="HeightRequest" Value="81"/>
                         <Setter Property="BackgroundColor" Value="DeepSkyBlue"/>
+                        <Setter Property="FontSize" Value="12"/>
+                        <Setter Property="BorderWidth" Value="0"/>
                     </Style>
                 </ResourceDictionary>
             </ContentPage.Resources>
@@ -47,9 +51,20 @@
                 <Button Text="By topics" BackgroundColor="#8db51c" Style="{StaticResource ButtonStyle}" Pressed="onTopics"/>
                 <Button Text="Reset" BackgroundColor="#e75012" Style="{StaticResource ButtonStyle}" Pressed="onReset"/>
                 <StackLayout Orientation="Horizontal" Spacing="5">
-                    <Button Text="Load to" Style="{StaticResource SmallButton}"/>
-                    <Button  ImageSource="Resources/folder.png"  Style="{StaticResource SmallButton}" Pressed="OnSynchr"/>
-                    <Button  ImageSource="Resources\folder.png"  Style="{StaticResource SmallButton}"/>
+                    <Button Text="Load to" 
+                            Style="{StaticResource SmallButton}"
+                            ImageSource="{res:ImageResourceExt IndDictionary.Resources.ArrowRight.png}"
+                            ContentLayout="Top, 10"
+                            Pressed="OnSynchr"/>
+                    <Button  ImageSource="{res:ImageResourceExt IndDictionary.Resources.folder.png}" 
+                             Text="Open library"  
+                             Style="{StaticResource SmallButton}" 
+                             Pressed="OpenLibrary"
+                             ContentLayout="Top, 10"/>
+                    <Button  ImageSource="{res:ImageResourceExt IndDictionary.Resources.ArrowRight.png}"
+                             Text="Upload"
+                             Style="{StaticResource SmallButton}"
+                             ContentLayout="Top, 10"/>
                 </StackLayout>
                 <Label x:Name="CountLabel" Style="{StaticResource LabelStyle}"/>
                 <Label x:Name="DateLabel" Style="{StaticResource LabelStyle}"/>
