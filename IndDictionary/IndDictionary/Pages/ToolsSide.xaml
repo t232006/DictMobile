@@ -53,15 +53,15 @@
                 <StackLayout Orientation="Horizontal" Spacing="5">
                     <Button Text="Load to" 
                             Style="{StaticResource SmallButton}"
-                            ImageSource="{res:ImageResourceExt IndDictionary.Resources.ArrowRight.png}"
+                            ImageSource="{res:ImageResourceExt IndDictionary.Resources.arrow-right_to.png}"
                             ContentLayout="Top, 10"
                             Pressed="OnSynchr"/>
-                    <Button  ImageSource="{res:ImageResourceExt IndDictionary.Resources.folder.png}" 
+                    <Button  ImageSource="{res:ImageResourceExt IndDictionary.Resources.folder_small.png}" 
                              Text="Open library"  
                              Style="{StaticResource SmallButton}" 
                              Pressed="OpenLibrary"
                              ContentLayout="Top, 10"/>
-                    <Button  ImageSource="{res:ImageResourceExt IndDictionary.Resources.ArrowRight.png}"
+                    <Button  ImageSource="{res:ImageResourceExt IndDictionary.Resources.arrow-right_from.png}"
                              Text="Upload"
                              Style="{StaticResource SmallButton}"
                              ContentLayout="Top, 10"/>

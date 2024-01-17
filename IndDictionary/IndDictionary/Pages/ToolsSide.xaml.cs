@@ -72,18 +72,25 @@ namespace IndDictionary
 				var result = await FilePicker.PickAsync(options);
 				if (result != null)
 				{
-					if (result.FileName.EndsWith("db", StringComparison.OrdinalIgnoreCase)) 
-					{ 
+					if (result.FileName.EndsWith("db", StringComparison.OrdinalIgnoreCase))
+					{
 						string st = Path.Combine(App.APPFOLDER, result.FileName);
 						st = st.Insert(st.LastIndexOf('.'), DateTime.Now.ToString());
 						App.Current.Properties.Remove("current");
-						App.Current.Properties. Add("current", st);
+						App.Current.Properties.Add("current", st);
 						App.databasename = result.FileName;
 						//App.copyFiles(result.FullPath, st);
 						FileInfo f = new FileInfo(result.FullPath);
-						f.CopyTo(st);
-						
-					}
+						//string st = Path.Combine(@"z:\",Path.GetFileName(result.FileName));
+
+						try
+						{ 
+							f.CopyTo(st);
+							App.Database.toReboot = true;
+							App.Database.ResetSelection();
+						}
+						catch (Exception ex) { };
+					}	
 				}
 				return result;
 			
@@ -101,8 +108,7 @@ namespace IndDictionary
 				PickerTitle = "Please, select database file"
 			};
 			await PickAndShow(options);
-			App.Database.toReboot = true;
-			App.Database.ResetSelection();
+			
 		}
 		protected async void OpenLibrary(object sender, EventArgs e)
 		{

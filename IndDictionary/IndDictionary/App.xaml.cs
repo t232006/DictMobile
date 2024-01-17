@@ -12,12 +12,44 @@ namespace IndDictionary
 	public partial class App : Application
 	{
 		public static string databasename;//!!reset after development
-		public const string DATABASENAME = "dictionaryCut.db";
+		public const string DEFAULTDATABASENAME = "dictionaryCut.db";	//only for default!
 		public static string APPFOLDER = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
 		static baseManipulation database;
+		private static void SetDatabasename()
+		{
+				object dbPathOuther;
+				if (App.Current.Properties.TryGetValue("current", out dbPathOuther))
+				{
+					databasename = dbPathOuther.ToString();
+				}
+				else
+				{
+					databasename = "dictionaryCut.db";
+					App.Current.Properties.Add("current", databasename);
+				}
+		}
+		
+		private static void LoadDBFirstTime(string dbPath)
+		{
+			database = new baseManipulation(dbPath);
+			//for first open to write information about database
+			object dbPathOuther;
+			if (!App.Current.Properties.TryGetValue(databasename, out dbPathOuther))
+			{
+				string baseInfo = $"{database.getInfo(1)}.{database.getInfo(2)}";
+				App.Current.Properties.Add(databasename, baseInfo);
+			}
+
+
+			foreach (dict d in database.showTableDict(true, WhatToShow.alltogether))
+			{
+				d.DateRec = datesCorrection.toCorrectDate(d.DateRec);
+				App.Database.saveRecD(d);
+			}
+		}
 
 		
-		public static void copyFiles(string fromPath, string toPath)
+		/*public static void copyFiles(string fromPath, string toPath)
 		{
 			//
 			//if (!File.Exists(toPath))
@@ -32,21 +64,22 @@ namespace IndDictionary
 				}
 			}
 			
-		}
+		}*/
 
 		public static baseManipulation Database
 		{
 			get
 			{
-				string dbPath = System.IO.Path.Combine(APPFOLDER, databasename);
 				if ((database == null) || (database.toReboot))
 				{
+					if (database!=null) SetDatabasename();
+					string dbPath = System.IO.Path.Combine(APPFOLDER, databasename);
 					if (!File.Exists(dbPath))
 					{
 						var assembly = IntrospectionExtensions.GetTypeInfo(typeof(App)).Assembly;
 						//App.Current.Properties.Remove("current");
-						dbPath = System.IO.Path.Combine(APPFOLDER, DATABASENAME);
-						using (Stream s = assembly.GetManifestResourceStream($"IndDictionary.Resources.{DATABASENAME}"))
+						dbPath = System.IO.Path.Combine(APPFOLDER, DEFAULTDATABASENAME);
+						using (Stream s = assembly.GetManifestResourceStream($"IndDictionary.Resources.{DEFAULTDATABASENAME}"))
 						{
 							using (FileStream dest = new FileStream(dbPath, FileMode.OpenOrCreate))
 							{
@@ -54,46 +87,29 @@ namespace IndDictionary
 								dest.Flush();
 							}
 						}
-						database = new baseManipulation(dbPath);
-						//for first open to write information about database
-						object dbPathOuther;
-						if (!App.Current.Properties.TryGetValue(databasename, out dbPathOuther))
-						{
-							string baseInfo = $"{database.getInfo(1)}.{database.getInfo(2)}";
-							App.Current.Properties.Add(databasename, baseInfo);
-						}
-						
-
-						foreach (dict d in database.showTableDict(true, WhatToShow.alltogether))
-						{
-							d.DateRec = datesCorrection.toCorrectDate(d.DateRec);
-							App.Database.saveRecD(d);
-						}
 					}
+					LoadDBFirstTime(dbPath);
 					database = new baseManipulation(dbPath);
+					//RefreshAllForms();
 				}
 				return database;
 			}
 		}
+
+		public void RefreshAllForms()
+		{
+			MainPage = new NavigationPage(new MainPage());
+		}
 		public App()
 		{
 			//InitializeComponent();
-			object dbPathOuther;
-			if (App.Current.Properties.TryGetValue("current", out dbPathOuther))
-			{
-				databasename = dbPathOuther.ToString();
-			}
-			else
-			{
-				databasename = "dictionaryCut.db";
-				App.Current.Properties.Add("current", databasename);
-			}
+			SetDatabasename();
 			MainPage = new NavigationPage(new MainPage());
 		}
 
 		protected override void OnStart()
 		{
-
+			
 		}
 
 		protected override void OnSleep()

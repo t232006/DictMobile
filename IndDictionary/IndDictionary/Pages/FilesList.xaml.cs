@@ -26,6 +26,7 @@ namespace IndDictionary.Pages
 			InitializeComponent();
 			//DirectoryInfo AppDir = new DirectoryInfo(App.APPFOLDER);
 			//FList.ItemsSource = Directory.GetFiles(App.APPFOLDER).Select(fi=>Path.GetFileName(fi));
+			//App.Current.Properties.Remove("dbPath");
 			this.BindingContext = this;
 			PageRefresh();
 			
@@ -71,6 +72,8 @@ namespace IndDictionary.Pages
 			App.Current.Properties.Add("current", Path.Combine(App.APPFOLDER, filename));
 			App.Database.toReboot = true;
 			App.Database.ResetSelection();
+			
+			//App.MainPage = new NavigationPage(new MainPage());
 		}
 
 

@@ -68,6 +68,7 @@ namespace IndDictionary
 			
 
 			Button addBut = new Button { Text = "Add" };
+			
 			//Button refresh = new Button { Text = "Refr" };
 			ListTable.ItemTapped += OnPress;
 			addBut.Pressed += OnAddPressed;
@@ -81,7 +82,8 @@ namespace IndDictionary
 				Constraint.RelativeToView(ListTable, (paren, view) => { return ListTable.Y + 10; }),
 				Constraint.Constant(40), Constraint.Constant(20));*/
 			
-			resCont.Children.Add(ListTable); resCont.Children.Add(addBut); //resCont.Children.Add(refresh);
+			resCont.Children.Add(ListTable); 
+			resCont.Children.Add(addBut); 
 			
 			this.contPage.Content = resCont;
 		}
