@@ -65,9 +65,18 @@ namespace IndDictionary
 				}
 				)
 			};
-			
 
-			Button addBut = new Button { Text = "Add" };
+
+			Button addBut = new Button
+			{
+				Text = "+",
+				CornerRadius = 30,
+				FontSize =36,
+				HeightRequest = 60,
+				WidthRequest = 60,
+			};
+			RelativeLayout relativeLayout = new RelativeLayout();
+			
 			
 			//Button refresh = new Button { Text = "Refr" };
 			ListTable.ItemTapped += OnPress;
@@ -81,11 +90,21 @@ namespace IndDictionary
 				Constraint.RelativeToView(ListTable, (parent, view) => { return ListTable.X + 5; }),
 				Constraint.RelativeToView(ListTable, (paren, view) => { return ListTable.Y + 10; }),
 				Constraint.Constant(40), Constraint.Constant(20));*/
+
+
 			
-			resCont.Children.Add(ListTable); 
-			resCont.Children.Add(addBut); 
-			
-			this.contPage.Content = resCont;
+			//resCont.Children.Add(ListTable);
+
+			//resCont.Children.Add(relativeLayout);
+			relativeLayout.Children.Add(ListTable, Constraint.Constant(0), Constraint.Constant(0),
+				Constraint.RelativeToParent((parent) => { return parent.Width; }),
+				Constraint.RelativeToParent((parent) => { return parent.Height; }));
+			relativeLayout.Children.Add(addBut,
+				Constraint.RelativeToParent((parent) => { return parent.Width * 0.7; }),
+				Constraint.RelativeToParent((parent) => { return parent.Height * 0.8; }),
+				Constraint.Constant(60), Constraint.Constant(60)
+				);
+			this.contPage.Content = relativeLayout;
 		}
 		/*protected void OnRefrBut(object sender, EventArgs e)
 		{

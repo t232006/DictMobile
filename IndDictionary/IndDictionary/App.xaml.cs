@@ -96,15 +96,11 @@ namespace IndDictionary
 			}
 		}
 
-		public void RefreshAllForms()
-		{
-			MainPage = new NavigationPage(new MainPage());
-		}
 		public App()
 		{
 			//InitializeComponent();
 			SetDatabasename();
-			MainPage = new NavigationPage(new MainPage());
+			MainPage = new MainPage();
 		}
 
 		protected override void OnStart()
