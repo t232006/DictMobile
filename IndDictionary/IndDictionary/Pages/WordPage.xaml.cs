@@ -71,7 +71,7 @@ namespace IndDictionary
 			{
 				Text = "+",
 				CornerRadius = 30,
-				FontSize =36,
+				FontSize =16,
 				HeightRequest = 60,
 				WidthRequest = 60,
 			};
@@ -119,6 +119,7 @@ namespace IndDictionary
 			focusedItem = (dict)e.Item;
 			FullInform fullinform = new FullInform(false);
 			fullinform.BindingContext = focusedItem;
+			//MainPage.TitleProperty.PropertyName =
 			Navigation.PushAsync(fullinform);
 		}
 		protected void OnToggled(object sender, ToggledEventArgs e)

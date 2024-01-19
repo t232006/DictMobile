@@ -33,6 +33,18 @@ namespace IndDictionary
 				{ return TransSpace.Y + TransSpace.Height + 10; }));
 		}
 
+		protected override void OnSizeAllocated(double width, double height)
+		{
+			bool HorizontalOr()
+			{
+				return (width > height);
+			}
+			base.OnSizeAllocated(width, height);
+
+			if (HorizontalOr()) LabelSpace.Orientation = StackOrientation.Horizontal; else
+								LabelSpace.Orientation = StackOrientation.Vertical;
+		}
+
 		protected void onRecordChanged(object Sender, EventArgs e)
 		{
 			if (blank) ConfirmB.IsEnabled = true;

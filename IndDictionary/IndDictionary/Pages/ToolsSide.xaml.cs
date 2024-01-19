@@ -27,7 +27,7 @@ namespace IndDictionary
 		{
 			InitializeComponent();
 			if (_transl) Title = "Translation"; else Title = "Word";
-			Detail = new NavigationPage(new WordPage(_transl));
+			Detail =new WordPage(_transl);
 			if (Device.RuntimePlatform == Device.UWP)
 			{
 				FlyoutLayoutBehavior = FlyoutLayoutBehavior.Popover;
