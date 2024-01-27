@@ -7,9 +7,9 @@ using Xamarin.Forms;
 
 namespace IndDictionary
 {
-	public partial class MainPage : TabbedPage
+	public partial class MainPageOld : TabbedPage
 	{
-		public MainPage()
+		public MainPageOld()
 		{
 			InitializeComponent();
 			FlyoutPage ToolsSide1 = new ToolsSide(false);
