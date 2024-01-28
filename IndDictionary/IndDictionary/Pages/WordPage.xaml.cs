@@ -27,14 +27,11 @@ namespace IndDictionary
 		{
 			InitializeComponent();
 			//ContentPage contPage = new ContentPage();
-			StackLayout resCont = new StackLayout();
+			//StackLayout resCont = new StackLayout();
 			transl = _transl;
-			
-				
-			//RelativeLayout mainCont = new RelativeLayout();
+
 			ListTable = new ListView
 			{
-
 				HeightRequest = 40,
 				ItemsSource = App.Database.showTableDict(true, WhatToShow.alltogether),
 				ItemTemplate = new DataTemplate(() =>
@@ -66,7 +63,7 @@ namespace IndDictionary
 				)
 			};
 
-
+			NavigationButtons nb = new NavigationButtons();
 			Button addBut = new Button
 			{
 				Text = "+",
@@ -76,26 +73,10 @@ namespace IndDictionary
 				WidthRequest = 60,
 			};
 			RelativeLayout relativeLayout = new RelativeLayout();
-			
-			
-			//Button refresh = new Button { Text = "Refr" };
+		
 			ListTable.ItemTapped += OnPress;
 			addBut.Pressed += OnAddPressed;
-			//refresh.Pressed += OnRefrBut;
-
-			/*mainCont.Children.Add(ListTable,
-				Constraint.RelativeToParent((parent) => { return parent.Width; }),
-				Constraint.RelativeToParent((parent) => { return parent.Height; }));
-			mainCont.Children.Add(addBut,
-				Constraint.RelativeToView(ListTable, (parent, view) => { return ListTable.X + 5; }),
-				Constraint.RelativeToView(ListTable, (paren, view) => { return ListTable.Y + 10; }),
-				Constraint.Constant(40), Constraint.Constant(20));*/
-
-
 			
-			//resCont.Children.Add(ListTable);
-
-			//resCont.Children.Add(relativeLayout);
 			relativeLayout.Children.Add(ListTable, Constraint.Constant(0), Constraint.Constant(0),
 				Constraint.RelativeToParent((parent) => { return parent.Width; }),
 				Constraint.RelativeToParent((parent) => { return parent.Height; }));
@@ -104,12 +85,14 @@ namespace IndDictionary
 				Constraint.RelativeToParent((parent) => { return parent.Height * 0.8; }),
 				Constraint.Constant(60), Constraint.Constant(60)
 				);
-			this.contPage.Content = relativeLayout;
+			relativeLayout.Children.Add(nb,
+				Constraint.Constant(0),
+				Constraint.RelativeToParent((parent) => { return parent.Height * 0.9; }));
+			
+
+			this.contPage.Content =  relativeLayout;
 		}
-		/*protected void OnRefrBut(object sender, EventArgs e)
-		{
-			Refresh(false, WhatToShow.words);
-		}*/
+		
 		public void Refresh(bool _showAll, WhatToShow _wts)
 		{
 			ListTable.ItemsSource = App.Database.showTableDict(_showAll, _wts);

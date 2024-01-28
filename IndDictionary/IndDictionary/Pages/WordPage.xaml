@@ -4,5 +4,8 @@
              xmlns:loc="clr-namespace:IndDictionary"
              x:Class="IndDictionary.WordPage"
              x:Name="contPage">
+    <StackLayout>
+        
+    </StackLayout>
 
 </ContentPage>
