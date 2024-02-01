@@ -100,8 +100,9 @@ namespace IndDictionary
 		{
 			//InitializeComponent();
 			SetDatabasename();
-			MainPage = new NavigationPage(new WordPage(false));
-			
+			//MainPage = new NavigationPage(new WordPage(false));
+			MainPage = new Flyout_Page();
+
 		}
 
 		protected override void OnStart()

@@ -61,7 +61,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="NavigationButtons.xaml">
+    <EmbeddedResource Update="Auxilary\NavigationButtons.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Flyout_Page.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\FilesList.xaml">
