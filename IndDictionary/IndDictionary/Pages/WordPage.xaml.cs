@@ -16,20 +16,17 @@ namespace IndDictionary
 	public partial class WordPage : ContentPage
 	{
 		dict focusedItem;
-		//bool showAll = true;
-		//WhatToShow wts = WhatToShow.alltogether;
-		bool transl;
+		public bool transl { get; }
 		ListView ListTable;
-		//IEnumerable<string> passedList;
-		//IEnumerable<dict> passedList2;
-		
 		public WordPage(bool _transl)
 		{
 			InitializeComponent();
 			//ContentPage contPage = new ContentPage();
-			//StackLayout resCont = new StackLayout();
+			StackLayout resCont = new StackLayout();
 			transl = _transl;
-
+			
+				
+			//RelativeLayout mainCont = new RelativeLayout();
 			ListTable = new ListView
 			{
 				HeightRequest = 40,
@@ -41,6 +38,7 @@ namespace IndDictionary
 						LineBreakMode = LineBreakMode.TailTruncation,
 						FontSize = 14
 					};
+
 					if (transl)
 						MainField.SetBinding(Label.TextProperty, "Translation");
 					else
@@ -48,6 +46,7 @@ namespace IndDictionary
 					AbsoluteLayout.SetLayoutBounds(MainField, new Rectangle(10, 0, .68, AbsoluteLayout.AutoSize));
 					AbsoluteLayout.SetLayoutFlags(MainField, AbsoluteLayoutFlags.WidthProportional);
 					ExtSwitch extswitch = new ExtSwitch();
+					extswitch.Toggled += OnToggled ;
 					extswitch.SetBinding(ExtSwitch.IDProperty, "Number");
 					extswitch.SetBinding(ExtSwitch.IsToggledProperty, "Usersel");
 					AbsoluteLayout.SetLayoutBounds(extswitch, new Rectangle(.9, 0, AbsoluteLayout.AutoSize, AbsoluteLayout.AutoSize));
@@ -63,36 +62,50 @@ namespace IndDictionary
 				)
 			};
 
-			NavigationButtons nb = new NavigationButtons();
+
 			Button addBut = new Button
 			{
 				Text = "+",
 				CornerRadius = 30,
-				FontSize =16,
+				FontSize =36,
 				HeightRequest = 60,
 				WidthRequest = 60,
 			};
+			NavigationButtons navButtons = new NavigationButtons(this);
+
 			RelativeLayout relativeLayout = new RelativeLayout();
-		
+			
+			
+			//Button refresh = new Button { Text = "Refr" };
 			ListTable.ItemTapped += OnPress;
 			addBut.Pressed += OnAddPressed;
 			
+
+			//resCont.Children.Add(relativeLayout);
 			relativeLayout.Children.Add(ListTable, Constraint.Constant(0), Constraint.Constant(0),
 				Constraint.RelativeToParent((parent) => { return parent.Width; }),
-				Constraint.RelativeToParent((parent) => { return parent.Height; }));
+				Constraint.RelativeToParent((parent) => { return parent.Height * 0.9; }));
 			relativeLayout.Children.Add(addBut,
 				Constraint.RelativeToParent((parent) => { return parent.Width * 0.7; }),
 				Constraint.RelativeToParent((parent) => { return parent.Height * 0.8; }),
 				Constraint.Constant(60), Constraint.Constant(60)
 				);
-			relativeLayout.Children.Add(nb,
+			relativeLayout.Children.Add(navButtons,
 				Constraint.Constant(0),
-				Constraint.RelativeToParent((parent) => { return parent.Height * 0.9; }));
-			
+				Constraint.RelativeToParent((parent) => { return parent.Height * .94; }),
+				Constraint.RelativeToParent((parent) => { return parent.Width; }),
+				Constraint.Constant(45));
 
-			this.contPage.Content =  relativeLayout;
+			this.contPage.Content = relativeLayout;
+			/*forNavButtons.Children.Add(navButtons);
+			mainStack.Children.Add(relativeLayout);
+			mainStack.Children.Add(forNavButtons);	*/
 		}
-		
+
+		/*protected void OnRefrBut(object sender, EventArgs e)
+{
+	Refresh(false, WhatToShow.words);
+}*/
 		public void Refresh(bool _showAll, WhatToShow _wts)
 		{
 			ListTable.ItemsSource = App.Database.showTableDict(_showAll, _wts);
@@ -102,7 +115,6 @@ namespace IndDictionary
 			focusedItem = (dict)e.Item;
 			FullInform fullinform = new FullInform(false);
 			fullinform.BindingContext = focusedItem;
-			//MainPage.TitleProperty.PropertyName =
 			Navigation.PushAsync(fullinform);
 		}
 		protected void OnToggled(object sender, ToggledEventArgs e)

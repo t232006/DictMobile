@@ -14,17 +14,21 @@ namespace IndDictionary
 	{
 		bool translationShow = false;
 		public bool TranslationShow { set { translationShow = value; } }
-		public NavigationButtons()
+		WordPage WordPage { get; set; }
+		public NavigationButtons(WordPage _WordPage)
 		{
+			WordPage = _WordPage;
 			InitializeComponent();
 		}
 		protected void DictOpen(object sender, EventArgs e)
 		{
-			Navigation.PushAsync(new WordPage(translationShow));
+			//WordPage = new WordPage(translationShow);
+			
+			Navigation.PopAsync();
 		}
 		protected void ToolsOpen(object sender, EventArgs e)
 		{
-			Navigation.PushAsync(new ToolsPage(translationShow));
+			Navigation.PushAsync(new ToolsPage(WordPage));
 		}
 	}
 }

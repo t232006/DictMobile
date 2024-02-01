@@ -120,16 +120,15 @@ namespace IndDictionary
 			if (typeof(T).Equals(typeof(dict)))
 			{
 				request = "select distinct DateRec from Dict ";
-				if (showAll==false) request += "where Usersel=true";
-				return database.Query<T>(request);
+				if (showAll==false) request += "where Usersel=true ";
+				request += "order by DateRec";
 			}
 			else
 			{
 				request = "SELECT DISTINCT Name FROM Topic JOIN Dict ON Topic.ID=Dict.Topic ";
 				if (showAll == false) request += "where Usersel=true";
-				return database.Query<T>(request);
 			}
-			
+			return database.Query<T>(request);
 		}
 		public void ResetSelection()
 		{

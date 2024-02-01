@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:loc="clr-namespace:IndDictionary"
              xmlns:res="clr-namespace:IndDictionary.addition"
-             x:Class="IndDictionary.ToolsPage">
+             x:Class="IndDictionary.ToolsPage"
+             Title="Tools">
             <ContentPage.Resources>
                 <ResourceDictionary>
                     <Style x:Key="BaseStyle" TargetType="Label">
@@ -66,8 +67,8 @@
         </StackLayout>
         <Label x:Name="CountLabel" Style="{StaticResource LabelStyle}"/>
         <Label x:Name="DateLabel" Style="{StaticResource LabelStyle}"/>
-        <StackLayout>
-            <loc:NavigationButtons/>
-        </StackLayout>
+        <StackLayout x:Name="forNavButtons" VerticalOptions="EndAndExpand"/>
+
+
     </StackLayout>
 </ContentPage>

@@ -3,9 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:loc="clr-namespace:IndDictionary"
              x:Class="IndDictionary.WordPage"
-             x:Name="contPage">
-    <StackLayout>
-        
+             x:Name="contPage"
+             Title="Dictionary">
+    <StackLayout x:Name="mainStack">
+        <RelativeLayout x:Name="relativeLayout"/>
+        <StackLayout x:Name="forNavButtons" VerticalOptions="EndAndExpand"/>
     </StackLayout>
+
+
 
 </ContentPage>

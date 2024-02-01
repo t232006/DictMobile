@@ -15,52 +15,51 @@ namespace IndDictionary
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ToolsPage : ContentPage
 	{
-		
 		bool showAll = true;
 		WhatToShow wts = WhatToShow.alltogether;
 		ListView _ListTable;
 		//private string LastDate = () => 
-		ContentPage Detail;
+		WordPage detail;
 
-		public ToolsPage(bool _transl)
+		public ToolsPage(WordPage Detail)
 		{
 			InitializeComponent();
-			if (_transl) Title = "Translation"; else Title = "Word";
-			Detail = new WordPage(_transl);
-			
+			if (Detail.transl) Title = "Translation"; else Title = "Word";
+			detail = Detail;
 			DateLabel.Text = "Last record " + App.Database.getInfo(2);
 			CountLabel.Text = "Records count " + App.Database.getInfo(1);
-			
+			NavigationButtons navButtons = new NavigationButtons(Detail);
+			forNavButtons.Children.Add(navButtons);
 		}
-		protected void Action()
+		protected override void OnDisappearing()
 		{
-			(Detail as WordPage).Refresh(showAll, wts);
+			detail.Refresh(showAll, wts);
+			base.OnDisappearing();
 		}
-
 		protected void OnAll(object sender, EventArgs e)
 		{
 			wts = WhatToShow.alltogether;
-			Action();
+			//detail.Refresh(showAll, wts);
 		}
 		protected void OnPhrases(object sender, EventArgs e)
 		{
 			wts = WhatToShow.phrases;
-			Action();
+			//detail.Refresh(showAll, wts);
 		}
 		protected void OnWords(object sender, EventArgs e)
 		{
 			wts = WhatToShow.words;
-			Action();
+			//detail.Refresh(showAll, wts);
 		}
 		protected void onReset(object sender, EventArgs e)
 		{
 			App.Database.ResetSelection();
-			//OnAppearing();
+			//detail.Refresh(showAll, wts);
 		}
 		protected void OnChecking(object sender, EventArgs e)
 		{
 			showAll = !(sender as CheckBox).IsChecked;
-			Action();
+			//detail.Refresh(showAll, wts);
 		}
 
 		async Task<FileResult> PickAndShow(PickOptions options)
@@ -141,6 +140,6 @@ namespace IndDictionary
 				_ListTable.ItemsSource = founded;
 			if (e.NewTextValue == "")
 				_ListTable.ItemsSource = App.Database.showTableDict(showAll, wts);
-		}
+		} 
 	}
 }

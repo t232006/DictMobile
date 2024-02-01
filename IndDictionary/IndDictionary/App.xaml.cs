@@ -100,7 +100,7 @@ namespace IndDictionary
 		{
 			//InitializeComponent();
 			SetDatabasename();
-			MainPage = new NavigationPage(new ToolsPage(false));
+			MainPage = new NavigationPage(new WordPage(false));
 			
 		}
 
