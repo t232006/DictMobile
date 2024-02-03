@@ -24,11 +24,11 @@ namespace IndDictionary
 		{
 			//WordPage = new WordPage(translationShow);
 			
-			Navigation.PopAsync();
+			Navigation.PopModalAsync();
 		}
 		protected void ToolsOpen(object sender, EventArgs e)
 		{
-			Navigation.PushAsync(new ToolsPage(WordPage));
+			Navigation.PushModalAsync(new ToolsPage(WordPage));
 		}
 	}
 }

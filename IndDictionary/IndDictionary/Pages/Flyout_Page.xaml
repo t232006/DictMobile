@@ -15,7 +15,17 @@
             </ContentPage.Resources>
             <ListView x:Name="Sections" 
                       ItemsSource="{StaticResource Key=SectionsArray}"
-                      ItemSelected="onSelected"/>
+                      ItemSelected="onSelected">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout>
+                                <Label Text="{Binding }" FontSize="Large" TextColor="Black" Padding="30,0"/>
+                            </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
         </ContentPage>
     </FlyoutPage.Flyout>
 </FlyoutPage>

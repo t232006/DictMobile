@@ -50,9 +50,6 @@
     <Compile Update="Pages\DateTopicForm.xaml.cs">
       <DependentUpon>DateTopicForm.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Pages\MainPageOld.xaml.cs">
-      <DependentUpon>MainPageOld.xaml</DependentUpon>
-    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -64,7 +61,7 @@
     <EmbeddedResource Update="Auxilary\NavigationButtons.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Flyout_Page.xaml">
+    <EmbeddedResource Update="Pages\Flyout_Page.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\FilesList.xaml">

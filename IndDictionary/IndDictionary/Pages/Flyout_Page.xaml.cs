@@ -17,12 +17,15 @@ namespace IndDictionary
         public Flyout_Page()
         {
             InitializeComponent();
+            //FlyoutLayoutBehavior = FlyoutLayoutBehavior.Popover;
             Detail = new NavigationPage(new WordPage(transl));
         }
-        protected void onSelected(object sender, ItemTappedEventArgs e)
+        protected void onSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            transl = (e.ItemIndex == 0) ? false : true;
-        }
+            transl = (e.SelectedItemIndex == 0) ? false : true;
+			Detail = new NavigationPage(new WordPage(transl));
+            IsPresented = false;
+		}
 
     }
 }
