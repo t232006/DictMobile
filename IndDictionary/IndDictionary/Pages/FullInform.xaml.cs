@@ -14,10 +14,35 @@ namespace IndDictionary
 		dict TempDict;
 		bool blank;
 		IEnumerable<topic> TempTop;
+		ToolbarItem ConfirmItem;
+		ToolbarItem CancelItem;
+		ToolbarItem DeleteItem;
 		public FullInform(bool _blank)
 		{
 			InitializeComponent();
 			blank = _blank;
+			ConfirmItem = new ToolbarItem()
+			{
+				Text = "Confirm",
+				Order = ToolbarItemOrder.Primary,
+				Priority = 0,
+			};
+			CancelItem = new ToolbarItem()
+			{
+				Text = "Cancel",
+				Order = ToolbarItemOrder.Primary,
+				Priority = 1
+			};
+			DeleteItem = new ToolbarItem()
+			{
+				Text = "Delete",
+				Order = ToolbarItemOrder.Secondary,
+				Priority = 2
+			};
+			ConfirmItem.Clicked += onConfPress;
+			CancelItem.Clicked += onDeclPress;
+			DeleteItem.Clicked += onDelPress;
+			if (_blank)	ToolbarItems.Add(ConfirmItem);
 			BaseLayout.Children.Add(TransSpace,
 				Constraint.Constant(0),
 				Constraint.RelativeToView(WordSpace, (parent, view) =>
@@ -32,8 +57,18 @@ namespace IndDictionary
 				Constraint.RelativeToView(TransSpace, (parent, view) =>
 				{ return TransSpace.Y + TransSpace.Height + 10; }));
 		}
+		protected void isVisible(object sender, ToggledEventArgs e)
+		{
+			if (e.Value == true)
+			{
+				ToolbarItems.Add(DeleteItem); ToolbarItems.Add(ConfirmItem); ToolbarItems.Add(CancelItem);
+			} else
+			{
+				ToolbarItems.RemoveAt(0); ToolbarItems.RemoveAt(0); ToolbarItems.RemoveAt(0);
+			}
+		}
 
-		protected override void OnSizeAllocated(double width, double height)
+		/*protected override void OnSizeAllocated(double width, double height)
 		{
 			bool HorizontalOr()
 			{
@@ -43,12 +78,16 @@ namespace IndDictionary
 
 			if (HorizontalOr()) LabelSpace.Orientation = StackOrientation.Horizontal; else
 								LabelSpace.Orientation = StackOrientation.Vertical;
-		}
+		}*/
 
 		protected void onRecordChanged(object Sender, EventArgs e)
 		{
-			if (blank) ConfirmB.IsEnabled = true;
-			else ConfirmB.IsVisible = true;
+			if (EditBox.IsToggled)
+			{
+				ToolbarItems.Add(CancelItem);
+				ToolbarItems.Add(ConfirmItem);
+				ToolbarItems.Add(DeleteItem);
+			}	
 		}
 
 		protected void onConfPress(object Sender, EventArgs e)
@@ -59,13 +98,13 @@ namespace IndDictionary
 
 		protected void onDeclPress(object Sender, EventArgs e)
 		{
-			if (blank) Navigation.PopAsync();
-			else ConfirmB.IsVisible = false;
+			Navigation.PopAsync();
 		}
 
 		protected void onDelPress(object Sender, EventArgs e)
 		{
 			App.Database.deleteRecD((this.BindingContext as dict).Number);
+			Navigation.PopAsync();
 		}
 
 		protected override void OnAppearing()
@@ -87,11 +126,15 @@ namespace IndDictionary
 			{
 				TopicSpace.SelectedItem = TempTop.ToList()[0].ToString();
 				EditBox.IsToggled = true;
-				ConfirmB.IsEnabled = false;
-				DeleteB.IsVisible = false;
+				
 			}
-			ConfirmB.IsVisible = blank;			
+			//ConfirmB.IsVisible = blank;			
 			base.OnAppearing();
+		}
+		protected override void OnDisappearing()
+		{
+			
+			base.OnDisappearing();
 		}
 	}
 }

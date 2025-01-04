@@ -17,6 +17,8 @@ namespace IndDictionary
 	{
 		dict focusedItem;
 		public bool transl { get; }
+		bool showall = true;
+		WhatToShow wts = WhatToShow.alltogether;
 		ListView ListTable;
 		public WordPage(bool _transl)
 		{
@@ -106,9 +108,11 @@ namespace IndDictionary
 {
 	Refresh(false, WhatToShow.words);
 }*/
-		public void Refresh(bool _showAll, WhatToShow _wts)
+		public void PassParams(bool _showAll, WhatToShow _wts)
 		{
-			ListTable.ItemsSource = App.Database.showTableDict(_showAll, _wts);
+			showall=_showAll;
+			wts=_wts;
+			//ListTable.ItemsSource = App.Database.showTableDict(_showAll, _wts);
 		}
 		protected void OnPress(object sender, ItemTappedEventArgs e)
 		{
@@ -128,7 +132,10 @@ namespace IndDictionary
 			FullInform fullinform = new FullInform(true);
 			Navigation.PushAsync(fullinform);
 		}
-		
-		
+		protected override void OnAppearing()
+		{
+			ListTable.ItemsSource = App.Database.showTableDict(showall, wts);
+			base.OnAppearing();
+		}
 	}
 }

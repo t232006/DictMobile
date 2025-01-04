@@ -33,7 +33,7 @@ namespace IndDictionary
 		}
 		protected override void OnDisappearing()
 		{
-			detail.Refresh(showAll, wts);
+			detail.PassParams(showAll, wts);
 			base.OnDisappearing();
 		}
 		protected void OnAll(object sender, EventArgs e)
