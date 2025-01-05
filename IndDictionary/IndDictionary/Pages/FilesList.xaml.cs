@@ -44,7 +44,7 @@ namespace IndDictionary.Pages
 				if (App.Current.Properties.TryGetValue(s, out fileInfoString))
 				{
 					string[] ss = fileInfoString.ToString().Split('.');
-					Item.filename = ss[0]; Item.lastDate = ss[1];
+					Item.wordsCount = ss[0]; Item.lastDate = ss[1]; Item.filename = s;
 				}
 				Items.Add(Item);
 			}

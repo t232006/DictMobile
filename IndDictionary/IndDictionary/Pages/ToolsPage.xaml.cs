@@ -24,7 +24,7 @@ namespace IndDictionary
 		public ToolsPage(WordPage Detail)
 		{
 			InitializeComponent();
-			if (Detail.transl) Title = "Translation"; else Title = "Word";
+			//if (Detail.transl) Title = "Translation"; else Title = "Word";
 			detail = Detail;
 			DateLabel.Text = "Last record " + App.Database.getInfo(2);
 			CountLabel.Text = "Records count " + App.Database.getInfo(1);
@@ -108,7 +108,7 @@ namespace IndDictionary
 		}
 		protected async void OpenLibrary(object sender, EventArgs e)
 		{
-			await Navigation.PushAsync(new FilesList());
+			await Navigation.PushModalAsync(new FilesList());
 		}
 		protected void onDates(object sender, EventArgs e)
 		{
@@ -119,7 +119,7 @@ namespace IndDictionary
 				conteiner.Add(new DateOrTopicClassAux { DaOrTo = t.DateRec, Spoted = false });
 			}
 			DateTopicForm dateForm = new DateTopicForm(conteiner, WhatToSelect.dates);
-			Navigation.PushAsync(dateForm);
+			Navigation.PushModalAsync(dateForm);
 		}
 
 		protected void onTopics(object sender, EventArgs e)
@@ -131,7 +131,7 @@ namespace IndDictionary
 				conteiner.Add(new DateOrTopicClassAux { DaOrTo = t.Name, Spoted = false });
 			}
 			DateTopicForm topicForm = new DateTopicForm(conteiner, WhatToSelect.topics);
-			Navigation.PushAsync(topicForm);
+			Navigation.PushModalAsync(topicForm);
 		}
 		protected void Searching(Object sender, TextChangedEventArgs e)
 		{

@@ -5,6 +5,7 @@ using System.Linq;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace IndDictionary
 {
@@ -13,14 +14,17 @@ namespace IndDictionary
 	{
 		dict TempDict;
 		bool blank;
+		//bool editable = false;
 		IEnumerable<topic> TempTop;
 		ToolbarItem ConfirmItem;
 		ToolbarItem CancelItem;
 		ToolbarItem DeleteItem;
+		
 		public FullInform(bool _blank)
 		{
 			InitializeComponent();
 			blank = _blank;
+
 			ConfirmItem = new ToolbarItem()
 			{
 				Text = "Confirm",
@@ -42,6 +46,7 @@ namespace IndDictionary
 			ConfirmItem.Clicked += onConfPress;
 			CancelItem.Clicked += onDeclPress;
 			DeleteItem.Clicked += onDelPress;
+			//EditBut.Clicked += onEditBut;
 			if (_blank)	ToolbarItems.Add(ConfirmItem);
 			BaseLayout.Children.Add(TransSpace,
 				Constraint.Constant(0),
@@ -57,18 +62,21 @@ namespace IndDictionary
 				Constraint.RelativeToView(TransSpace, (parent, view) =>
 				{ return TransSpace.Y + TransSpace.Height + 10; }));
 		}
-		protected void isVisible(object sender, ToggledEventArgs e)
+		protected void onEditBut(object sender, EventArgs e)
 		{
-			if (e.Value == true)
+			EditBox.IsToggled = !EditBox.IsToggled;
+			if (EditBox.IsToggled)
 			{
+				(sender as Button).BackgroundColor = Color.Bisque;
 				ToolbarItems.Add(DeleteItem); ToolbarItems.Add(ConfirmItem); ToolbarItems.Add(CancelItem);
 			} else
 			{
+				(sender as Button).BackgroundColor = Color.Gainsboro;
 				ToolbarItems.RemoveAt(0); ToolbarItems.RemoveAt(0); ToolbarItems.RemoveAt(0);
 			}
 		}
 
-		/*protected override void OnSizeAllocated(double width, double height)
+		protected override void OnSizeAllocated(double width, double height)
 		{
 			bool HorizontalOr()
 			{
@@ -78,11 +86,11 @@ namespace IndDictionary
 
 			if (HorizontalOr()) LabelSpace.Orientation = StackOrientation.Horizontal; else
 								LabelSpace.Orientation = StackOrientation.Vertical;
-		}*/
+		}
 
 		protected void onRecordChanged(object Sender, EventArgs e)
 		{
-			if (EditBox.IsToggled)
+			if (blank)
 			{
 				ToolbarItems.Add(CancelItem);
 				ToolbarItems.Add(ConfirmItem);
@@ -125,7 +133,8 @@ namespace IndDictionary
 			else
 			{
 				TopicSpace.SelectedItem = TempTop.ToList()[0].ToString();
-				EditBox.IsToggled = true;
+				//EditBox.IsToggled = true;
+				EditBut.BackgroundColor = Color.Bisque;
 				
 			}
 			//ConfirmB.IsVisible = blank;			
