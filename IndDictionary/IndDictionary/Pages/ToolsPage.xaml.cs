@@ -110,7 +110,7 @@ namespace IndDictionary
 		{
 			await Navigation.PushModalAsync(new FilesList());
 		}
-		protected void onDates(object sender, EventArgs e)
+		protected async void onDates(object sender, EventArgs e)
 		{
 			List<DateOrTopicClassAux> conteiner = new List<DateOrTopicClassAux>();
 			IEnumerable<dict> tempcont = App.Database.showTopicsDates<dict>(!ShowSelected.IsChecked);
@@ -119,10 +119,10 @@ namespace IndDictionary
 				conteiner.Add(new DateOrTopicClassAux { DaOrTo = t.DateRec, Spoted = false });
 			}
 			DateTopicForm dateForm = new DateTopicForm(conteiner, WhatToSelect.dates);
-			Navigation.PushModalAsync(dateForm);
+			await Navigation.PushAsync(dateForm);
 		}
 
-		protected void onTopics(object sender, EventArgs e)
+		protected async void onTopics(object sender, EventArgs e)
 		{
 			List<DateOrTopicClassAux> conteiner = new List<DateOrTopicClassAux>();
 			IEnumerable<topic> tempcont = App.Database.showTopicsDates<topic>(!ShowSelected.IsChecked);
@@ -131,7 +131,7 @@ namespace IndDictionary
 				conteiner.Add(new DateOrTopicClassAux { DaOrTo = t.Name, Spoted = false });
 			}
 			DateTopicForm topicForm = new DateTopicForm(conteiner, WhatToSelect.topics);
-			Navigation.PushModalAsync(topicForm);
+			await Navigation.PushAsync(topicForm);
 		}
 		
 	}

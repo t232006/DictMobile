@@ -23,12 +23,17 @@
     <None Remove="Resources\add1.png" />
     <None Remove="Resources\arrow-right_from.png" />
     <None Remove="Resources\arrow-right_to.png" />
+    <None Remove="Resources\cancel.png" />
     <None Remove="Resources\check_mark.bmp" />
     <None Remove="Resources\check_mark.png" />
+    <None Remove="Resources\CloudFrom.png" />
+    <None Remove="Resources\CloudTo.png" />
     <None Remove="Resources\edit1.png" />
     <None Remove="Resources\eye.png" />
     <None Remove="Resources\folder_small.png" />
+    <None Remove="Resources\ok.png" />
     <None Remove="Resources\Play_small.png" />
+    <None Remove="Resources\search.png" />
     <None Remove="Resources\trash_bin_small.png" />
   </ItemGroup>
 
@@ -37,12 +42,17 @@
     <EmbeddedResource Include="Resources\add1.png" />
     <EmbeddedResource Include="Resources\arrow-right_from.png" />
     <EmbeddedResource Include="Resources\arrow-right_to.png" />
+    <EmbeddedResource Include="Resources\cancel.png" />
+    <EmbeddedResource Include="Resources\CloudFrom.png" />
+    <EmbeddedResource Include="Resources\CloudTo.png" />
     <EmbeddedResource Include="Resources\dictionaryCut.db" />
     <EmbeddedResource Include="Resources\check_mark.png" />
     <EmbeddedResource Include="Resources\edit1.png" />
     <EmbeddedResource Include="Resources\eye.png" />
     <EmbeddedResource Include="Resources\folder_small.png" />
+    <EmbeddedResource Include="Resources\ok.png" />
     <EmbeddedResource Include="Resources\Play_small.png" />
+    <EmbeddedResource Include="Resources\search.png" />
     <EmbeddedResource Include="Resources\trash_bin_small.png" />
   </ItemGroup>
 

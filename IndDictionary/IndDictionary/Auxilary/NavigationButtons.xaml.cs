@@ -29,7 +29,7 @@ namespace IndDictionary
 		protected void ToolsOpen(object sender, EventArgs e)
 		{
 			//ToolsPage = new NavigationPage(new ToolsPage(WordPage));
-			Navigation.PushModalAsync(new ToolsPage(WordPage));
+			Navigation.PushModalAsync(new NavigationPage(new ToolsPage(WordPage)));
 		}
 	}
 }

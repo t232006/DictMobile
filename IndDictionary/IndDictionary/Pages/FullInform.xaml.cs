@@ -19,44 +19,61 @@ namespace IndDictionary
 		ToolbarItem ConfirmItem;
 		ToolbarItem CancelItem;
 		ToolbarItem DeleteItem;
-		
+		ToolbarItem EditItem;
+
 		public FullInform(bool _blank)
 		{
 			InitializeComponent();
 			blank = _blank;
-
+			EditBox.IsToggled=blank;
 			ConfirmItem = new ToolbarItem()
 			{
 				Text = "Confirm",
 				Order = ToolbarItemOrder.Primary,
 				Priority = 0,
+				IconImageSource = ImageSource.FromResource("IndDictionary.Resources.ok.png")
 			};
 			CancelItem = new ToolbarItem()
 			{
 				Text = "Cancel",
 				Order = ToolbarItemOrder.Primary,
-				Priority = 1
+				Priority = 1,
+				IconImageSource = ImageSource.FromResource("IndDictionary.Resources.cancel.png")
 			};
 			DeleteItem = new ToolbarItem()
 			{
 				Text = "Delete",
-				Order = ToolbarItemOrder.Secondary,
-				Priority = 2
+				Order = ToolbarItemOrder.Primary,
+				Priority = 2,
+				IconImageSource = ImageSource.FromResource("IndDictionary.Resources.trash_bin_small.png")
+			};
+			EditItem = new ToolbarItem()
+			{
+				Text = "Edit",
+				Order = ToolbarItemOrder.Primary,
+				Priority = 3,
+				IconImageSource = ImageSource.FromResource("IndDictionary.Resources.edit1.png")
 			};
 			ConfirmItem.Clicked += onConfPress;
 			CancelItem.Clicked += onDeclPress;
 			DeleteItem.Clicked += onDelPress;
-			//EditBut.Clicked += onEditBut;
-			if (_blank)	ToolbarItems.Add(ConfirmItem);
-			BaseLayout.Children.Add(TransSpace,
-				Constraint.Constant(0),
-				Constraint.RelativeToView(WordSpace, (parent, view) =>
-					{ return WordSpace.Y + WordSpace.Height + 10; }),
-				Constraint.RelativeToParent((parent) =>
-					{ return parent.Width; }),
-				Constraint.RelativeToParent((parent) =>
-					{ return parent.Height * 0.35; })
-				);
+			EditItem.Clicked += onEditBut;
+			if (_blank)
+			{
+				ToolbarItems.Add(ConfirmItem);
+				ToolbarItems.Add(CancelItem);
+				ToolbarItems.Add(DeleteItem);
+			}
+			else ToolbarItems.Add(EditItem);
+			/*BaseLayout.Children.Add(TransSpace,
+					Constraint.Constant(0),
+					Constraint.RelativeToView(WordSpace, (parent, view) =>
+						{ return WordSpace.Y + WordSpace.Height + 10; }),
+					Constraint.RelativeToParent((parent) =>
+						{ return parent.Width; }),
+					Constraint.RelativeToParent((parent) =>
+						{ return parent.Height * 0.35; })
+					);*/
 			BaseLayout.Children.Add(LabelSpace,
 				Constraint.Constant(0),
 				Constraint.RelativeToView(TransSpace, (parent, view) =>
@@ -72,7 +89,7 @@ namespace IndDictionary
 			} else
 			{
 				//(sender as Button).BackgroundColor = Color.Gainsboro;
-				ToolbarItems.RemoveAt(0); ToolbarItems.RemoveAt(0); ToolbarItems.RemoveAt(0);
+				ToolbarItems.Remove(DeleteItem); ToolbarItems.Remove(ConfirmItem); ToolbarItems.Remove(CancelItem);
 			}
 		}
 
@@ -90,12 +107,12 @@ namespace IndDictionary
 
 		protected void onRecordChanged(object Sender, EventArgs e)
 		{
-			if (blank)
+			/*if (blank)
 			{
 				ToolbarItems.Add(CancelItem);
 				ToolbarItems.Add(ConfirmItem);
 				ToolbarItems.Add(DeleteItem);
-			}	
+			}	*/
 		}
 
 		protected void onConfPress(object Sender, EventArgs e)
@@ -132,7 +149,7 @@ namespace IndDictionary
 			}
 			else
 			{
-				TopicSpace.SelectedItem = TempTop.ToList()[0].ToString();
+				TopicSpace.SelectedItem = TempTop.ToList()[0].Name;
 				//EditBox.IsToggled = true;
 				//EditBut.Active = false;
 				

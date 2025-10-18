@@ -34,12 +34,6 @@ namespace IndDictionary
 			var temp = e.Item as DateOrTopicClassAux;
 			temp.Spoted = !temp.Spoted;
 		}
-
-		public void onCancelPress (object sender, EventArgs e)
-		{
-			Navigation.PopAsync();
-		}
-
 		public void onApplyPress(object sender, EventArgs e)
 		{
 			//wts(PassedList);

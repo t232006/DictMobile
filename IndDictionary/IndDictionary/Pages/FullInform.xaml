@@ -27,6 +27,8 @@
 
     <ContentPage.Content>
         <RelativeLayout x:Name="BaseLayout" BackgroundColor="Beige">
+           
+            
             <Picker x:Name="TopicSpace" Margin="10, 7, 2, 4"
                         SelectedIndexChanged="onRecordChanged"
                     IsVisible="{Binding Source={x:Reference EditBox}, Path=IsToggled}" />
@@ -48,7 +50,7 @@
                     RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Property=Height,ElementName=TopicSpace,Constant=0}"
                     />
 
-            <Button x:Name="EditBut" CornerRadius = "30" HeightRequest = "60" WidthRequest = "60"
+            <!--Button x:Name="EditBut" CornerRadius = "30" HeightRequest = "60" WidthRequest = "60"
                     BackgroundColor="Gainsboro"
                     Pressed="onEditBut"
                     ImageSource="{res:ImageResourceExt IndDictionary.Resources.edit1.png}"  
@@ -57,7 +59,7 @@
                                                                         Constant=0}"
                     RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,
                                                                         Property=Height, Factor=.8, Constant=0}"
-                        />
+                        /-->
 
 
             <Editor x:Name="WordSpace" Text="{Binding Word}" Style="{StaticResource MainSpace}" 
@@ -76,7 +78,14 @@
                     Placeholder="Translation"
                     TextChanged="onRecordChanged"
                     IsReadOnly="{Binding Source={x:Reference EditBox}, Path=IsToggled,
-                                Converter={StaticResource boolConverter}}"/>
+                                Converter={StaticResource boolConverter}}"
+                    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView,
+                                                                        ElementName=WordSpace,
+                                                                        Property=Height, Factor=1, Constant=10}"
+                    RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                            Property=Height, Factor=.35}"
+                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                            Property=Width, Factor=1}"/>
             <StackLayout x:Name="LabelSpace">
                 <Label x:Name="RelSpace" Text="{Binding Relevation, StringFormat='Открывалось {0} раз'}"/>
                 <Label x:Name="GradeSpace" Text="{Binding Grade, StringFormat='Оценка {0}'}"/>

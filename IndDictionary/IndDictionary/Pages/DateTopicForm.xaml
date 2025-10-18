@@ -13,11 +13,7 @@
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
-            <Label x:Name="Header" Text="Select the dates"/>
-            <StackLayout Orientation="Horizontal">
-                <Button Text="Cancel" Pressed="onCancelPress"/>
-                <Button Text="Apply" Pressed="onApplyPress"/>
-            </StackLayout>
+            
             <ListView x:Name="DataList" RowHeight="40" Margin="10" SeparatorColor="Red" ItemTapped="onSelect" ItemsSource="{Binding}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
