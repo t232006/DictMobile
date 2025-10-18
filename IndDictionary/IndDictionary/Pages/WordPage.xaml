@@ -3,8 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:loc="clr-namespace:IndDictionary"
              x:Class="IndDictionary.WordPage"
+             xmlns:res="clr-namespace:IndDictionary.addition"
              x:Name="contPage"
              Title="Dictionary">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Clicked="OnAddPressed"
+                     IconImageSource="{res:ImageResourceExt IndDictionary.Resources.add1.png}"/>
+
+        <ToolbarItem Clicked="OnSearchPressed"
+                     IconImageSource="{res:ImageResourceExt IndDictionary.Resources.search.png}"/>
+    </ContentPage.ToolbarItems>
     <StackLayout x:Name="mainStack">
         <RelativeLayout x:Name="relativeLayout"/>
         <StackLayout x:Name="forNavButtons" VerticalOptions="EndAndExpand"/>

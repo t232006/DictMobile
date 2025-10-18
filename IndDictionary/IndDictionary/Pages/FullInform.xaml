@@ -27,6 +27,7 @@
     
         <ContentPage.Content>
         <RelativeLayout x:Name="BaseLayout" BackgroundColor="Beige">
+<<<<<<< Updated upstream
             <Picker x:Name="TopicSpace" Margin="10, 7, 2, 4"
                         SelectedIndexChanged="onRecordChanged"
                     IsVisible="{Binding Source={x:Reference EditBox}, Path=IsToggled}" />
@@ -59,6 +60,52 @@
                                                                         Property=Height, Factor=.8, Constant=0}"
                         />
 
+=======
+            <!-- Контейнер для Picker + DatePicker: размещаются в ряд, но при нехватке ширины перенесутся -->
+            <FlexLayout x:Name="TopControls1"
+                Direction="Row"
+                Wrap="Wrap"
+                AlignItems="Start"
+                JustifyContent="Start"
+                Margin="10,7,10,4"
+                IsVisible="{Binding Source={x:Reference EditBox}, Path=IsToggled}"
+                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Constant=0}"
+                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Constant=0}"
+                RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}">
+
+                    <!-- Picker занимает примерно половину строки на широких экранах -->
+                <Picker x:Name="TopicSpace"
+                    SelectedIndexChanged="onRecordChanged"
+                    Margin="0,0,5,0"
+                    FlexLayout.Basis="50%"/>
+
+                <!-- DatePicker занимает вторую половину; при нехватке места автоматически переносится вниз -->
+                <DatePicker x:Name="DateSpace"
+                    Date="{Binding DateRec, Converter={StaticResource StringToDate}}"
+                    
+                    DateSelected="onRecordChanged"
+                    Margin="5,0,0,0"
+                    FlexLayout.Basis="50%"/>
+            </FlexLayout>
+            <FlexLayout x:Name="TopControls2"
+                Direction="Row"
+                Wrap="Wrap"
+                AlignItems="Start"
+                JustifyContent="Start"
+                Margin="10,7,10,4"
+                IsVisible="{Binding Source={x:Reference EditBox}, Path=IsToggled, Converter={StaticResource boolConverter}}"
+                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Constant=0}"
+                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Constant=0}"
+                RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}">
+
+                <Label x:Name="TopicSpaceLabel" Text="{Binding Source={x:Reference TopicSpace}, Path=SelectedItem}"/>
+                <Label x:Name="DateSpaceLabel" Text="{Binding DateRec}"
+                   
+                    RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Constant=0, Factor=0}"
+                    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Property=Height,ElementName=TopicSpace,Constant=0}"
+                    />
+            </FlexLayout>
+>>>>>>> Stashed changes
 
             <Editor x:Name="WordSpace" Text="{Binding Word}" Style="{StaticResource MainSpace}" 
                     Placeholder="Word"

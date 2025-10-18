@@ -17,9 +17,11 @@ namespace IndDictionary
 	{
 		dict focusedItem;
 		public bool transl { get; }
+		
 		bool showall = true;
 		WhatToShow wts = WhatToShow.alltogether;
 		ListView ListTable;
+		SearchPage searchPage = new SearchPage();
 		public WordPage(bool _transl)
 		{
 			InitializeComponent();
@@ -64,62 +66,49 @@ namespace IndDictionary
 				)
 			};
 
-
-			Button addBut = new Button
-			{
-				Text = "+",
-				CornerRadius = 30,
-				FontSize =36,
-				HeightRequest = 60,
-				WidthRequest = 60,
-			};
 			NavigationButtons navButtons = new NavigationButtons(this);
 
-			RelativeLayout relativeLayout = new RelativeLayout();
+			//RelativeLayout relativeLayout = new RelativeLayout();
 			
 			
 			//Button refresh = new Button { Text = "Refr" };
 			ListTable.ItemTapped += OnPress;
-			addBut.Pressed += OnAddPressed;
+			//addBut.Pressed += OnAddPressed;
 			
 
-			//resCont.Children.Add(relativeLayout);
+			resCont.Children.Add(relativeLayout);
 			relativeLayout.Children.Add(ListTable, Constraint.Constant(0), Constraint.Constant(0),
 				Constraint.RelativeToParent((parent) => { return parent.Width; }),
 				Constraint.RelativeToParent((parent) => { return parent.Height * 0.9; }));
-			relativeLayout.Children.Add(addBut,
+			/*relativeLayout.Children.Add(addBut,
 				Constraint.RelativeToParent((parent) => { return parent.Width * 0.7; }),
 				Constraint.RelativeToParent((parent) => { return parent.Height * 0.8; }),
 				Constraint.Constant(60), Constraint.Constant(60)
-				);
-			relativeLayout.Children.Add(navButtons,
+				);*/
+			 relativeLayout.Children.Add(navButtons,
 				Constraint.Constant(0),
 				Constraint.RelativeToParent((parent) => { return parent.Height * .94; }),
 				Constraint.RelativeToParent((parent) => { return parent.Width; }),
 				Constraint.Constant(45));
 
-			this.contPage.Content = relativeLayout;
-			/*forNavButtons.Children.Add(navButtons);
+			//this.contPage.Content = relativeLayout;
+			//forNavButtons.Children.Add(navButtons);
+			//mainStack.Children.Add(forNavButtons);
 			mainStack.Children.Add(relativeLayout);
-			mainStack.Children.Add(forNavButtons);	*/
+				
 		}
-
-		/*protected void OnRefrBut(object sender, EventArgs e)
-{
-	Refresh(false, WhatToShow.words);
-}*/
 		public void PassParams(bool _showAll, WhatToShow _wts)
 		{
 			showall=_showAll;
 			wts=_wts;
 			//ListTable.ItemsSource = App.Database.showTableDict(_showAll, _wts);
 		}
-		protected void OnPress(object sender, ItemTappedEventArgs e)
+		protected async void OnPress(object sender, ItemTappedEventArgs e)
 		{
 			focusedItem = (dict)e.Item;
 			FullInform fullinform = new FullInform(false);
 			fullinform.BindingContext = focusedItem;
-			Navigation.PushAsync(fullinform);
+			await Navigation.PushAsync(fullinform);
 		}
 		protected void OnToggled(object sender, ToggledEventArgs e)
 		{
@@ -127,14 +116,30 @@ namespace IndDictionary
 			if (focusedItem !=null) focusedItem.Usersel = e.Value;
 			App.Database.saveRecD(focusedItem);
 		}
-		protected void OnAddPressed(object sender, EventArgs e)
+		protected async void OnAddPressed(object sender, EventArgs e)
 		{
 			FullInform fullinform = new FullInform(true);
-			Navigation.PushAsync(fullinform);
+			await Navigation.PushAsync(fullinform);
+		}
+		protected async void OnSearchPressed(object sender, EventArgs e)
+		{
+			//await Navigation.PushAsync(searchPage);
+			await Navigation.PushAsync(searchPage);
 		}
 		protected override void OnAppearing()
 		{
-			ListTable.ItemsSource = App.Database.showTableDict(showall, wts);
+			if (searchPage.Result != null && searchPage.Result != "")
+			{
+				IEnumerable<dict> founded = null;
+				if (transl)
+					founded = App.Database.findRecords(searchPage.Result, f => f.Translation);
+				else
+					founded = App.Database.findRecords(searchPage.Result, f => f.Word);
+				if (founded != null)
+					ListTable.ItemsSource = founded;
+			}
+			else
+				ListTable.ItemsSource = App.Database.showTableDict(showall, wts);
 			base.OnAppearing();
 		}
 	}

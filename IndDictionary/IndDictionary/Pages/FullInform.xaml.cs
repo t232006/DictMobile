@@ -67,11 +67,11 @@ namespace IndDictionary
 			EditBox.IsToggled = !EditBox.IsToggled;
 			if (EditBox.IsToggled)
 			{
-				(sender as Button).BackgroundColor = Color.Bisque;
+				//(sender as ToolbarItem).;
 				ToolbarItems.Add(DeleteItem); ToolbarItems.Add(ConfirmItem); ToolbarItems.Add(CancelItem);
 			} else
 			{
-				(sender as Button).BackgroundColor = Color.Gainsboro;
+				//(sender as Button).BackgroundColor = Color.Gainsboro;
 				ToolbarItems.RemoveAt(0); ToolbarItems.RemoveAt(0); ToolbarItems.RemoveAt(0);
 			}
 		}
@@ -134,7 +134,7 @@ namespace IndDictionary
 			{
 				TopicSpace.SelectedItem = TempTop.ToList()[0].ToString();
 				//EditBox.IsToggled = true;
-				EditBut.BackgroundColor = Color.Bisque;
+				//EditBut.Active = false;
 				
 			}
 			//ConfirmB.IsVisible = blank;			

@@ -17,8 +17,11 @@ namespace IndDictionary
 	{
 		bool showAll = true;
 		WhatToShow wts = WhatToShow.alltogether;
+<<<<<<< Updated upstream
 		ListView _ListTable;
 		//private string LastDate = () => 
+=======
+>>>>>>> Stashed changes
 		WordPage detail;
 
 		public ToolsPage(WordPage Detail)
@@ -85,7 +88,8 @@ namespace IndDictionary
 						App.Database.toReboot = true;
 						App.Database.ResetSelection();
 					}
-					catch (Exception ex) { };
+					catch (Exception ex) { }
+					;
 				}
 			}
 			return result;
@@ -133,13 +137,6 @@ namespace IndDictionary
 			DateTopicForm topicForm = new DateTopicForm(conteiner, WhatToSelect.topics);
 			Navigation.PushModalAsync(topicForm);
 		}
-		protected void Searching(Object sender, TextChangedEventArgs e)
-		{
-			IEnumerable<dict> founded = App.Database.findRecords(SearchEntry.Text, f => f.Word);
-			if (founded != null)
-				_ListTable.ItemsSource = founded;
-			if (e.NewTextValue == "")
-				_ListTable.ItemsSource = App.Database.showTableDict(showAll, wts);
-		} 
+		
 	}
 }

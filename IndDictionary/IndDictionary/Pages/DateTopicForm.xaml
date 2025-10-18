@@ -1,8 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+<<<<<<< Updated upstream
              x:Class="IndDictionary.Pages.DateTopicForm">
     
+=======
+             x:Class="IndDictionary.Pages.DateTopicForm"
+             xmlns:res="clr-namespace:IndDictionary.addition"
+             Title="Select the dates or topics">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Clicked="OnApplayPress" 
+
+                     
+             IconImageSource="{res:ImageResourceExt IndDictionary.Resources.ok.png}"
+             x:Name="EditBut"/>
+
+        <!--ToolbarItem Text="Cancel" Clicked="OnCancel" Priority="1" Order="Primary"/-->
+    </ContentPage.ToolbarItems>
+>>>>>>> Stashed changes
     <ContentPage.Content>
         <StackLayout>
             <Label x:Name="Header" Text="Select the dates"/>
