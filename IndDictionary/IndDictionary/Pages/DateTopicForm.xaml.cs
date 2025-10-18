@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace IndDictionary.Pages
+namespace IndDictionary
 {
 	//public delegate void WhatToSelect(IEnumerable<DateOrTopicClassAux> _passedList);
 	[XamlCompilation(XamlCompilationOptions.Compile)]

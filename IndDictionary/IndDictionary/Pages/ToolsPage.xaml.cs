@@ -17,11 +17,7 @@ namespace IndDictionary
 	{
 		bool showAll = true;
 		WhatToShow wts = WhatToShow.alltogether;
-<<<<<<< Updated upstream
-		ListView _ListTable;
-		//private string LastDate = () => 
-=======
->>>>>>> Stashed changes
+
 		WordPage detail;
 
 		public ToolsPage(WordPage Detail)
