@@ -16,6 +16,11 @@
                 <Setter Property="Margin" Value="10, 7, 10, 10"/>
                 <!--Setter Property="HeightRequest" Value="300"/-->
             </Style>
+            <Style x:Key="forFlex" TargetType="FlexLayout">
+                <Setter Property="Direction" Value="Row"/>
+                <Setter Property="Wrap" Value="Wrap"/>
+                <Setter Property="JustifyContent" Value="SpaceBetween"/>
+            </Style>
             <Style x:Key="MainSpace" TargetType="Entry" BasedOn="{StaticResource forEntrys}">
                 <Setter Property="TextColor" Value="DarkBlue"/>
             </Style>
@@ -27,68 +32,51 @@
 
     <ContentPage.Content>
         <RelativeLayout x:Name="BaseLayout" BackgroundColor="Beige">
-           
+
+            <FlexLayout x:Name="TopControls"
+                        Style="{StaticResource forFlex}"
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                                Property=Height,
+                                                                                Factor=.1}"
+                        
+                        >
+                <Picker x:Name="TopicSpace" Margin="10, 10, 2, 4" HeightRequest="35"
+                        IsVisible="{Binding Source={x:Reference EditBox}, Path=IsToggled}" />
+
+                <Label x:Name="TopicSpaceLabel" Text="{Binding Source={x:Reference TopicSpace}, Path=SelectedItem}"
+                           IsVisible="{Binding Source={x:Reference EditBox}, Path=IsToggled,
+                                        Converter={StaticResource boolConverter}}"/>
+                <Label x:Name="DateSpaceLabel" Text="{Binding DateRec}"
+                       Margin="10,7,10,20"     />
+            </FlexLayout>
             
-            <Picker x:Name="TopicSpace" Margin="10, 7, 2, 4"
-                        SelectedIndexChanged="onRecordChanged"
-                    IsVisible="{Binding Source={x:Reference EditBox}, Path=IsToggled}" />
-
-            <DatePicker x:Name="DateSpace" Date="{Binding DateRec, Converter={x:StaticResource StringToDate}}"
-                
-                IsVisible="{Binding Source={x:Reference EditBox}, Path=IsToggled}"
-                DateSelected="onRecordChanged"
-                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Constant=0, Factor=0}"
-                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Property=Height,ElementName=TopicSpace,Constant=0}"/>
-
-            <Label x:Name="TopicSpaceLabel" Text="{Binding Source={x:Reference TopicSpace}, Path=SelectedItem}"
-                       IsVisible="{Binding Source={x:Reference EditBox}, Path=IsToggled,
-                                    Converter={StaticResource boolConverter}}"/>
-            <Label x:Name="DateSpaceLabel" Text="{Binding DateRec}"
-                   IsVisible="{Binding Source={x:Reference EditBox}, Path=IsToggled,
-                                Converter={StaticResource boolConverter}}"
-                    RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Constant=0, Factor=0}"
-                    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Property=Height,ElementName=TopicSpace,Constant=0}"
-                    />
-
-            <!--Button x:Name="EditBut" CornerRadius = "30" HeightRequest = "60" WidthRequest = "60"
-                    BackgroundColor="Gainsboro"
-                    Pressed="onEditBut"
-                    ImageSource="{res:ImageResourceExt IndDictionary.Resources.edit1.png}"  
-                    RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
-                                                                        Property=Width, Factor=.7,
-                                                                        Constant=0}"
-                    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,
-                                                                        Property=Height, Factor=.8, Constant=0}"
-                        /-->
-
-
             <Editor x:Name="WordSpace" Text="{Binding Word}" Style="{StaticResource MainSpace}" 
-                    Placeholder="Word"
-                    TextChanged="onRecordChanged"
+                    Placeholder="Слово"
                     IsReadOnly="{Binding Source={x:Reference EditBox}, Path=IsToggled, 
                                 Converter={StaticResource boolConverter}}"  
                    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView,
-                                                                        ElementName=DateSpace,
-                                                                        Property=Height, Factor=1, Constant=10}"
+                                                                        ElementName=TopControls,
+                                                                        Property=Height, Factor=1, Constant=00}"
                    RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,
-                                                                            Property=Height, Factor=.35}"
+                                                                            Property=Height, Factor=.4}"
                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
                                                                             Property=Width, Factor=1}"/>
             <Editor x:Name="TransSpace" Text="{Binding Translation}" Style="{StaticResource forEntrys}" 
                     Placeholder="Translation"
-                    TextChanged="onRecordChanged"
                     IsReadOnly="{Binding Source={x:Reference EditBox}, Path=IsToggled,
                                 Converter={StaticResource boolConverter}}"
                     RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView,
                                                                         ElementName=WordSpace,
-                                                                        Property=Height, Factor=1, Constant=10}"
+                                                                        Property=Height, Factor=1.3, Constant=0}"
                     RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,
-                                                                            Property=Height, Factor=.35}"
+                                                                            Property=Height, Factor=.4}"
                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
                                                                             Property=Width, Factor=1}"/>
-            <StackLayout x:Name="LabelSpace">
+            <FlexLayout x:Name="LabelSpace" Style="{StaticResource forFlex}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                            Property=Height, Factor=.9}">
                 <Label x:Name="RelSpace" Text="{Binding Relevation, StringFormat='Открывалось {0} раз'}"/>
-                <Label x:Name="GradeSpace" Text="{Binding Grade, StringFormat='Оценка {0}'}"/>
+                <Label x:Name="GradeSpace" Text="{Binding Grade, StringFormat='Оценка {0}'}" Margin="5,10,50,20"/>
 
 
 
@@ -98,7 +86,7 @@
                         Text="{Binding Source={x:Reference EditBox}, Path=IsToggled,
                         Converter={StaticResource checkBoxToString}}"/>
                 </StackLayout-->
-            </StackLayout>
+            </FlexLayout>
 
 
         </RelativeLayout>

@@ -42,7 +42,32 @@ namespace IndDictionary
 					return item.Number;
 				}
 				else
+				{
+					item.DateRec = datesCorrection.toCorrectDate(DateTime.Today.ToString());
 					return database.Insert(item);
+				}
+					
+			}
+			return -1;
+		}
+		public int saveRecD(dict item, string topic)
+		{
+			if (item != null)
+			{
+				int TopicID = database.Table<topic>().Where(t => t.Name == topic).Select(t => t.id).FirstOrDefault();
+				item.Topic = TopicID;
+				if (item.Number != 0)
+				{
+					item.DateRec = datesCorrection.toCorrectDate(item.DateRec);
+					database.Update(item);
+					return item.Number;
+				}
+				else
+				{
+					//item.DateRec = datesCorrection.toCorrectDate(DateTime.Today.ToString());
+					return database.Insert(item);
+				}
+
 			}
 			return -1;
 		}

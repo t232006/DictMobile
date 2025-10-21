@@ -54,6 +54,7 @@ namespace IndDictionary
 				Priority = 3,
 				IconImageSource = ImageSource.FromResource("IndDictionary.Resources.edit1.png")
 			};
+			
 			ConfirmItem.Clicked += onConfPress;
 			CancelItem.Clicked += onDeclPress;
 			DeleteItem.Clicked += onDelPress;
@@ -93,31 +94,10 @@ namespace IndDictionary
 			}
 		}
 
-		protected override void OnSizeAllocated(double width, double height)
-		{
-			bool HorizontalOr()
-			{
-				return (width > height);
-			}
-			base.OnSizeAllocated(width, height);
-
-			if (HorizontalOr()) LabelSpace.Orientation = StackOrientation.Horizontal; else
-								LabelSpace.Orientation = StackOrientation.Vertical;
-		}
-
-		protected void onRecordChanged(object Sender, EventArgs e)
-		{
-			/*if (blank)
-			{
-				ToolbarItems.Add(CancelItem);
-				ToolbarItems.Add(ConfirmItem);
-				ToolbarItems.Add(DeleteItem);
-			}	*/
-		}
-
 		protected void onConfPress(object Sender, EventArgs e)
 		{
-			App.Database.saveRecD(TempDict);
+			
+			App.Database.saveRecD(TempDict, TopicSpace.SelectedItem.ToString());
 			Navigation.PopAsync();
 		}
 
@@ -149,6 +129,8 @@ namespace IndDictionary
 			}
 			else
 			{
+				TempDict = new dict();
+				this.BindingContext = TempDict;
 				TopicSpace.SelectedItem = TempTop.ToList()[0].Name;
 				//EditBox.IsToggled = true;
 				//EditBut.Active = false;

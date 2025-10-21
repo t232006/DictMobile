@@ -108,7 +108,7 @@ namespace IndDictionary
 		}
 		protected async void OpenLibrary(object sender, EventArgs e)
 		{
-			await Navigation.PushModalAsync(new FilesList());
+			await Navigation.PushAsync(new FilesList());
 		}
 		protected async void onDates(object sender, EventArgs e)
 		{
