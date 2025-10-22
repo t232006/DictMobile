@@ -32,7 +32,7 @@
 
     <ContentPage.Content>
         <RelativeLayout x:Name="BaseLayout" BackgroundColor="Beige">
-
+            <inddictionary:ExtSwitch x:Name="EditBox" Margin="30,10,0,0" IsVisible="false"/>
             <FlexLayout x:Name="TopControls"
                         Style="{StaticResource forFlex}"
                         RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,
@@ -81,7 +81,7 @@
 
 
                 <!--StackLayout x:Name="CheckBoxSpace" Orientation="Horizontal" VerticalOptions="StartAndExpand"-->
-                <inddictionary:ExtSwitch x:Name="EditBox" Margin="30,10,0,0" IsVisible="false"/>
+                
                 <!--Label IsVisible="{Binding Source={x:Reference EditBox}, Path=IsVisible}"
                         Text="{Binding Source={x:Reference EditBox}, Path=IsToggled,
                         Converter={StaticResource checkBoxToString}}"/>

@@ -2,12 +2,14 @@
 using IndDictionary.Pages;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.Xaml;
 
 namespace IndDictionary
@@ -63,26 +65,37 @@ namespace IndDictionary
 
 		async Task<FileResult> PickAndShow(PickOptions options)
 		{
-
 			var result = await FilePicker.PickAsync(options);
 			if (result != null)
 			{
 				if (result.FileName.EndsWith("db", StringComparison.OrdinalIgnoreCase))
 				{
-					string st = Path.Combine(App.APPFOLDER, result.FileName);
-					st = st.Insert(st.LastIndexOf('.'), DateTime.Now.ToString());
-					App.Current.Properties.Remove("current");
-					App.Current.Properties.Add("current", st);
-					App.databasename = result.FileName;
-					//App.copyFiles(result.FullPath, st);
-					FileInfo f = new FileInfo(result.FullPath);
-					//string st = Path.Combine(@"z:\",Path.GetFileName(result.FileName));
-
 					try
 					{
-						f.CopyTo(st);
-						App.Database.toReboot = true;
-						App.Database.ResetSelection();
+						using (var readStream = await result.OpenReadAsync())
+						{
+							string st = Path.Combine(App.APPFOLDER, result.FileName);
+							if (File.Exists(st))
+							{
+								byte adder = 1;
+								do
+								{
+									string fpath = Path.GetDirectoryName(st);
+									string fname = $"{Path.GetFileNameWithoutExtension(st)}_{adder++}.db";
+									st = Path.Combine(fpath, fname);
+								} while (File.Exists(st));
+							}
+								
+							using (var fileStream = new FileStream(st, FileMode.Create, FileAccess.Write))
+							{
+								await readStream.CopyToAsync(fileStream);
+							}
+							App.Current.Properties.Remove("current");
+							App.Current.Properties.Add("current", st);
+							App.databasename = result.FileName;
+							App.Database.toReboot = true;
+							App.Database.ResetSelection();	
+						}
 					}
 					catch (Exception ex) { }
 					;

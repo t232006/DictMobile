@@ -64,7 +64,7 @@ namespace IndDictionary
 				}
 				else
 				{
-					//item.DateRec = datesCorrection.toCorrectDate(DateTime.Today.ToString());
+					item.DateRec = datesCorrection.toCorrectDate(DateTime.Today.ToString());
 					return database.Insert(item);
 				}
 
